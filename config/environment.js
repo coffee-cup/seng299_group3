@@ -2,6 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
+    port: 7100,
     modulePrefix: 'fox-karaoke',
     environment: environment,
     baseURL: '/',

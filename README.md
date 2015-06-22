@@ -22,28 +22,25 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
+The application has 2 components which need to be run
+    - Ember frontend (the actual html and what the user will see)
+    - Node API server (what connects with database and manages data)
+
+#### Ember frontend
+
 * `ember server`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+* Builds and serves app at [http://localhost:7100](http://localhost:7100).
+* port can be customized with `ember server --port PORT`
 
-### Code Generators
+* `ember build`
+* Builds app to dist/ directory
 
-Make use of the many generators for code, try `ember help generate` for more details
+### Node backend
 
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
+* cd RESTServer
+* nodemon
+OR
+* node ./bin/api.js"
 
 * [ember.js](http://emberjs.com/)
 * [ember-cli](http://www.ember-cli.com/)
