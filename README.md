@@ -39,6 +39,8 @@ The application has 2 components which need to be run
 OR
 * `node ./bin/api.js`
 
+The app uses a mongo server hosted on MongoLab
+
 ### Further Reading
 
 * [ember.js](http://emberjs.com/)
