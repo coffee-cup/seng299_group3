@@ -11,7 +11,6 @@ You will need the following things properly installed on your computer.
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
 * [Ember CLI](http://www.ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
 
 ## Installation
 
@@ -23,24 +22,24 @@ You will need the following things properly installed on your computer.
 ## Running / Development
 
 The application has 2 components which need to be run
-    - Ember frontend (the actual html and what the user will see)
-    - Node API server (what connects with database and manages data)
+- Ember frontend (the actual html and what the user will see)
+- Node API server (what connects with the database and manages data)
 
 #### Ember frontend
 
-* `ember server`
-* Builds and serves app at [http://localhost:7100](http://localhost:7100).
+* `ember server` Builds and serves app at [http://localhost:7100](http://localhost:7100).
 * port can be customized with `ember server --port PORT`
 
-* `ember build`
-* Builds app to dist/ directory
+* `ember build` Builds app to dist/ directory
 
 ### Node backend
 
-* cd RESTServer
-* nodemon
+* `cd RESTServer`
+* `nodemon`
 OR
-* node ./bin/api.js"
+* `node ./bin/api.js`
+
+### Further Reading
 
 * [ember.js](http://emberjs.com/)
 * [ember-cli](http://www.ember-cli.com/)
