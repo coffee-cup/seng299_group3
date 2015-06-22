@@ -39,6 +39,8 @@ The application has 2 components which need to be run
 OR
 * `node ./bin/api.js`
 
+This will run the api server at [http://localhost:7000](http://localhost:7000)
+
 The app uses a mongo server hosted on MongoLab
 
 ### Further Reading
