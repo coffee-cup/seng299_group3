@@ -1,0 +1,1 @@
+/Users/connor/Desktop/RESTClient/tmp/jshinter-tmp_dest_dir-RZpdd6bl.tmp/app.jshint.js

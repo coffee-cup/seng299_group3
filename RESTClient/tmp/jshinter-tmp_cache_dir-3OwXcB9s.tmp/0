@@ -1,0 +1,4 @@
+module('JSHint - adapters');
+test('adapters/application.js should pass jshint', function() { 
+  ok(false, 'adapters/application.js should pass jshint.\nadapters/application.js: line 2, col 8, \'config\' is defined but never used.\n\n1 error'); 
+});

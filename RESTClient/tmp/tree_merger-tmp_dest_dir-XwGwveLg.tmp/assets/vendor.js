@@ -1,0 +1,1 @@
+/Users/connor/Desktop/RESTClient/tmp/caching-writer-dest-dir_SXXfdW.tmp/assets/vendor.js

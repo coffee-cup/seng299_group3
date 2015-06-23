@@ -1,0 +1,1 @@
+/Users/connor/Desktop/RESTClient/tmp/custom_static_compiler-tmp_dest_dir-mmveNDtd.tmp/ember-qunit-notifications/CONTRIBUTING.md

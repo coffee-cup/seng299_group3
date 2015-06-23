@@ -1,0 +1,1 @@
+/Users/connor/Desktop/RESTClient/tmp/tree_merger-tmp_dest_dir-YdrNwaun.tmp/restclient/serializers/application.js
