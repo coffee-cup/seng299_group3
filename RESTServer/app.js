@@ -6,11 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
-mongoose.connect('mongodb://localhost/RESTServer'); 
+mongoose.connect('mongodb://localhost/RESTServer');
 
 var app = express();
 
 var api = require('./routes/api');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
