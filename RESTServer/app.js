@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
-mongoose.connect('mongodb://localhost/RESTServer'); 
+var DB_USER = 'seng_user';
+var DB_PASS = 'oldmilk'
+mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds035907.mongolab.com:35907/seng_karaoke_db')
 
 var app = express();
 
