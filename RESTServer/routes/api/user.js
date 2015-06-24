@@ -40,12 +40,27 @@ module.exports.getSingleUser = function(req, res, id) {
     });
 };
 
-module.exports.updateUser = function(req, res, id) {
-    User.findByIdAndUpdate(id, {$set: req.body.user}, function(err, user) {
+module.exports.updateUser = function(req, res) {
+    User.findById(req.params.user_id, function(err, user) {
         if (err) {
             res.send(err);
         }
-        res.json({user: user});
+        //update users info only if it's new
+        if(req.body.name) user.name = req.body.name;
+
+        if(req.body.username) user.username = req.body.username;
+
+        if(req.body.password) user.password = req.body.password;
+
+        //save the user
+        user.save(function(err) {
+            if(err) res.send(err);
+
+            //return a message
+            res.json({message: 'User updated'});
+        });
+ 
+       // res.json({user: user});
     });
 };
 
