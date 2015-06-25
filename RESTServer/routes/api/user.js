@@ -18,7 +18,7 @@ module.exports.addUser = function(req, res) {
             else
                 return res.send(err);
             }
-        res.json({user: user});
+        res.json({user: user}); // why does this return the user? shouldnt it just return a 200?
     });
 };
 
@@ -45,7 +45,7 @@ module.exports.updateUser = function(req, res) {
         if (err) {
             res.send(err);
         }
-        //update users info only if it's new
+        //only updates values present in the request
         if(req.body.name) user.name = req.body.name;
 
         if(req.body.username) user.username = req.body.username;
@@ -57,10 +57,8 @@ module.exports.updateUser = function(req, res) {
             if(err) res.send(err);
 
             //return a message
-            res.json({message: 'User updated'});
+            res.json({message: 'User updated'}); //normally, successful api calls return a status of 200 or the requested object, failed requests return a specific error or a status of 400
         });
- 
-       // res.json({user: user});
     });
 };
 
@@ -70,5 +68,15 @@ module.exports.deleteUser = function(req, res, id) {
             res.send(err);
         }
         res.sendStatus(200);
+    });
+};
+
+// TODO: implement validation for validateUser (login function)
+module.exports.validateUser = function(req, res) {
+    User.find({ username: req.body.username }, function(err, user) {
+        if (err) {
+            res.send(err);
+        }
+        res.json({user: user});
     });
 };

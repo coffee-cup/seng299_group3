@@ -26,4 +26,8 @@ router.route('/users/:user_id')
     .put(function(req, res) { users.updateUser(req, res, req.params.user_id) })
     .delete(function(req, res) { users.deleteUser(req, res, req.params.user_id) });
 
+/* Login route*/
+router.route('/users/login')
+    .post(function(req,res) { users.validateUser(req,res) });
+
 module.exports = router;
