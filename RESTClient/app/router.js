@@ -12,6 +12,8 @@ Router.map(function() {
   this.route('register');
   this.route('schedule');
   this.route('mybookings');
+
+  this.route('posts'); // example route
 });
 
 export default Router;
