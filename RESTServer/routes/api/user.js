@@ -3,7 +3,7 @@ var User = require('../../models/user');
 
 module.exports.addUser = function(req, res) {
     var user = new User();
-    
+
     //set atrributes of the user
     user.name = req.body.name;
     user.username = req.body.username;
@@ -18,6 +18,7 @@ module.exports.addUser = function(req, res) {
             else
                 return res.send(err);
             }
+        // this returns the user so that after the user has been created, the data can be used in the view
         res.json({user: user}); // why does this return the user? shouldnt it just return a 200?
     });
 };
@@ -56,8 +57,8 @@ module.exports.updateUser = function(req, res) {
         user.save(function(err) {
             if(err) res.send(err);
 
-            //return a message
-            res.json({message: 'User updated'}); //normally, successful api calls return a status of 200 or the requested object, failed requests return a specific error or a status of 400
+            // return the user so the updated user can be used
+            res.json(user); //normally, successful api calls return a status of 200 or the requested object, failed requests return a specific error or a status of 400
         });
     });
 };
