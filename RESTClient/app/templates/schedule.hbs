@@ -1,0 +1,25 @@
+<div id="schedule-wrapper" class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-10">
+      <div id="schedules" class="row">
+        {{#each model as |room|}}
+          <div class="col-lg-1 col-md-2 sch-room">
+            <div class="row">
+              <div class="col-xs-1 sch-times">
+                {{#each times as |time|}}
+                  {{time}}
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="col-md-1 sch-side">
+      This is the sid bar for this page
+    </div>
+
+  </div>
+</div>
