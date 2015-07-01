@@ -70,8 +70,7 @@ module.exports.deleteUser = function(req, res, id) {
         res.sendStatus(200);
     });
 };
-
-// TODO: implement validation for validateUser (login function)
+/* TODO: implement login validation function */
 module.exports.validateUser = function(req, res) {
     User.find({ username: req.body.username }, function(err, user) {
         if (err) {
