@@ -1,1 +1,116 @@
-<h1>Book Room</h1>
+<html lang="eng">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Book A Room</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="..\styles\bookRoom.scss">
+</head>
+
+</head>
+
+<body id="top">
+  <header>
+    <div class="header-content">
+      <div class="header-content-inner">
+        <h1>Book A Room</h1>
+        <hr>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    </div>
+  </header>
+
+<!-- ========== BOOKING FORM ================
+      Note: the room selection radios may be replaced by a carousel of room images
+     ======================================== -->
+  <div class="form-inline" id="accordian">
+    <div class="collapse" id="formCollapse">
+      <div class="input-group date" id="dateTimePicker1">
+        <input type='text' class="form-control"/>
+        <span class="input-group addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+      <div class="room-selection" id="roomSelection">
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" id="roomOption" value="room1"> Room1
+        </label>
+      </div><!-- END Room Selection -->
+      <div class="add-Equipment" id="addEquipment">
+        <div class="add-microphones" id="addMicrophones">
+            <div class="input-group spinner">
+              <input type="text" class="form-control" value="0 microphones">
+            </div>
+            <div class="input-group-button-vertical">
+              <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i> </button>
+              <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+            </div>
+        </div>
+
+      </div>
+    </div><!-- END form-collapse -->
+    <a class="btn btn-lrg btn-primary" href="#formCollapse" data-toggle="collapse" data-parent="#accordian">Create A Booking</a>
+
+    <script type="text\javascript">
+    (function ($) {
+      $('.spinner .btn:first-of-type').on('click', function() {
+        $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
+      });
+      $('.spinner .btn:last-of-type').on('click', function() {
+        $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
+      });
+    })(jQuery);
+    </script>
+    <!-- For later, to select date and time
+
+    <script type="text\javascript">
+      $(function(){
+        $('#datetimepicker1').datetimepicker();
+      });
+    </script> -->
+  </div><!-- END form-inline -->
+
+
+
+  <!-- jQuery -->
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>
