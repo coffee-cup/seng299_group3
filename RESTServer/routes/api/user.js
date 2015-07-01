@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var User = require('../../models/user');
+var jwt = require('jsonwebtoken');
+var superSecret = 'ilovescotchscotchyscotchscotch'; //secret part to make JWT. from MEAN machine, can change if want
 
 module.exports.addUser = function(req, res) {
     var user = new User();
@@ -8,6 +10,7 @@ module.exports.addUser = function(req, res) {
     user.name = req.body.name;
     user.username = req.body.username;
     user.password = req.body.password;
+    user.banned = req.body.banned;
 
     user.save(function(err) {
         if(err) {
@@ -52,7 +55,9 @@ module.exports.updateUser = function(req, res) {
         if(req.body.username) user.username = req.body.username;
 
         if(req.body.password) user.password = req.body.password;
-
+        
+        if(req.body.banned) user.banned = req.body.banned;
+        
         //save the user
         user.save(function(err) {
             if(err) res.send(err);
@@ -73,11 +78,38 @@ module.exports.deleteUser = function(req, res, id) {
 };
 
 // TODO: implement validation for validateUser (login function)
-module.exports.validateUser = function(req, res) {
+/*module.exports.validateUser = function(req, res) {
     User.find({ username: req.body.username }, function(err, user) {
         if (err) {
             res.send(err);
         }
         res.json({user: user});
+    });
+};*/
+
+module.exports.validateUser = function(req, res) {
+    User.findOne({ username: req.body.username}).select('name username password').exec(function(err, user) {
+        if (err) throw err;
+
+        //no user with that username found
+        if(!user) {
+            res.json({success: false, message: 'Authentication failed. User not found'});
+        
+        }else if(user) {
+            //check if password matches
+            var validPassword = user.comparePassword(req.body.password);
+            if(!validPassword) {
+                res.json({success: false, message: 'Authentication failed. Wrong password.'});
+            
+            }else {
+                //if user is found and password is correct, create token
+                var token = jwt.sign({ name: user.name, username: user.username}, superSecret, { expiresInMinutes: 360});
+                
+                //token expires in 6 hours
+
+                //return the information including token as JSON
+                res.json({ success: true, token: token});
+            }
+        }
     });
 };
