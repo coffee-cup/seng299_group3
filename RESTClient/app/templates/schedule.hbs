@@ -1,25 +1,79 @@
 <div id="schedule-wrapper" class="container-fluid">
   <div class="row">
 
-    <div class="col-md-10">
-      <div id="schedules" class="row">
-        {{#each model as |room|}}
-          <div class="col-lg-1 col-md-2 sch-room">
-            <div class="row">
-              <div class="col-xs-1 sch-times">
-                {{#each times as |time|}}
-                  {{time}}
-                {{/each}}
+    <div class="col-md-2 col-sm-12 sch-side">
+      <div class="row">
+        <div class="col-xs-12 sch-people">
+          <form class="form-inline">
+            <div class="form-group">
+              <label class="col-sm-8 control-label" for="formGroupInputSmall"># Of People</label>
+              <div class="col-sm-4">
+                <select class="form-control">
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10+</option>
+                </select>
               </div>
             </div>
-          </div>
-        {{/each}}
+
+            <div class="form-group">
+              <div class="" id="sch-calendar">
+              </div>
+              <input type="hidden" id="my_hidden_input" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
-    <div class="col-md-1 sch-side">
-      This is the sid bar for this page
+    <div class="col-md-10 col-sm-12">
+      <div id="schedules" class="row">
+
+        {{#each model as |room|}}
+            <div class="col-md-5ths col-xs-12 sch-room">
+
+              <div class="row sch-room-header">
+
+                <div class="row">
+                  <div class="col-xs-12 sch-room-name text-center text-uppercase">
+                    <h3>{{room.name}}</h3>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-3 sch-time-header">
+                    <i>Time</i>
+                  </div>
+                  <div class="col-xs-3 sch-space-header">
+
+                  </div>
+                </div>
+
+              </div>
+
+              {{#each room.times as |time|}}
+
+                <div class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
+                  <div class="col-xs-3 sch-time">
+                    {{time.hour}} {{time.ampm}}
+                  </div>
+                </div>
+
+              {{/each}}
+
+            </div>
+        {{/each}}
+
+      </div>
     </div>
 
   </div>
 </div>
+
+<script src="js/schedule-init.js"></script>

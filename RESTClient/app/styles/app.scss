@@ -2,13 +2,101 @@ body {
   padding-top: 70px;
 }
 
+#schedules {
+  padding: 1em;
+}
+
 .sch-room {
-  background-color: red;
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-bottom: 1em;
+}
+
+.sch-times {
+  padding-left: 0;
+  font-size: 0.8em;
+  border-right: solid 1px grey;
+}
+
+.sch-time {
+  font-size: 1em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  padding-top: 1em;
+  height: 100%;
+  border-right: solid 1px white;
+  text-align: center;
+  background-color: white;
+  border-bottom: 1px solid rgb(195, 195, 195);
+}
+
+.sch-slot {
+  height: 50px;
+  border-bottom: 1px solid white;
+}
+
+.slot-taken {
+  background-color: rgb(121, 121, 121);
+}
+
+.slot-free {
+  background-color: rgb(241, 241, 241);
+}
+
+.slot-free:hover {
+  background-color: rgb(156, 212, 200);
+  cursor: pointer;
 }
 
 .sch-side {
-  background-color: aqua;
-  height: 200px;
+  background-color: rgb(241, 241, 241);
+}
+
+.sch-people {
+  padding-right: 1em;
+  padding-top: 1em;
+  padding-left: 0;
+
+  label {
+    padding-top: 0.5em;
+  }
+
+  div {
+    padding-left: 0;
+  }
+}
+
+// To make the grid split into 5 ways
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
 }
