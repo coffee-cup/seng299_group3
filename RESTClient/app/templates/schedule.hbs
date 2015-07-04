@@ -25,7 +25,13 @@
             <div class="form-group">
               <div class="" id="sch-calendar">
               </div>
-              <input type="hidden" id="my_hidden_input" />
+              {{input type='hidden' id='my_hidden_input' action='dateChanged' on='key-press'}}
+            </div>
+
+            <div class="form-group sch-cal-today">
+              <div {{action 'setDateToday'}} class="">
+                Today
+              </div>
             </div>
           </form>
         </div>
@@ -75,5 +81,3 @@
 
   </div>
 </div>
-
-<script src="js/schedule-init.js"></script>
