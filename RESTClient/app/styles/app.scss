@@ -1,4 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:600,700,400,300);
 
 // mixins
 @mixin border-radius($radius) {
@@ -19,7 +18,7 @@ body {
   padding: 1em;
 }
 
-#schedule-wrapper {
+#wrapper {
   margin-top: -1.5em;
 }
 
@@ -100,11 +99,9 @@ body {
   }
 }
 
-.sch-main-header {
+.main-header {
   width: 100%;
   text-align: center;
-  margin-top: 0;
-  height: 100px;
 
   h1 {
     font-weight: 700;
@@ -116,6 +113,34 @@ body {
     // top, right, bottom, left
     clip: rect(0px,0px,0px,100px);
   }
+}
+
+header {
+  padding-top: 1em;
+}
+
+#make-booking-form {
+  div {
+    margin-bottom: 0.3em;
+  }
+
+  div label {
+    width: 100px;
+  }
+
+  div input {
+    width: 300px;
+  }
+}
+
+#create-booking-link {
+  text-align: center;
+  font-size: 1.3em;
+  border: solid 1px grey;
+  padding: 1em;
+  margin-top: 0.2em;
+  cursor: pointer;
+  @include border-radius(8px);
 }
 
 // To make the grid split into 5 ways

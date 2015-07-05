@@ -1,11 +1,11 @@
 <div id="schedule-wrapper" class="container-fluid">
 
-  <div class="row">
-    <div class="page-header col-xs-12 sch-main-header">
+  <header>
+    <div class="header-content main-header">
       <h1>Karaoke Schedule for Date</h1>
-  <!--     <img src="images/schedule_header.jpg" alt="" /> -->
+      <hr>
     </div>
-  </div>
+  </header>
 
   <div class="row">
     <div class="col-md-2 col-sm-12 sch-side">
@@ -72,7 +72,7 @@
 
               {{#each room.times as |time|}}
 
-                <div class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
+                <div {{action 'linkSlot' time.hour time.ampm time.booked room.id}} class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
                   <div class="col-xs-3 sch-time">
                     {{time.hour}} {{time.ampm}}
                   </div>

@@ -45,11 +45,21 @@ export default Ember.Controller.extend({
     });
   },
 
-  peopleChange: function() {
-    console.log('num people');
-  }.observes('num_people'),
-
   actions: {
+
+    linkSlot: function(hour, ampm, booked, room_id) {
+      if (!booked) {
+        var query = '?hour=' + hour + '&ampm=' + ampm + '&room_id=' + 'room_id' + '&date=' + this.get('date') + '&people=' + this.get('num_people');
+        var queryParams = {
+          'hour': hour,
+          'ampm': ampm,
+          'room_id': 'room_id',
+          'date': this.get('date'),
+          'people': this.get('num_people')
+        };
+        this.transitionToRoute('bookroom', {queryParams: queryParams});
+      }
+    },
 
     updateSchedule: function() {
       // Call server here to refresh the model with a call to getAvailableRooms(date, num_people)

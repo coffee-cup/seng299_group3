@@ -1,26 +1,60 @@
 
 <header>
-  <div class="header-content">
-    <div class="header-content-inner">
-      <h1>Book A Room</h1>
-      <hr>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </div>
+  <div class="header-content main-header">
+    <h1>Book a Room</h1>
+    <hr>
   </div>
 </header>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
+    <form id='make-booking-form' class="form-inline">
+
+      <div class="form-group">
+        <label for="dateInput">Date</label>
+        {{input type='text' class='form-control' id='inputDate' placeholder='Date' value=date}}
+      </div>
+
+      <div class="form-group">
+        <label for="inputStartTime">Start Time</label>
+        {{input type='text' class='form-control' id='inputStartTime' placeholder='Start Time' value=startTime}}
+      </div>
+
+      <div class="form-group">
+        <label for="inputEndTime">End Time</label>
+        {{input type='text' class='form-control' id='inputEndTime' placeholder='End Time' value=endTime}}
+      </div>
+
+      <div class="form-group">
+        <label for="inputRoomId">Room Id</label>
+        {{input type='text' class='form-control' id='inputRoomId' placeholder='Room Id' value=room_id}}
+      </div>
+
+      <div id='create-booking-link' class="">
+        Create Booking
+      </div>
+
+    </form>
+  </div>
+</div>
 
 <!-- ========== BOOKING FORM ================
     Note: the room selection radios may be replaced by a carousel of room images
    ======================================== -->
-<div class="form-inline" id="accordian">
-  <div class="collapse" id="formCollapse">
+<div class="form">
+  <div class="" id="">
+    <div class="form-group">
+      <label for="inputDate">Email address</label>
+      {{input class='form-control' id='inputDate' placeholder='date' value=date}}
+    </div>
+
+    <div class="form-group">
+      <label for="inputStartTime">Star Time</label>
+      {{input class='form-control' id='inputStarTime' placeholder='starTime' value=starTime}}
+    </div>
+
     <div class="input-group date" id="dateTimePicker1">
-      <input type='text' class="form-control"/>
-      <span class="input-group addon">
-        <span class="glyphicon glyphicon-calendar"></span>
-      </span>
+      {{input value=hour}}
     </div>
     <div class="room-selection" id="roomSelection">
       <label class="radio-inline">
@@ -69,16 +103,6 @@
   </div><!-- END form-collapse -->
   <a class="btn btn-lrg btn-primary" href="#formCollapse" data-toggle="collapse" data-parent="#accordian">Create A Booking</a>
 
-  <script type="text\javascript">
-  (function ($) {
-    $('.spinner .btn:first-of-type').on('click', function() {
-      $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
-    });
-    $('.spinner .btn:last-of-type').on('click', function() {
-      $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
-    });
-  })(jQuery);
-  </script>
   <!-- For later, to select date and time
 
   <script type="text\javascript">
