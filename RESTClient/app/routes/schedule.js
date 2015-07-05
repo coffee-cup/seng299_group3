@@ -691,5 +691,13 @@ var rooms2 = [
 export default Ember.Route.extend({
   model: function() {
     return rooms1;
+  },
+
+  actions: {
+    didTransition: function() {
+      // on the did transition of the page we want to load the datepicker
+      // only if the page has been loaded
+      this.controllerFor('schedule').send('transition');
+    }
   }
 });

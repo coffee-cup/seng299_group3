@@ -4,12 +4,23 @@ var scope = {
 
 export default Ember.Controller.extend({
 
+  // the day for the schedule view
+  date: null,
+
+  // the number of people to make api call for get avaialbe rooms with
+  num_people: null,
+
+
+  // called when the controller loads for first time
+  // not when page is naviagted to
   init : function(){
     this._super();
     scope.this = this;
     Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
   },
 
+  // function gets run after page has been rendered
+  // perform all jquery logic here
   afterRenderEvent : function(){
     // implement this hook in your own subclasses and run your jQuery logic there
     $('#sch-calendar').datepicker({});
@@ -18,19 +29,43 @@ export default Ember.Controller.extend({
       .on('changeDate', function(e) {
         $("#my_hidden_input").val(
             $("#sch-calendar").datepicker('getFormattedDate')
-
          );
          scope.this.send('dateChanged');
       });
 
+    this.set('num_people', $('#sch-num-people').val());
+
+    // set date selected to today
     this.send('setDateToday');
+
+    // set event listener on number of people select dropdown
+    $('#sch-num-people').change(function() {
+      scope.this.set('num_people', $('#sch-num-people').val());
+      scope.this.send('updateSchedule');
+    });
   },
 
+  peopleChange: function() {
+    console.log('num people');
+  }.observes('num_people'),
+
   actions: {
+
+    updateSchedule: function() {
+      // Call server here to refresh the model with a call to getAvailableRooms(date, num_people)
+      console.log('\nUPDATE SCHEDULE VIEW');
+      console.log('PEOPLE: ' + this.get('num_people'));
+      console.log('DATE: ' + this.get('date'));
+    },
+
+    transition: function() {
+      Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
+    },
+
     dateChanged: function() {
       var d = new Date($('#my_hidden_input').val());
-      console.log(d);
-      // Call server here to refresh the model with a call to getAvailableRooms(d)
+      this.set('date', d);
+      this.send('updateSchedule');
     },
 
     setDateToday: function() {

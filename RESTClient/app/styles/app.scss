@@ -1,5 +1,15 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:600,700,400,300);
 
+// mixins
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+img.blur { width:367; height:459px; -webkit-filter: blur(3px); filter: blur(3px); }
+
 body {
   padding-top: 70px;
   font-family: 'Raleway', sans-serif;
@@ -7,6 +17,10 @@ body {
 
 #schedules {
   padding: 1em;
+}
+
+#schedule-wrapper {
+  margin-top: -1.5em;
 }
 
 .sch-room {
@@ -77,6 +91,30 @@ body {
 
   div {
     width: 100%;
+  }
+
+  span {
+    padding: 0.3em;
+    border: solid 1px grey;
+    @include border-radius(8px);
+  }
+}
+
+.sch-main-header {
+  width: 100%;
+  text-align: center;
+  margin-top: 0;
+  height: 100px;
+
+  h1 {
+    font-weight: 700;
+    margin-top: 30px;
+  }
+
+  img {
+    width: 100%;
+    // top, right, bottom, left
+    clip: rect(0px,0px,0px,100px);
   }
 }
 

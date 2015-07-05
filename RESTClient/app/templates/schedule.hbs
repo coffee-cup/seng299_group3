@@ -1,6 +1,13 @@
 <div id="schedule-wrapper" class="container-fluid">
-  <div class="row">
 
+  <div class="row">
+    <div class="page-header col-xs-12 sch-main-header">
+      <h1>Karaoke Schedule for Date</h1>
+  <!--     <img src="images/schedule_header.jpg" alt="" /> -->
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-2 col-sm-12 sch-side">
       <div class="row">
         <div class="col-xs-12 sch-people">
@@ -8,7 +15,7 @@
             <div class="form-group">
               <label class="col-sm-8 control-label" for="formGroupInputSmall"># Of People</label>
               <div class="col-sm-4">
-                <select class="form-control">
+                <select id="sch-num-people" class="form-control" value=num_people>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
@@ -30,7 +37,7 @@
 
             <div class="form-group sch-cal-today">
               <div {{action 'setDateToday'}} class="">
-                Today
+                <span>Today</span>
               </div>
             </div>
           </form>
@@ -81,3 +88,5 @@
 
   </div>
 </div>
+
+<!-- <script src="js/datepicker-init.js" charset="utf-8"></script> -->
