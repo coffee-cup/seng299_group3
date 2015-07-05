@@ -9,47 +9,47 @@ var rooms1 = [
       {
         "booked": true,
         "ampm": "pm",
-        "hour": 6
+        "hour": 7
       },
       {
         "booked": true,
         "ampm": "pm",
-        "hour": 6
+        "hour": 8
       },
       {
         "booked": false,
         "ampm": "pm",
-        "hour": 6
+        "hour": 9
       },
       {
         "booked": false,
         "ampm": "pm",
-        "hour": 6
+        "hour": 10
       },
       {
         "booked": false,
         "ampm": "pm",
-        "hour": 6
+        "hour": 11
       },
       {
         "booked": false,
-        "ampm": "pm",
-        "hour": 6
+        "ampm": "am",
+        "hour": 12
       },
       {
         "booked": true,
-        "ampm": "pm",
-        "hour": 6
+        "ampm": "am",
+        "hour": 1
       },
       {
         "booked": true,
-        "ampm": "pm",
-        "hour": 6
+        "ampm": "am",
+        "hour": 2
       },
       {
         "booked": false,
-        "ampm": "pm",
-        "hour": 6
+        "ampm": "am",
+        "hour": 3
       }
     ],
     "date": "00 01 2014",
@@ -570,123 +570,6 @@ var rooms1 = [
     "name": "Room  10"
   }
 ];
-
-var rooms2 = [
-  {
-    "times": [
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      }
-    ],
-    "date": "00 01 2014",
-    "people": 2,
-    "name": "Room  1"
-  },
-  {
-    "times": [
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": false,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      },
-      {
-        "booked": true,
-        "ampm": "pm",
-        "hour": 6
-      }
-    ],
-    "date": "00 01 2014",
-    "people": 3,
-    "name": "Room  2"
-  }
-]
 
 export default Ember.Route.extend({
   model: function() {
