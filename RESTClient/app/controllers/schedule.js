@@ -5,11 +5,12 @@ var scope = {
 export default Ember.Controller.extend({
 
   // the day for the schedule view
-  date: null,
+  date: new Date(),
 
   // the number of people to make api call for get avaialbe rooms with
-  num_people: null,
+  num_people: 2,
 
+  people_options: ['2', '3', '4', '5', '6', '7', '8', '9', '10+'],
 
   // called when the controller loads for first time
   // not when page is naviagted to
@@ -23,7 +24,8 @@ export default Ember.Controller.extend({
   // perform all jquery logic here
   afterRenderEvent : function(){
     // implement this hook in your own subclasses and run your jQuery logic there
-    $('#sch-calendar').datepicker({});
+
+    /* $('#sch-calendar').datepicker({});
 
     $('#sch-calendar').datepicker()
       .on('changeDate', function(e) {
@@ -42,8 +44,12 @@ export default Ember.Controller.extend({
     $('#sch-num-people').change(function() {
       scope.this.set('num_people', $('#sch-num-people').val());
       scope.this.send('updateSchedule');
-    });
+    }); */
   },
+
+  datePeopleChanged: function() {
+    this.send('updateSchedule');
+  }.observes('date', 'num_people'),
 
   actions: {
 
@@ -69,10 +75,12 @@ export default Ember.Controller.extend({
     },
 
     transition: function() {
-      Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
+      // Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
+      $('#sch-calendar').datepicker({});
     },
 
     dateChanged: function() {
+      console.log('date changed');
       var d = new Date($('#my_hidden_input').val());
       this.set('date', d);
       this.send('updateSchedule');
@@ -83,6 +91,8 @@ export default Ember.Controller.extend({
       // otherwise it does not select the day in the calendar
       var d = new Date();
       $('#sch-calendar').datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+
+      this.set('date', new Date());
     }
   }
 

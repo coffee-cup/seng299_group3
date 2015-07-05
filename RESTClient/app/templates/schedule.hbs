@@ -15,24 +15,12 @@
             <div class="form-group">
               <label class="col-sm-8 control-label" for="formGroupInputSmall"># Of People</label>
               <div class="col-sm-4">
-                <select id="sch-num-people" class="form-control" value=num_people>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                  <option>9</option>
-                  <option>10+</option>
-                </select>
+                {{view "select" id="sch-num-people" class="form-control" content=people_options value=num_people}}
               </div>
             </div>
 
             <div class="form-group">
-              <div class="" id="sch-calendar">
-              </div>
-              {{input type='hidden' id='my_hidden_input' action='dateChanged' on='key-press'}}
+              {{bootstrap-datepicker-inline id=sch-calendar value=date}}
             </div>
 
             <div class="form-group sch-cal-today">
@@ -41,6 +29,7 @@
               </div>
             </div>
           </form>
+          {{input type='hidden' id='my_hidden_input' action='dateChanged'}}
         </div>
       </div>
     </div>
@@ -89,4 +78,4 @@
   </div>
 </div>
 
-<!-- <script src="js/datepicker-init.js" charset="utf-8"></script> -->
+<!-- <script src="js/schedule-cal-init.js" charset="utf-8"></script> -->

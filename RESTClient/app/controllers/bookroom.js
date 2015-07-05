@@ -18,12 +18,7 @@ export default Ember.Controller.extend({
   // perform all jquery logic here
   afterRenderEvent : function(){
     // implement this hook in your own subclasses and run your jQuery logic there
-    $('.spinner .btn:first-of-type').on('click', function() {
-      $('.spinner input').val( parseInt($('.spinner input').val(), 10) + 1);
-    });
-    $('.spinner .btn:last-of-type').on('click', function() {
-      $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1);
-    });
+
   },
 
   paramsChanged: function() {
