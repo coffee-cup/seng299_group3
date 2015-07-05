@@ -25,9 +25,14 @@ export default Ember.Route.extend({
         endTime = endTime - 24;
       }
       c.set('endTime', endTime);
+    } else {
+      c.set('endTime', null);
+      c.set('startTime', null);
     }
 
     if (params.date) {c.set('date', new Date(params.date));}
+    else {c.set('date', null);}
+    
     if (params.people) {c.set('people', params.people);}
     if (params.room_id) {c.set('room_id', params.room_id);}
   },
