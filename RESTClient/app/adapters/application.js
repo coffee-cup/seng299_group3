@@ -3,7 +3,7 @@
 import DS from "ember-data";
 
 var ApplicationAdapter = DS.RESTAdapter.extend({
-    host: 'http://localhost:3000',
+    host: 'http://localhost:7000',
     namespace: 'api'
 });
 
