@@ -8,10 +8,12 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.route('about');
   this.route('bookroom');
-  this.route('login');
   this.route('register');
   this.route('schedule');
   this.route('mybookings');
+  this.route('profile');
+
+  this.route('login');
 
   this.route('posts'); // example route
 });
