@@ -3,6 +3,7 @@ var router = express.Router();
 
 var posts = require('./api/post');
 var users = require('./api/user');
+var bookings = require('./api/booking');
 
 /* Posts routes */
 router.route('/posts')
@@ -29,5 +30,10 @@ router.route('/users/:user_id')
 /* Login route*/
 router.route('/users/login')
     .post(function(req,res) { users.validateUser(req,res) });
+
+/* Booking routes */
+router.route('/bookings')
+    .post(function(req, res) { bookings.createBooking(req,res) })
+    .get(function(req, res) { bookings.getAllBookings(req,res) });
 
 module.exports = router;
