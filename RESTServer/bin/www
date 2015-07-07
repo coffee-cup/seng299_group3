@@ -2,8 +2,9 @@
 var debug = require('debug')('RESTServer');
 var app = require('../app');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 7000);
+
 
 var server = app.listen(app.get('port'), function() {
-  debug('Magic happens on port ' + server.address().port);
+  console.log('Magic happens on port ' + server.address().port);
 });
