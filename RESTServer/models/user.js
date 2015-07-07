@@ -7,7 +7,7 @@ var UserSchema = new Schema({
     //username: { type: String},
     //password: { type: String},
     banned: {type: Boolean, select: false},
-
+    
     // these seem to crash express with schema error. if this is only for me you can re-implement them.
     username: { type: String, required: true, index: {unique: true}},
     password: { type: String, required: true, select: false}

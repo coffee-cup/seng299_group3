@@ -4,6 +4,7 @@
     <h1>Book a Room</h1>
     <hr>
   </div>
+  <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.min.css">
 </header>
 
 <div class="row">
@@ -11,29 +12,55 @@
     <form id='make-booking-form' class="form-inline">
 
       <div class="form-group">
-        <label for="dateInput">Date</label>
-        {{input type='text' class='form-control' id='inputDate' placeholder='Date' value=date}}
+        <label for="sel1">Date:</label>
+        {{view "select" id="inputDate" class="form-control" content=dates value=dateSelected}}
       </div>
 
       <div class="form-group">
-        <label for="inputStartTime">Start Time</label>
-        {{input type='text' class='form-control' id='inputStartTime' placeholder='Start Time' value=startTime}}
+        <label for="sel1">Start Time:</label>
+        {{view "select" id="inputSTime" class="form-control" content=sTimes value=selectedSTime}}
       </div>
 
       <div class="form-group">
-        <label for="inputEndTime">End Time</label>
-        {{input type='text' class='form-control' id='inputEndTime' placeholder='End Time' value=endTime}}
+        <label for="sel1">End Time:</label>
+        {{view "select" id="inputETime" class="form-control" content=eTimes value=selectedETime}}
       </div>
 
+
       <div class="form-group">
-        <label for="inputRoomId">Room Id</label>
-        {{input type='text' class='form-control' id='inputRoomId' placeholder='Room Id' value=room_id}}
+        <label for="sel1">Select Room:</label>
+        {{view "select" id="inputRoom" class="form-control" content=room_ids value=selectedRoom}}
       </div>
 
       <div id='create-booking-link' class="">
-        Create Booking
+        <!--
+        <button type="button" class="btn btn-lrg" data-toggle="modal" data-target="#bookingConfirmModal">Create Booking</button>
+      -->
+      <a data-toggle="modal" href="#bookingConfirmModal">Create Booking</a>
       </div>
 
     </form>
   </div>
 </div>
+
+<div id="bookingConfirmModal" class='modal fade' role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirm your Booking</h4>
+      </div>
+      <div class="modal-body">
+        <p>Date: {{dateSelected}}</p>
+        <p>Start Time: {{selectedSTime}}</p>
+        <p>End Time: {{selectedETime}}</p>
+        <p>Room Selected: {{selectedRoom}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lrg" data-dismiss="modal">Make Changes</button>
+        <button type="button" class="btn btn-lrg" data-dismiss="modal">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/bootstrap-datepicker.min.js"></script>
