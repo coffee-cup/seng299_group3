@@ -13,6 +13,6 @@
     "qunit": "~1.17.1",
     "ember": "~1.13.2",
     "bootstrap": "~3.3.5",
-    "bootstrap-datepicker": "~1.4.0",
+    "bootstrap-datepicker": "~1.4.0"
   }
 }
