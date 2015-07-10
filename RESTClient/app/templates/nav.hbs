@@ -14,17 +14,26 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
        <ul class="nav navbar-nav">
-        <li class="active">{{#link-to 'schedule'}}Home<span class="sr-only">(current)</span>{{/link-to}}</li>
+
+        <li class="active">{{#link-to 'schedule'}}Home{{/link-to}}</li>
         <li>{{#link-to 'mybookings'}}My Bookings{{/link-to}}</li>
 
         <!-- Need the query-params date='', etc... to reset the query params - weird ember thing -->
         <li>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li>
         <li>{{#link-to 'about'}}About{{/link-to}}</li>
       </ul>
+
       <ul class="nav navbar-nav navbar-right">
-        <li>{{#link-to 'login'}}Login{{/link-to}}</li>
-        <li>{{#link-to 'register'}}Register{{/link-to}}</li>
+
+        {{#if auth.username}}
+          <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li>
+          <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
+        {{else}}
+          <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+          <li>{{#link-to 'register'}}Register{{/link-to}}</li>
+        {{/if}}
       </ul>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

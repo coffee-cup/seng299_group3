@@ -12,6 +12,9 @@ mongoose.connect('mongodb://' + DB_USER + ':' + DB_PASS + '@ds035907.mongolab.co
 
 console.log('connected mongo');
 
+// check if database has rooms in it
+// if not make them
+
 var app = express();
 
 var api = require('./routes/api');
