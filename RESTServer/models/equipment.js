@@ -2,13 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EquipmentSchema = new Schema({
-    name: String,
+    equiptment_id: String,
     type: String,
-    roomID: Number,
-    date: Date,
-    startTime: Number,
-    endTime: Number,
-
+    bookingID: Number,
     //availability: wasn't sure what type for availablitity
 });
 
