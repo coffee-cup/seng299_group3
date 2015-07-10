@@ -17,10 +17,6 @@ export default Ember.Route.extend({
       name: null
     }
 
-    console.log(accountID);
-    console.log(username);
-    console.log(name);
-
     // if user found in the cookies
     // set auth to user info
     if (accountID && username && name) {
