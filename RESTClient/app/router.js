@@ -14,6 +14,7 @@ Router.map(function() {
   this.route('profile');
 
   this.route('login');
+  this.route('logout');
 
   this.route('posts'); // example route
 });

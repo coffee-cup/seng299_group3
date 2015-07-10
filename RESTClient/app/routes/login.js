@@ -1,5 +1,8 @@
 
 export default Ember.Route.extend({
-  model: function() {
+  beforeModel: function() {
+    // reset input values
+    this.controllerFor('login').set('username', '');
+    this.controllerFor('login').set('password', '');
   }
 });
