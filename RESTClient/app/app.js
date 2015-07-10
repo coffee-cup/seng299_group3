@@ -14,6 +14,15 @@ App = Ember.Application.extend({
   Resolver: Resolver
 });
 
+// allow cross domain requests
+App.ApplicationAdapter = DS.RESTAdapter.extend({
+  host: 'https://localhost:7000',
+  ajax: function(url, method, hash) {
+    hash.crossDomain = true;
+    hash.xhrFields = {withCredentials: true};
+    return this._super(url, method, hash);
+  }
+});
 
 loadInitializers(App, config.modulePrefix);
 
