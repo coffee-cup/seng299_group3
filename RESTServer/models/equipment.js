@@ -8,4 +8,4 @@ var EquipmentSchema = new Schema({
     //availability: wasn't sure what type for availablitity
 });
 
-module.exports = mongoose.model('Equipment', RoomSchema);
+module.exports = mongoose.model('Equipment', EquipmentSchema);
