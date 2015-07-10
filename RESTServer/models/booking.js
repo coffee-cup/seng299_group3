@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Room = require('./room');
+var Equipment = require('./equipment');
 
 var BookingSchema = new Schema({
     date: Date,
