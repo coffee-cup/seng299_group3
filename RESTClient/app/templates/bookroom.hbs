@@ -33,7 +33,7 @@
 
       <div class="form-group">
         <label for="sel1">Select Room:</label>
-        {{view "select" id="inputRoom" class="form-control" content=room_ids value=selectedRoom}}
+        {{view "select" id="inputRoom" class="form-control" content=rooms optionLabelPath="content.name" value=selectedRoom}}
       </div>
 
       <div class="form-group">
@@ -48,12 +48,7 @@
 
 
 
-      <div id='create-booking-link' class="">
-        <!--
-        <button type="button" class="btn btn-lrg" data-toggle="modal" data-target="#bookingConfirmModal">Create Booking</button>
-      -->
-      <a data-toggle="modal" href="#bookingConfirmModal">Create Booking</a>
-      </div>
+      <div {{action 'createBooking'}} id='create-booking-link' class="notAButton">Create Booking</div>
 
     </form>
   </div>
@@ -64,7 +59,7 @@
           <thead>
             <tr>
               <th>
-                Booking for {{user}}
+                Booking for {{user.name}}
               </th>
               <th>
               </th>
@@ -92,7 +87,7 @@
                 Number of Hours:
               </td>
               <td>
-                TBI
+                {{totaltime}}
               </td>
             </tr>
             <tr>
@@ -100,7 +95,7 @@
                 Room
               </td>
               <td>
-                {{selectedRoom}}
+                {{selectedRoom.name}}
               </td>
             </tr>
             <tr>
@@ -155,6 +150,7 @@
   </div>
 </div>
 
+<!-- OPTIONAL CAROUSEL
 <div id="roomCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
   <ol class="carousel-indicators">
     <li data-target="#roomCarousel" data-slide-to="0" class="active"></li>
@@ -177,6 +173,7 @@
   </div>
 
 </div>
+ -->
 
 <div id="bookingConfirmModal" class='modal fade' role="dialog">
   <div class="modal-dialog">
@@ -185,10 +182,96 @@
         <h4 class="modal-title">Confirm your Booking</h4>
       </div>
       <div class="modal-body">
-        <p>Date: {{dateSelected}}</p>
-        <p>Start Time: {{selectedSTime}}</p>
-        <p>End Time: {{selectedETime}}</p>
-        <p>Room Selected: {{selectedRoom}}</p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+                Booking for {{user.name}}
+              </th>
+              <th>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Number of People
+              </td>
+              <td>
+                {{selectedGuests}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Date
+              </td>
+              <td>
+                {{dateSelected}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Hours:
+              </td>
+              <td>
+                {{totaltime}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Room
+              </td>
+              <td>
+                {{selectedRoom.name}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Microphones
+              </td>
+              <td>
+                TBI
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of IPads
+              </td>
+              <td>
+                TBI
+              </td>
+            </tr>
+            <tr>
+              <td>
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Sub-Total
+              </td>
+              <td>
+                TBI
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Tax
+              </td>
+              <td>
+                TBI
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Total</b>
+              </td>
+              <td>
+                TBI
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sml btn-danger" data-dismiss="modal">Cancel</button>

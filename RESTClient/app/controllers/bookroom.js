@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
   selectedGuests: 0,
   selectedSTime: 3,
   selectedETime: 2,
-  selectedRoom: "Fox Double",
+  selectedRoom: {name: 'Fox Double'},
   selectedIPads: 0,
   selectedMicrophones: 0,
 
@@ -20,27 +20,34 @@ export default Ember.Controller.extend({
   dates: [1,23,3,5],
   sTimes: [3,4,6,7,1],
   eTimes: [2,5,32,4,76,0],
-  room_ids: ["Fox Double", "Fox Quad", "Fox Grande", "Fox Enorme"],
 
-  // totaltime: function(){
-  //   if(selectedSTime >= 11){
-  //     s = selectedSTime - 12;
-  //     return selectedETime - s;
-  //   }else
-  //     return selectedETime - selectedSTime;
-  // },
+  rooms: [
+    {name: 'Fox Double', people: 2, numIPad: 1, numMicrophone: 1},
+    {name: 'Fox Quad', people: 4, numIPad: 2, numMicrophone: 2},
+    {name: 'Fox Grande', people: 8, numIPad: 4, numMicrophone: 4},
+    {name: 'Fox Enorme', people: 12, numIPad: 6, numMicrophone: 6},
+  ],
+
+   totaltime: function(){
+     console.log("I was called");
+     if(this.get('selectedSTime') >= 11){
+       var s = this.get('selectedSTime') - 12;
+       return this.get('selectedETime') - s;
+     }else
+       return this.get('selectedETime') - this.get('selectedSTime');
+   }.property('selectedSTime', 'selectedETime'),
 
   user: function() {
     var user = {
       username: 'username',
       name: 'Name',
       accountID: 'id'
-    }
+    };
     return user;
   }.property(),
 
   getDates : function(){
-    this.get('')
+    this.get('');
   },
   // map the variables startTime, endTime, date, people, and room_id
   // to the form for booking a room
@@ -59,5 +66,12 @@ export default Ember.Controller.extend({
   },
 
   paramsChanged: function() {
-  }.observes('startTime', 'endTime', 'date', 'people', 'room_id')
+  }.observes('startTime', 'endTime', 'date', 'people', 'room_id'),
+
+  actions: {
+    createBooking: function() {
+      console.log('test');
+      $('#bookingConfirmModal').modal('show');
+    }
+  }
 });

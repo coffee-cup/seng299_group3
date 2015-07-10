@@ -18,17 +18,17 @@ export default Ember.Route.extend({
       if (params.ampm == 'pm') {
         h = h + 12;
       }
-      c.set('startTime', h);
+      c.set('selectedSTime', h);
 
       var endTime = h + 1;
       if (endTime >= 24) {
         endTime = endTime - 24;
       }
-      c.set('endTime', endTime);
+      c.set('selectedETime', endTime);
     } else {
-      c.set('endTime', '');
+      c.set('selectedETime', '');
       console.log('test');
-      c.set('startTime', null);
+      c.set('selectedSTime', null);
     }
 
     if (params.date) {c.set('date', new Date(params.date));}
