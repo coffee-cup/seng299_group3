@@ -36,4 +36,9 @@ router.route('/bookings')
     .post(function(req, res) { bookings.createBooking(req,res) })
     .get(function(req, res) { bookings.getAllBookings(req,res) });
 
+/* Single booking routes */
+router.route('/bookings/:booking_id')
+    .get(function(req, res) { bookings.getSingleBooking(req, res, req.params.booking_id) })
+    .delete(function(req, res) { bookings.deleteBooking(req, res, req.params.booking_id) });
+
 module.exports = router;

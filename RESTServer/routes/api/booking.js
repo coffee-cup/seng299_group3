@@ -61,3 +61,12 @@ module.exports.getAllBookings = function(req, res) {
     });
   });
 };
+
+module.exports.getSingleBooking = function(req, res, id) {
+    Booking.findById(id, function(err, booking) {
+        if(err) {
+            res.send(err);
+        }
+        res.json({success: true, booking: booking});
+    });
+};
