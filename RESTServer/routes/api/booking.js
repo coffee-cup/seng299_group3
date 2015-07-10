@@ -57,7 +57,7 @@ module.exports.getAllBookings = function(req, res) {
             // for(booking b : bookings) {
 
             // }
+          res.json({bookings: bookings});
         }
-        res.json({bookings: bookings});
     });
 };
