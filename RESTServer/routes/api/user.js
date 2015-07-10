@@ -8,7 +8,7 @@ module.exports.addUser = function(req, res) {
 
     // check if request has attributes
     if (!req.body.username || !req.body.password || !req.body.name) {
-      res.json({status: false, message: 'all attributes not provided'});
+      res.json({success: false, message: 'all attributes not provided'});
       return;
     }
 
@@ -28,7 +28,7 @@ module.exports.addUser = function(req, res) {
                 return res.send(err);
             }
         // this returns the user so that after the user has been created, the data can be used in the view
-        res.json({user: user}); // why does this return the user? shouldnt it just return a 200?
+        res.json({success: true, user: user}); // why does this return the user? shouldnt it just return a 200?
     });
 };
 
@@ -37,7 +37,7 @@ module.exports.getAllUsers = function(req, res) {
         if (err) {
             res.send(err);
         }
-        res.json({users: users});
+        res.json({success: true, users: users});
     });
 };
 
@@ -46,7 +46,7 @@ module.exports.getSingleUser = function(req, res, id) {
         if (err) {
             res.send(err);
         }
-        res.json({user: user});
+        res.json({success: true, user: user});
     });
 };
 
@@ -69,7 +69,7 @@ module.exports.updateUser = function(req, res) {
             if(err) res.send(err);
 
             //return a message
-            res.json({message: 'User updated'}); //normally, successful api calls return a status of 200 or the requested object, failed requests return a specific error or a status of 400
+            res.json({success: true, message: 'User updated'}); //normally, successful api calls return a status of 200 or the requested object, failed requests return a specific error or a status of 400
         });
     });
 };
@@ -114,7 +114,7 @@ module.exports.validateUser = function(req, res) {
                 //token expires in 6 hours
 
                 //return the information including token as JSON
-                res.json({ success: true, token: token});
+                res.json({ success: true, token: token, user: user});
             }
         }
     });
