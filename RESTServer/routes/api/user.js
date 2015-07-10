@@ -5,12 +5,18 @@ var superSecret = 'ilovescotchscotchyscotchscotch'; //secret part to make JWT. f
 
 module.exports.addUser = function(req, res) {
     var user = new User();
-    
+
+    // check if request has attributes
+    if (!req.body.username || !req.body.password || !req.body.name) {
+      res.json({status: false, message: 'all attributes not provided'});
+      return;
+    }
+
     //set atrributes of the user
     user.name = req.body.name;
     user.username = req.body.username;
     user.password = req.body.password;
-    user.banned = req.body.banned;
+    user.banned = false;
 
     user.save(function(err) {
         if(err) {
@@ -55,9 +61,9 @@ module.exports.updateUser = function(req, res) {
         if(req.body.username) user.username = req.body.username;
 
         if(req.body.password) user.password = req.body.password;
-        
+
         if(req.body.banned) user.banned = req.body.banned;
-        
+
         //save the user
         user.save(function(err) {
             if(err) res.send(err);
@@ -94,17 +100,17 @@ module.exports.validateUser = function(req, res) {
         //no user with that username found
         if(!user) {
             res.json({success: false, message: 'Authentication failed. User not found'});
-        
+
         }else if(user) {
             //check if password matches
             var validPassword = user.comparePassword(req.body.password);
             if(!validPassword) {
                 res.json({success: false, message: 'Authentication failed. Wrong password.'});
-            
+
             }else {
                 //if user is found and password is correct, create token
                 var token = jwt.sign({ name: user.name, username: user.username}, superSecret, { expiresInMinutes: 360});
-                
+
                 //token expires in 6 hours
 
                 //return the information including token as JSON
