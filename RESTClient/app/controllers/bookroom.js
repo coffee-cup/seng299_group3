@@ -22,6 +22,23 @@ export default Ember.Controller.extend({
   eTimes: [2,5,32,4,76,0],
   room_ids: ["Fox Double", "Fox Quad", "Fox Grande", "Fox Enorme"],
 
+  // totaltime: function(){
+  //   if(selectedSTime >= 11){
+  //     s = selectedSTime - 12;
+  //     return selectedETime - s;
+  //   }else
+  //     return selectedETime - selectedSTime;
+  // },
+
+  user: function() {
+    var user = {
+      username: 'username',
+      name: 'Name',
+      accountID: 'id'
+    }
+    return user;
+  }.property(),
+
   getDates : function(){
     this.get('')
   },
