@@ -52,9 +52,11 @@ module.exports.getAllBookings = function(req, res) {
             if(err) {
                 res.send(err);
             }
-            for(booking b : bookings) {
-                
-            }
+
+            // FOR LOOP DOES NOT WORK IN JS
+            // for(booking b : bookings) {
+
+            // }
         }
         res.json({bookings: bookings});
     });
