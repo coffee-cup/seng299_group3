@@ -8,11 +8,17 @@ export default Ember.Controller.extend({
   dateSelected: 1,
   selectedSTime: 3,
   selectedETime: 2,
-  selectedRoom: "Room 1",
+  selectedRoom: "Fox Double",
+  selectedIPads: 0,
+  selectedMicrophones: 0,
+
+  //BACKEND CALL THIS PART
+  extraMicrophones: [0,1,2,3,4,5,6,7,8,9,10],
+  extraIPads: [0,1,2,3,4,5,6,7,8,9,10],
   dates: [1,23,3,5],
   sTimes: [3,4,6,7,1],
   eTimes: [2,5,32,4,76,0],
-  room_ids: ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5"],
+  room_ids: ["Fox Double", "Fox Quad", "Fox Grande", "Fox Enorme"],
 
   getDates : function(){
     this.get('')
