@@ -9,3 +9,5 @@ sftp-config.json
 tmp/
 
 .remote-sync.json
+
+*.swp
