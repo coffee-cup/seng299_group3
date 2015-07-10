@@ -8,12 +8,16 @@
 </header>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-sm-offset-2 col-md-offset-2 col-lg-offset-4">
     <form id='make-booking-form' class="form-inline">
-
       <div class="form-group">
         <label for="sel1">Date:</label>
         {{view "select" id="inputDate" class="form-control" content=dates value=dateSelected}}
+      </div>
+
+      <div class="form-group">
+        <label for="sel1">Number of Guests:</label>
+        {{view "select" id="inputGuests" class="form-control" content=numGuests value=selectedGuests}}
       </div>
 
       <div class="form-group">
@@ -52,6 +56,46 @@
       </div>
 
     </form>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+    <div class="sidebar-nav-fixed pull-right affix">
+      <div class="well">
+        <ul class="nav">
+          <li class="nav-header">
+            Booking Detail
+          </li>
+          <li>
+            Total number of Guests:
+          </li>
+          <li>
+            Date:
+          </li>
+          <li>
+            Room:
+          </li>
+          <li>
+            Microphones:
+          </li>
+          <li>
+            IPads:
+          </li>
+          <hr>
+          <li class="nav-header">
+            Total
+          </li>
+          <li>
+            Subtotal:
+          </li>
+          <li>
+            Tax:
+          </li>
+          <hr>
+          <li>
+            Total:
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 

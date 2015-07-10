@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   queryParams: ['hour', 'ampm', 'date', 'people', 'room_id'],
 
   dateSelected: 1,
+  selectedGuests: 0,
   selectedSTime: 3,
   selectedETime: 2,
   selectedRoom: "Fox Double",
@@ -13,6 +14,7 @@ export default Ember.Controller.extend({
   selectedMicrophones: 0,
 
   //BACKEND CALL THIS PART
+  numGuests: [0,1,2,3,4,5,6,7,8,9,10,11,12],
   extraMicrophones: [0,1,2,3,4,5,6,7,8,9,10],
   extraIPads: [0,1,2,3,4,5,6,7,8,9,10],
   dates: [1,23,3,5],
