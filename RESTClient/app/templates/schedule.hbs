@@ -2,7 +2,9 @@
 
   <header>
     <div class="header-content main-header">
-      <h1>Karaoke Schedule for {{date}}</h1>
+      <h1>Fox Pub Karaoke Schedule</h1>
+      <br>
+      <h3>{{formattedDate}}</h3>
       <hr>
     </div>
   </header>
@@ -10,26 +12,31 @@
   <div class="row">
     <div class="col-md-2 col-sm-12 sch-side">
       <div class="row">
-        <div class="col-xs-12 sch-people">
-          <form class="form-inline">
-            <div class="form-group">
-              <label class="col-sm-8 control-label" for="formGroupInputSmall"># Of People</label>
-              <div class="col-sm-4">
-                {{view "select" id="sch-num-people" class="form-control" content=people_options value=num_people}}
+
+        <div class="col-md-12 col-sm-6 col-xs-6">
+          <div class="row">
+            <div class="col-sm-12 sch-people">
+              <div class="row form-group">
+                <label class="col-xs-7 control-label" for="formGroupInputSmall"># Of People</label>
+                <div class="col-xs-5">
+                  {{view "select" id="sch-num-people" class="form-control" content=people_options value=num_people}}
+                </div>
               </div>
             </div>
 
-            <div class="form-group">
-              {{bootstrap-datepicker-inline id=sch-calendar value=date}}
-            </div>
-
-            <div class="form-group sch-cal-today">
-              <div {{action 'setDateToday'}} class="">
-                <span>Today</span>
+            <div class="col-sm-12 sch-cal">
+              <div class="form-group">
+                {{bootstrap-datepicker-inline id=sch-calendar value=date}}
               </div>
+
+              <div class="form-group sch-cal-today">
+                <div {{action 'setDateToday'}} class="">
+                  <span>Today</span>
+                </div>
+              </div>
+              {{input type='hidden' id='my_hidden_input' action='dateChanged'}}
             </div>
-          </form>
-          {{input type='hidden' id='my_hidden_input' action='dateChanged'}}
+          </div>
         </div>
       </div>
     </div>
@@ -38,38 +45,46 @@
       <div id="schedules" class="row">
 
         {{#each model as |room|}}
-            <div class="col-md-5ths col-xs-12 sch-room">
+        <div class="col-md-5ths col-xs-12 sch-room">
 
-              <div class="row sch-room-header">
+          <div class="row sch-room-header">
 
-                <div class="row">
-                  <div class="col-xs-12 sch-room-name text-center text-uppercase">
-                    <h3>{{room.name}}</h3>
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-xs-12 sch-room-name text-center text-uppercase">
+                <h3>{{room.name}}</h3>
+              </div>
+            </div>
 
-                <div class="row">
-                  <div class="col-xs-3 sch-time-header">
-                    <i>Time</i>
-                  </div>
-                  <div class="col-xs-3 sch-space-header">
-
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col-xs-3 col-xs-offset-1 sch-time-header">
+                Time
+              </div>
+              <div class="col-xs-3 sch-space-header">
 
               </div>
-
-              {{#each room.times as |time|}}
-
-                <div {{action 'linkSlot' time.hour time.ampm time.booked room.id}} class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
-                  <div class="col-xs-3 sch-time">
-                    {{time.hour}} {{time.ampm}}
-                  </div>
-                </div>
-
-              {{/each}}
-
             </div>
+
+          </div>
+
+          {{#each room.times as |time|}}
+
+          <div {{action 'linkSlot' time.hour time.ampm time.booked room.id}} class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
+            <div class="col-xs-3 sch-time">
+              {{time.hour}} {{time.ampm}}
+            </div>
+            <div class="col-xs-9 sch-message">
+
+              {{#if time.booked}}
+                booked
+              {{else}}
+                available
+              {{/if}}
+            </div>
+          </div>
+
+          {{/each}}
+
+        </div>
         {{/each}}
 
       </div>

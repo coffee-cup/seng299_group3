@@ -4,8 +4,12 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp();
 
+// bootstrap
 app.import('bower_components/bootstrap/dist/js/bootstrap.min.js');
 app.import('bower_components/bootstrap/dist/css/bootstrap.min.css');
+
+// momentjs
+app.import('bower_components/moment/min/moment.min.js');
 
 // Use `app.import` to add additional libraries to the generated
 // output files.

@@ -1,3 +1,13 @@
+// variables
+$main-colour: blue;
+$secondary-colour: #F0386B;
+$nav-colour: #0f3780;
+$dark-text: black;
+$light-text: white;
+
+$free-slot-colour: #D8EEFF;
+$taken-slot-colour: #001147;
+$slot-hover-colour: #f351f9;
 
 // mixins
 @mixin border-radius($radius) {
@@ -10,8 +20,26 @@
 img.blur { width:367; height:459px; -webkit-filter: blur(3px); filter: blur(3px); }
 
 body {
+  height: 100%;
   padding-top: 70px;
   font-family: 'Raleway', sans-serif;
+}
+
+// color divs
+.mcolour {
+  background-color: $secondary-colour;
+}
+
+.scolour {
+  background-color: $secondary-colour;
+}
+
+.dtext {
+  color: $dark-text;
+}
+
+.ltext {
+  color: $light-text;
 }
 
 .error {
@@ -45,14 +73,20 @@ body {
   border-right: solid 1px grey;
 }
 
+.sch-message {
+  text-align: right;
+  margin-top: 32px;
+  font-size: 0.9em;
+}
+
 .sch-time {
+  text-align: right;
   font-size: 1em;
   padding-left: 0.2em;
   padding-right: 0.2em;
   padding-top: 1em;
   height: 100%;
   border-right: solid 1px white;
-  text-align: center;
   background-color: white;
   border-bottom: 1px solid rgb(195, 195, 195);
 }
@@ -63,27 +97,36 @@ body {
 }
 
 .slot-taken {
-  background-color: rgb(121, 121, 121);
+  background-color: $taken-slot-colour;
+
+  .sch-message {
+    color: white;
+  }
 }
 
 .slot-free {
-  background-color: rgb(241, 241, 241);
+  background-color: $free-slot-colour;
 }
 
 .slot-free:hover {
-  background-color: rgb(156, 212, 200);
+  background-color: $slot-hover-colour;
   cursor: pointer;
 }
 
 .sch-side {
-  background-color: rgb(241, 241, 241);
-  margin-top: 3em;
+/*  background-color: rgb(241, 241, 241);*/
+  margin-top: 1em;
+}
+
+.sch-time-header {
+  font-weight: 700;
 }
 
 .sch-people {
   padding-right: 1em;
   padding-top: 1em;
   padding-left: 0;
+  text-align: right;
 
   label {
     padding-top: 0.5em;
@@ -92,6 +135,10 @@ body {
   div {
     padding-left: 0;
   }
+}
+
+.sch-cal {
+  padding-left: 0;
 }
 
 .sch-cal-today {
@@ -106,9 +153,10 @@ body {
   }
 
   span {
-    padding: 0.3em;
-    border: solid 1px grey;
-    @include border-radius(8px);
+    padding: 0.5em 2em;
+    color: white;
+    background-color: $nav-colour;
+    @include border-radius(3px);
   }
 }
 
@@ -119,6 +167,11 @@ body {
   h1 {
     font-weight: 700;
     margin-top: 30px;
+  }
+
+  h3 {
+    margin-top: -1em;
+    font-weight: 200;
   }
 
   img {
@@ -191,4 +244,70 @@ header {
         width: 20%;
         float: left;
     }
+}
+
+
+// navbar colour
+$bgDefault      : #0f3780;
+$bgHighlight    : #245bc1;
+$colDefault     : #ecf0f1;
+$colHighlight   : #f351f9;
+$dropDown       : false;
+.navbar-default {
+  background-color: $bgDefault;
+  border-color: $bgHighlight;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover,  &:focus {
+          color: $colHighlight; }}
+      @if $dropDown {
+        > .dropdown-menu {
+          background-color: $bgDefault;
+          > li > a {
+            color: $colDefault;
+            &:hover,  &:focus {
+              color: $colHighlight;
+              background-color: $bgHighlight; }}
+          .divider {
+            background-color: $bgHighlight;}}}
+    }
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgHighlight;
+    &:hover, &:focus {
+      background-color: $bgHighlight; }
+    .icon-bar {
+      background-color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
 }

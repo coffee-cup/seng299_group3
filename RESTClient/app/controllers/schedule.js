@@ -7,10 +7,12 @@ export default Ember.Controller.extend({
   // the day for the schedule view
   date: new Date(),
 
+  today: new Date(),
+
   // the number of people to make api call for get avaialbe rooms with
   num_people: 2,
 
-  people_options: ['2', '3', '4', '5', '6', '7', '8', '9', '10+'],
+  people_options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12+'],
 
   // called when the controller loads for first time
   // not when page is naviagted to
@@ -47,6 +49,10 @@ export default Ember.Controller.extend({
     }); */
   },
 
+  formattedDate: function() {
+    return moment(this.get('date')).format('dddd MMMM Do');
+  }.property('date'),
+
   datePeopleChanged: function() {
     this.send('updateSchedule');
   }.observes('date', 'num_people'),
@@ -76,13 +82,14 @@ export default Ember.Controller.extend({
 
     transition: function() {
       // Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
-      $('#sch-calendar').datepicker({});
+      $('#sch-calendar').datepicker({startDate: this.get('today')});
     },
 
     dateChanged: function() {
       console.log('date changed');
       var d = new Date($('#my_hidden_input').val());
       this.set('date', d);
+
       this.send('updateSchedule');
     },
 
