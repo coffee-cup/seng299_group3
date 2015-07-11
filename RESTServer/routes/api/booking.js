@@ -70,3 +70,12 @@ module.exports.getSingleBooking = function(req, res, id) {
         res.json({success: true, booking: booking});
     });
 };
+
+module.exports.deleteBooking = function(req, res, id) {
+    Booking.findByIdAndRemove(id, function(err) {
+        if(err) {
+            res.send(err);
+        }
+        res.sendStatus(200);
+    });
+};
