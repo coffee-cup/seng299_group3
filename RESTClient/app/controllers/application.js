@@ -1,6 +1,11 @@
 export default Ember.Controller.extend({
     SERVER_DOMAIN: 'http://localhost:7000/', // what domain and port the server is located at
 
+    // computed property for getting user
+    user: function() {
+      return this.get('auth');
+    }.property('auth'),
+
     // if the auth object changes, then reset values in cookies
     authChanged: function() {
       var auth = this.get('auth');
@@ -12,4 +17,4 @@ export default Ember.Controller.extend({
         Ember.$.cookie('auth_name', auth.name);
       }
     }.observes('auth')
-});
+  });
