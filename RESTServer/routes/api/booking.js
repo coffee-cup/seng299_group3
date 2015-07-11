@@ -22,7 +22,7 @@ module.exports.createBooking = function(req, res) {
 
         //initializes booking
         booking.date = req.body.date;
-        booking.cancelledStatus = req.body.cancelledStatus;
+        booking.canceledStatus = req.body.canceledStatus;
         booking.startTime = req.body.startTime;
         booking.endTime = req.body.endTime;
         booking.room = req.body.room; //does not do anything in postman
@@ -51,7 +51,7 @@ module.exports.createBooking = function(req, res) {
 };
 
 
-//was receiving erros on .getDat()
+//was receiving erros on .getDate()
 
 
 /*module.exports.getAllBookings = function(req, res) {
