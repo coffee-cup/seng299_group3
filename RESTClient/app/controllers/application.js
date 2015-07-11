@@ -6,6 +6,9 @@ export default Ember.Controller.extend({
       return this.get('auth');
     }.property('auth'),
 
+    // so we can use null in the template
+    na: null,
+
     // if the auth object changes, then reset values in cookies
     authChanged: function() {
       var auth = this.get('auth');

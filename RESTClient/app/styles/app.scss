@@ -309,6 +309,16 @@ header {
   color: white;
 }
 
+.user-link {
+  color: #337AB7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.user-link:hover {
+  color: #23527c;
+}
+
 // To make the grid split into 5 ways
 .col-xs-5ths,
 .col-sm-5ths,
