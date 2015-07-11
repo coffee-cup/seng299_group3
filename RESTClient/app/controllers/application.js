@@ -16,5 +16,20 @@ export default Ember.Controller.extend({
         Ember.$.cookie('auth_username', auth.username);
         Ember.$.cookie('auth_name', auth.name);
       }
-    }.observes('auth')
-  });
+    }.observes('auth'),
+
+    init : function(){
+      Ember.run.scheduleOnce('afterRender', this, this.afterRenderEvent);
+    },
+
+  // function gets run after page has been rendered
+  // perform all jquery logic here
+  afterRenderEvent : function(){
+    // implement this hook in your own subclasses and run your jQuery logic there
+
+    // position footer right when html is rendered
+    // var containerHeight = $('body').height();
+    // var footerHeight = $('footer').height();
+    // $('#wrapper').height(containerHeight - footerHeight + 20);
+  },
+});
