@@ -296,13 +296,17 @@ header {
 }
 
 #create-booking-link {
+  @extend .blue-button;
+
+  margin-top: 0.5em;
   text-align: center;
   font-size: 1.3em;
-  border: solid 1px grey;
-  padding: 1em;
-  margin-top: 0.2em;
   cursor: pointer;
-  @include border-radius(8px);
+}
+
+#booking-confirm {
+  background-color: $nav-colour;
+  color: white;
 }
 
 // To make the grid split into 5 ways
