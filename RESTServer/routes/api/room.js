@@ -35,8 +35,8 @@ module.exports.getAllRooms = function(req, res) {
     });
 };
 
-module.exports.getSingleRoom = function(req, res, id) {
-    Room.findById(id, function(err, room) {
+module.exports.getSingleRoom = function(req, res) {
+    Room.findById(req.params.room_id, function(err, room) {
         if (err) {
             res.send(err);
         }
@@ -62,12 +62,12 @@ module.exports.updateRoom = function(req, res) {
 
         if(req.body.baseMics) room.baseMics = req.body.baseMics;
         
-        //save the user
+        //save the room
         room.save(function(err) {
             if(err) res.send(err);
 
             //return a message
-            res.json({message: 'Room updated'}); //normally, successful api calls return a status of 200 or the requested object, failed requests return a specific error or a status of 400
+            res.json({message: 'Room updated'});
         });
     });
 };
