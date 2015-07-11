@@ -148,6 +148,8 @@
                 <b>Total</b>
               </td>
               <td>
+              </td>
+              <td>
                 {{totalPrice}}
               </td>
             </tr>
@@ -179,7 +181,6 @@
 
     </div>
   </div>
-
 </div>
  -->
 
@@ -190,6 +191,9 @@
         <h4 class="modal-title">Confirm your Booking</h4>
       </div>
       <div class="modal-body">
+        <p>
+          Please confirm the details of your booking below.
+        </p>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -197,6 +201,9 @@
                 Booking for {{user.name}}
               </th>
               <th>
+              </th>
+              <th>
+                Price
               </th>
             </tr>
           </thead>
@@ -208,6 +215,9 @@
               <td>
                 {{selectedGuests}}
               </td>
+              <td>
+                -
+              </td>
             </tr>
             <tr>
               <td>
@@ -216,13 +226,8 @@
               <td>
                 {{dateSelected}}
               </td>
-            </tr>
-            <tr>
               <td>
-                Number of Hours:
-              </td>
-              <td>
-                {{totalTime}}
+                -
               </td>
             </tr>
             <tr>
@@ -232,13 +237,30 @@
               <td>
                 {{selectedRoom.name}}
               </td>
+              <td>
+                -
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Hours:
+              </td>
+              <td>
+                {{totalTime}}
+              </td>
+              <td>
+                {{priceRoom}}
+              </td>
             </tr>
             <tr>
               <td>
                 Number of Microphones
               </td>
               <td>
-                TBI
+                {{selectedMicrophones}}
+              </td>
+              <td>
+                {{priceMicrophones}}
               </td>
             </tr>
             <tr>
@@ -246,28 +268,18 @@
                 Number of IPads
               </td>
               <td>
-                TBI
+                {{selectedIPads}}
+              </td>
+              <td>
+                {{priceIPads}}
               </td>
             </tr>
             <tr>
               <td>
-
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Sub-Total
               </td>
               <td>
-                TBI
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Tax
               </td>
               <td>
-                TBI
               </td>
             </tr>
             <tr>
@@ -275,7 +287,9 @@
                 <b>Total</b>
               </td>
               <td>
-                TBI
+              </td>
+              <td>
+                {{totalPrice}}
               </td>
             </tr>
           </tbody>
