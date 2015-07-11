@@ -31,10 +31,17 @@ export default Ember.Controller.extend({
    totalTime: function(){
      var s = parseInt(this.get('selectedSTime'));
      var e = parseInt(this.get('selectedETime'));
+     var t = e - s;
+     console.log(typeof(s));
+     console.log(e);
+     console.log(typeof(e));
+     console.log(typeof(t));
+     console.log(t);
      if(s > 11){
-       return e - (s - 12);
+       t = t+12
+       return t;
      }else
-       return e - s;
+       return t;
    }.property('selectedSTime', 'selectedETime'),
 
    totalMicrophones: function(){
@@ -61,6 +68,11 @@ export default Ember.Controller.extend({
      console.log('pr');
      return (this.get('selectedRoom.price') * this.get('totalTime'));
    }.property('selectedRoom', 'totalTime'),
+
+   totalPrice: function(){
+     console.log('tp');
+     return this.get('priceRoom') + this.get('priceIPads') + this.get('priceMicrophones');
+   }.property('priceRoom', 'priceIPads', 'priceMicrophones'),
 
   user: function() {
     var user = {
