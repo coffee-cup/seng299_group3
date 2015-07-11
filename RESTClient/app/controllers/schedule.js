@@ -47,33 +47,37 @@ export default Ember.Controller.extend({
       scope.this.set('num_people', $('#sch-num-people').val());
       scope.this.send('updateSchedule');
     }); */
+},
+
+formattedDate: function() {
+  return moment(this.get('date')).format('dddd MMMM Do');
+}.property('date'),
+
+peopleChanged: function() {
+  this.send('updateSchedule');
+}.observes('num_people'),
+
+dateChanged: function() {
+  this.send('dateChanged');
+}.observes('date'),
+
+actions: {
+
+  linkSlot: function(hour, ampm, booked, room_id) {
+    if (!booked) {
+      var query = '?hour=' + hour + '&ampm=' + ampm + '&room_id=' + 'room_id' + '&date=' + this.get('date') + '&people=' + this.get('num_people');
+      var queryParams = {
+        'hour': hour,
+        'ampm': ampm,
+        'room_id': 'room_id',
+        'date': this.get('date'),
+        'people': this.get('num_people')
+      };
+      this.transitionToRoute('bookroom', {queryParams: queryParams});
+    }
   },
 
-  formattedDate: function() {
-    return moment(this.get('date')).format('dddd MMMM Do');
-  }.property('date'),
-
-  datePeopleChanged: function() {
-    this.send('updateSchedule');
-  }.observes('date', 'num_people'),
-
-  actions: {
-
-    linkSlot: function(hour, ampm, booked, room_id) {
-      if (!booked) {
-        var query = '?hour=' + hour + '&ampm=' + ampm + '&room_id=' + 'room_id' + '&date=' + this.get('date') + '&people=' + this.get('num_people');
-        var queryParams = {
-          'hour': hour,
-          'ampm': ampm,
-          'room_id': 'room_id',
-          'date': this.get('date'),
-          'people': this.get('num_people')
-        };
-        this.transitionToRoute('bookroom', {queryParams: queryParams});
-      }
-    },
-
-    updateSchedule: function() {
+  updateSchedule: function() {
       // Call server here to refresh the model with a call to getAvailableRooms(date, num_people)
       console.log('\nUPDATE SCHEDULE VIEW');
       console.log('PEOPLE: ' + this.get('num_people'));
@@ -86,9 +90,12 @@ export default Ember.Controller.extend({
     },
 
     dateChanged: function() {
-      console.log('date changed');
-      var d = new Date($('#my_hidden_input').val());
-      this.set('date', d);
+      var d = this.get('date');
+      var today = new Date();
+      if (d < today) {
+        this.send('setDateToday');
+        return;
+      }
 
       this.send('updateSchedule');
     },
