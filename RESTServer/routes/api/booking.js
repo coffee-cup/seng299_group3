@@ -1,22 +1,60 @@
 var mongoose = require('mongoose');
 var Booking = require('../../models/booking');
 
-module.exports.createBooking = function(req, res) {
-  var booking = new Booking();
-
-  booking.date = req.body.date;
-  booking.cancelledStatus = req.body.cancelledStatus;
-  booking.startTime = req.body.startTime;
-  booking.endTime = req.body.endTime;
-
-  booking.save(function(err) {
-    if(err) return res.send(err);
-
-    res.json({booking: booking});
-  });
+module.exports.getAllBookings = function(req, res) {
+    Booking.find(function(err, bookings) {
+        if(err) {
+            res.send(err);
+        }
+        res.json({success: true, bookings:bookings});
+    });
 };
 
-module.exports.getAllBookings = function(req, res) {
+
+module.exports.createBooking = function(req, res) {
+    var booking = new Booking();
+    
+    //gets all bookings on specified date for specified room
+    Booking.find({date: req.body.date, room: req.body.room}, function(err, datesBookings) {
+        if(err) {
+          res.send(err);
+        }
+
+        //initializes booking
+        booking.date = req.body.date;
+        booking.cancelledStatus = req.body.cancelledStatus;
+        booking.startTime = req.body.startTime;
+        booking.endTime = req.body.endTime;
+        booking.room = req.body.room; //does not do anything in postman
+
+        //error messages if booking times are between a different booking
+        for(var i=0; i<datesBookings.length; i++){
+            
+            //if new booking start time is between a previous booking start and end time return message
+            if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
+                return res.json({success: false, messages: "Invalid. During current booking."});
+            }
+
+            //if new booking end time is between a previous booking start and end time return message
+            if((booking.endTime > datesBookings[i].startTime) && (booking.endTime <= datesBookings[i].endTime)){
+                return res.json({success: false, messages: "Invalid. During current booking."});
+            }
+        }
+
+        //save booking
+        booking.save(function(err) {
+            if(err) return res.send(err);
+
+            res.json({success: true, booking: booking});
+        });
+    });
+};
+
+
+//was receiving erros on .getDat()
+
+
+/*module.exports.getAllBookings = function(req, res) {
   Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
     if(err) {
       res.send(err);
@@ -60,12 +98,15 @@ module.exports.getAllBookings = function(req, res) {
       res.json({bookings: bookings});
     });
   });
-};
+};*/
 
 module.exports.getSingleBooking = function(req, res, id) {
     Booking.findById(id, function(err, booking) {
         if(err) {
             res.send(err);
+        }
+        if(booking == null){
+            res.json({succes: false, message: "No booking with that ID"});
         }
         res.json({success: true, booking: booking});
     });

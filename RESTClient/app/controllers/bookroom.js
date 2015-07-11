@@ -7,8 +7,8 @@ export default Ember.Controller.extend({
 
   dateSelected: 1,
   selectedGuests: 0,
-  selectedSTime: 3,
-  selectedETime: 2,
+  selectedSTime: 4,
+  selectedETime: 5,
   selectedRoom: {name: 'Fox Double'},
   selectedIPads: 0,
   selectedMicrophones: 0,
@@ -17,25 +17,62 @@ export default Ember.Controller.extend({
   numGuests: [0,1,2,3,4,5,6,7,8,9,10,11,12],
   extraMicrophones: [0,1,2,3,4,5,6,7,8,9,10],
   extraIPads: [0,1,2,3,4,5,6,7,8,9,10],
-  dates: [1,23,3,5],
-  sTimes: [3,4,6,7,1],
-  eTimes: [2,5,32,4,76,0],
+  dates: [1,2,3,4,5,6,7,8,9,10],
+  sTimes: [4,5,6,7,8,9,10,11,12],
+  eTimes: [5,6,7,8,9,10,11,12,1],
 
   rooms: [
-    {name: 'Fox Double', people: 2, numIPad: 1, numMicrophone: 1},
-    {name: 'Fox Quad', people: 4, numIPad: 2, numMicrophone: 2},
-    {name: 'Fox Grande', people: 8, numIPad: 4, numMicrophone: 4},
-    {name: 'Fox Enorme', people: 12, numIPad: 6, numMicrophone: 6},
+    {name: 'Fox Double', size: 2, baseIPad: 1, baseMics: 1, price: 20},
+    {name: 'Fox Quad', size: 4, baseIPad: 2, baseMics: 2, price: 35},
+    {name: 'Fox Grande', size: 8, baseIPad: 4, baseMics: 4, price: 65},
+    {name: 'Fox Enorme', size: 12, baseIPad: 6, baseMics: 6, price: 80},
   ],
 
-   totaltime: function(){
-     console.log("I was called");
-     if(this.get('selectedSTime') >= 11){
-       var s = this.get('selectedSTime') - 12;
-       return this.get('selectedETime') - s;
+   totalTime: function(){
+     var s = parseInt(this.get('selectedSTime'));
+     var e = parseInt(this.get('selectedETime'));
+     var t = e - s;
+     console.log(typeof(s));
+     console.log(e);
+     console.log(typeof(e));
+     console.log(typeof(t));
+     console.log(t);
+     if(s > 11){
+       t = t+12
+       return t;
      }else
-       return this.get('selectedETime') - this.get('selectedSTime');
+       return t;
    }.property('selectedSTime', 'selectedETime'),
+
+   totalMicrophones: function(){
+     console.log('tm');
+     return this.get('selectedMicrophones') + this.get('selectedRoom.baseMics');
+   }.property('selectedRoom', 'selectedMicrophones'),
+
+   totalIPads: function(){
+     console.log('ti');
+     return this.get('selectedIPads') + this.get('selectedRoom.baseIPad');
+   }.property('selectedIPads', 'selectedRoom'),
+
+   priceMicrophones: function(){
+     console.log('pm');
+     return this.get('selectedMicrophones') * 3;
+   }.property('selectedMicrophones'),
+
+   priceIPads: function(){
+     console.log('pi');
+     return this.get('selectedIPads') * 4;
+   }.property('selectedIPads'),
+
+   priceRoom: function(){
+     console.log('pr');
+     return (this.get('selectedRoom.price') * this.get('totalTime'));
+   }.property('selectedRoom', 'totalTime'),
+
+   totalPrice: function(){
+     console.log('tp');
+     return this.get('priceRoom') + this.get('priceIPads') + this.get('priceMicrophones');
+   }.property('priceRoom', 'priceIPads', 'priceMicrophones'),
 
   user: function() {
     var user = {
@@ -72,6 +109,7 @@ export default Ember.Controller.extend({
     createBooking: function() {
       console.log('test');
       $('#bookingConfirmModal').modal('show');
-    }
+    },
+
   }
 });
