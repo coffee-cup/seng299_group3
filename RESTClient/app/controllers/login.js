@@ -1,5 +1,6 @@
 export default Ember.Controller.extend({
   needs: ['application'],
+  queryParams: ['n'],
 
   error_username: false,
   error_password: false,
@@ -59,7 +60,13 @@ export default Ember.Controller.extend({
             // overwrite user in applications
             _this.store.push('auth', auth);
             _this.set('controllers.application.auth', auth);
-            _this.transitionToRoute('index');
+
+            var redirect = _this.get('redirect');
+            if (redirect) {
+              _this.transitionToRoute(redirect);
+            } else {
+              _this.transitionToRoute('index');
+            }
           }
         }).error(function(err) {
           // could not connect to server
