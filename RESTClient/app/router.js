@@ -11,7 +11,7 @@ Router.map(function() {
   this.route('register');
   this.route('schedule');
   this.route('mybookings');
-  this.route('profile');
+  this.route('changepassword');
 
   this.route('login');
   this.route('logout');
