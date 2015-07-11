@@ -4,6 +4,7 @@ var router = express.Router();
 var posts = require('./api/post');
 var users = require('./api/user');
 var bookings = require('./api/booking');
+var rooms = require('./api/room');
 
 /* Posts routes */
 router.route('/posts')
@@ -40,5 +41,15 @@ router.route('/bookings')
 router.route('/bookings/:booking_id')
     .get(function(req, res) { bookings.getSingleBooking(req, res, req.params.booking_id) })
     .delete(function(req, res) { bookings.deleteBooking(req, res, req.params.booking_id) });
+
+/* Single Room routes */
+router.route('/rooms/:room_id')
+    .get(function(req, res) { rooms.getSingleRoom(req,res) })
+    .put(function(req, res) { rooms.updateRoom(req,res) });
+
+/* Multi Room routes */
+router.route('/rooms')
+    .post(function(req, res) { rooms.addRoom(req,res) })
+    .get(function(req, res) { rooms.getAllRooms(req,res) });
 
 module.exports = router;
