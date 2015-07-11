@@ -4,8 +4,10 @@ var Schema = mongoose.Schema;
 var RoomSchema = new Schema({
     roomID: Number,
     name: String,
-    size: Number
-    //availability: wasn't sure what type for availablitity
+    size: Number,
+    price: Number,
+    baseIPads: Number,
+    baseMics: Number
 });
 
 module.exports = mongoose.model('Room', RoomSchema);
