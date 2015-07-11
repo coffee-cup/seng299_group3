@@ -26,7 +26,18 @@
       <ul class="nav navbar-nav navbar-right">
 
         {{#if auth.username}}
-          <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li>
+          <!-- <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li> -->
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{auth.username}}</button>
+              <ul class="dropdown-menu">
+                <li>Username - {{user.username}}</li>
+                <li>Name {{user.name}}</li>
+                <li role="seperator" class="divider"></li>
+                <li>{{#link-to 'changepassword'}}Change Password{{/link-to}}</li>
+              </ul>
+            </div>
+          </li>
           <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
         {{else}}
           <li>{{#link-to 'login'}}Login{{/link-to}}</li>
