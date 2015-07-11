@@ -4,6 +4,7 @@ $secondary-colour: #F0386B;
 $nav-colour: #0f3780;
 $dark-text: black;
 $light-text: white;
+$footer-colour: #09214D;
 
 $free-slot-colour: #D8EEFF;
 $taken-slot-colour: #001147;
@@ -17,12 +18,27 @@ $slot-hover-colour: #f351f9;
           border-radius: $radius;
 }
 
+@mixin calc($value) {
+  height: -mox-calc($value);
+  height: -webkit-calc($value);
+  height: -o-calc($value);
+  height: calc($value);
+}
+
 img.blur { width:367; height:459px; -webkit-filter: blur(3px); filter: blur(3px); }
+
+html {
+  height: 100%;
+}
 
 body {
   height: 100%;
   padding-top: 70px;
   font-family: 'Raleway', sans-serif;
+}
+
+body > .container-fluid {
+  padding-top: 60px;
 }
 
 // color divs
@@ -52,6 +68,29 @@ body {
   color: white;
   width: 100%;
   @include border-radius(3px);
+}
+
+footer {
+    background-color: $footer-colour;
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  p {
+    color: #BDBDBD;
+    padding: 1em;
+    padding-bottom: 0.2em;
+
+    a {
+      color: #BDBDBD;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #FFFFFF;
+    }
+  }
 }
 
 nav {
@@ -103,10 +142,26 @@ nav {
 
 #wrapper {
   margin-top: -1.5em;
+
 }
 
 .sch-room {
   margin-bottom: 1em;
+}
+
+.sch-room-name {
+  h3 {
+    margin-bottom: 0;
+  }
+
+  .row {
+    margin-bottom: 0.3em;
+  }
+
+  div {
+    font-weight: 700;
+    font-size: 0.9em;
+  }
 }
 
 .sch-times {
@@ -187,7 +242,6 @@ nav {
   width: 100%;
   text-align: center;
   padding: 1em;
-  font-weight: 700;
   cursor: pointer;
 
   div {
