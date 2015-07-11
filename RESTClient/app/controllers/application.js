@@ -1,5 +1,5 @@
 export default Ember.Controller.extend({
-    SERVER_DOMAIN: 'http://localhost:7000/', // what domain and port the server is located at
+    SERVER_DOMAIN: 'http://134.87.151.213:7100', // what domain and port the server is located at
 
     // if the auth object changes, then reset values in cookies
     authChanged: function() {

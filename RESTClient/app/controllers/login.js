@@ -42,6 +42,7 @@ export default Ember.Controller.extend({
           username: username,
           password: password
         }
+        console.log(url);
         Ember.$.post(url, postData, function( data ) {
           if (!data.user) {
             _this.set('error_message', data.message);
