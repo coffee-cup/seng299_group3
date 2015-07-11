@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
-var Room = require('../../models/room');
-var jwt = require('jsonwebtoken');
-var superSecret = 'ilovescotchscotchyscotchscotch'; //secret part to make JWT. from MEAN machine, can change if want
+var Room = require('../../models/room'); 
 
 module.exports.addRoom = function(req, res) {
     var room = new Room();
     
-    //set atrributes of the room
+    //set attributes of the room
     room.name = req.body.name;
     room.roomID = req.body.roomID;
     room.size = req.body.size;
+    room.price = req.body.price;
+    room.baseIPads = req.body.baseIPads;
+    room.baseMics = req.body.baseMics;
 
     room.save(function(err) {
         if(err) {
@@ -35,7 +36,7 @@ module.exports.getAllRooms = function(req, res) {
 };
 
 module.exports.getSingleRoom = function(req, res, id) {
-    User.findById(id, function(err, room) {
+    Room.findById(id, function(err, room) {
         if (err) {
             res.send(err);
         }
@@ -44,7 +45,7 @@ module.exports.getSingleRoom = function(req, res, id) {
 };
 
 module.exports.updateRoom = function(req, res) {
-    User.findById(req.params.room_id, function(err, room) {
+    Room.findById(req.params.room_id, function(err, room) {
         if (err) {
             res.send(err);
         }
@@ -54,6 +55,12 @@ module.exports.updateRoom = function(req, res) {
         if(req.body.roomID) room.roomID = req.body.roomID;
 
         if(req.body.size) room.size = req.body.size;
+
+        if(req.body.price) room.price = req.body.price;
+
+        if(req.body.baseIPads) room.baseIPads = req.body.baseIPads;
+
+        if(req.body.baseMics) room.baseMics = req.body.baseMics;
         
         //save the user
         room.save(function(err) {
@@ -64,4 +71,3 @@ module.exports.updateRoom = function(req, res) {
         });
     });
 };
-
