@@ -6,4 +6,7 @@ export default Ember.Route.extend({
       this.transitionTo('login');
     }
   }
+ // model.exports.getBookings = function(req, res, id){
+
+  //}
 });

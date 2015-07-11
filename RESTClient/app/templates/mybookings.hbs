@@ -4,11 +4,17 @@
     <hr>
   </div>
 </header>
-<ul class="nav nav-tabs">
-  <li class="active"> 
-    <a data-toggle="tab">Current</a>
-  </li>
-  <li>
-  	<a data-toggle="tab">Past</a>
-  </li>
+<ul id="bookingTabs" class="nav nav-tabs">
+  <li class="active"><a href="#current" data-toggle="tab">Current</a></li>
+  <li><a href="#past" data-toggle="tab">Past</a></li>
 </ul>
+<body>  
+<div id="myTabContent" class="tab-content">
+      <div align="center" class="tab-pane in active" id="current">
+      <p>current bookings</p>
+      </div>
+      <div align="center" class="tab-pane " id="past">
+       <p>past bookings</p> 
+      </div> 
+</div>
+</body>
