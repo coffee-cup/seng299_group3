@@ -7,7 +7,8 @@ var RoomSchema = new Schema({
   size: Number,
   price: Number,
   baseIPads: Number,
-  baseMics: Number
+  baseMics: Number,
+  isDown: Boolean
 });
 
 var Room = mongoose.model('Room', RoomSchema);
@@ -28,7 +29,8 @@ Room.find(function(err, rooms) {
       "size": 2,
       "price": 12,
       "baseIPads": 1,
-      "baseMics": 1
+      "baseMics": 1,
+      "isDown": false
     });
 
     var room2 = new Room({
@@ -37,7 +39,8 @@ Room.find(function(err, rooms) {
       "size": 2,
       "price": 12,
       "baseIPads":1,
-      "baseMics": 1
+      "baseMics": 1,
+      "isDown": false
     });
 
     var room3 = new Room({
@@ -46,7 +49,8 @@ Room.find(function(err, rooms) {
       "size": 4,
       "price": 20,
       "baseIPads":2,
-      "baseMics": 2
+      "baseMics": 2,
+      "isDown": false
     });
 
     var room4 = new Room({
@@ -55,7 +59,8 @@ Room.find(function(err, rooms) {
       "size": 4,
       "price": 20,
       "baseIPads":2,
-      "baseMics": 2
+      "baseMics": 2,
+      "isDown": false
     });
 
     var room5 = new Room({
@@ -64,7 +69,8 @@ Room.find(function(err, rooms) {
       "size": 4,
       "price": 20,
       "baseIPads":2,
-      "baseMics": 2
+      "baseMics": 2,
+      "isDown": false
     });
 
     var room6 = new Room({
@@ -73,7 +79,8 @@ Room.find(function(err, rooms) {
       "size": 8,
       "price": 30,
       "baseIPads":4,
-      "baseMics": 4
+      "baseMics": 4,
+      "isDown": false
     });
 
     var room7 = new Room({
@@ -82,7 +89,8 @@ Room.find(function(err, rooms) {
       "size": 8,
       "price": 30,
       "baseIPads":4,
-      "baseMics": 4
+      "baseMics": 4,
+      "isDown": false
     });
 
     var room8 = new Room({
@@ -91,7 +99,8 @@ Room.find(function(err, rooms) {
       "size": 8,
       "price": 30,
       "baseIPads":4,
-      "baseMics": 4
+      "baseMics": 4,
+      "isDown": false
     });
 
     var room9 = new Room({
@@ -100,7 +109,8 @@ Room.find(function(err, rooms) {
       "size": 8,
       "price": 45,
       "baseIPads":6,
-      "baseMics": 6
+      "baseMics": 6,
+      "isDown": false
     });
 
     var room10 = new Room({
@@ -109,7 +119,8 @@ Room.find(function(err, rooms) {
       "size": 8,
       "price": 45,
       "baseIPads":6,
-      "baseMics": 6
+      "baseMics": 6,
+      "isDown": false
     });
 
     // save all the rooms to mongo
