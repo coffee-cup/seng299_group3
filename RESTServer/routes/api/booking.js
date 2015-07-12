@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Booking = require('../../models/booking');
+var User = require('../../models/user');
 
 module.exports.getAllBookings = function(req, res) {
     Booking.find(function(err, bookings) {
@@ -11,7 +12,7 @@ module.exports.getAllBookings = function(req, res) {
 };
 
 
-module.exports.createBooking = function(req, res) {
+module.exports.createBooking = function(req, res, id) {
     var booking = new Booking();
     
     //gets all bookings on specified date for specified room
@@ -20,9 +21,18 @@ module.exports.createBooking = function(req, res) {
           res.send(err);
         }
 
+        //adds users username to booking
+        User.findById(id, function(err, user) {
+            if(err) {
+                res.send(err)
+            }
+            booking.username = user.username;
+        });
+
         //initializes booking
         booking.date = req.body.date;
-        booking.canceledStatus = req.body.canceledStatus;
+        booking.numberOfPeople = req.body.numberOfPeople;
+        booking.canceledStatus = false;
         booking.startTime = req.body.startTime;
         booking.endTime = req.body.endTime;
         booking.room = req.body.room; //does not do anything in postman

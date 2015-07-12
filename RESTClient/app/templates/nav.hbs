@@ -18,46 +18,50 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       <ul class="nav navbar-nav">
+     <ul class="nav navbar-nav">
 
-        <li class="active">{{#link-to 'schedule'}}Home{{/link-to}}</li>
-        <li>{{#link-to 'mybookings'}}My Bookings{{/link-to}}</li>
+      <li class="active">{{#link-to 'schedule'}}Home{{/link-to}}</li>
+      <li>{{#link-to 'mybookings'}}My Bookings{{/link-to}}</li>
 
-        <!-- Need the query-params date='', etc... to reset the query params - weird ember thing -->
-        <li>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li>
-        <li>{{#link-to 'about'}}About{{/link-to}}</li>
-      </ul>
+      <!-- Need the query-params date='', etc... to reset the query params - weird ember thing -->
+      <li>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li>
+      <li>{{#link-to 'about'}}About{{/link-to}}</li>
+    </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
 
-        {{#if auth.username}}
-          <!-- <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li> -->
-          <li>
-            <div id='profile-button' class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{auth.username}}</button>
-              <ul class="dropdown-menu">
-                <li>
-                  <div class="row">
-                    <div class="ul-first col-xs-6">Name:</div>
-                    <div class="ul-second col-xs-6">{{user.name}}</div>
-                  </div>
-                </li>
-                <div class="row">
-                    <div class="ul-first col-xs-6">Username:</div>
-                    <div class="ul-second col-xs-6">{{user.username}}</div>
-                  </div>
-                <li role="seperator" class="divider"></li>
-                <li>{{#link-to 'changepassword'}}Change Password{{/link-to}}</li>
-              </ul>
+      {{#if auth.username}}
+      <!-- <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li> -->
+      <li>
+        <div id='profile-button' class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{auth.username}}</button>
+          <ul class="dropdown-menu">
+            <li>
+              <div class="row">
+                <div class="ul-first col-xs-6">Name:</div>
+                <div class="ul-second col-xs-6">{{user.name}}</div>
+              </div>
+            </li>
+            <div class="row">
+              <div class="ul-first col-xs-6">Username:</div>
+              <div class="ul-second col-xs-6">{{user.username}}</div>
             </div>
-          </li>
-          <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
-        {{else}}
-          <li>{{#link-to 'login' (query-params n=na)}}Login{{/link-to}}</li>
-          <li>{{#link-to 'register' (query-params n=na)}}Register{{/link-to}}</li>
-        {{/if}}
-      </ul>
+            {{#if user.isAdmin}}
+              <li role="seperator" class="divider"></li>
+              <li>{{#link-to 'admin'}}Admin{{/link-to}}</li>
+            {{/if}}
+            <li role="seperator" class="divider"></li>
+            <li>{{#link-to 'changepassword'}}Change Password{{/link-to}}</li>
+          </ul>
+        </div>
+      </li>
+      <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
+      {{else}}
+      <li>{{#link-to 'login' (query-params n=na)}}Login{{/link-to}}</li>
+      <li>{{#link-to 'register' (query-params n=na)}}Register{{/link-to}}</li>
+      {{/if}}
+    </ul>
 
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
 </nav>

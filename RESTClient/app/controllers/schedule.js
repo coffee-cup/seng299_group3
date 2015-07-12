@@ -92,8 +92,18 @@ actions: {
 
     dateChanged: function() {
       var d = this.get('date');
+
+      // if date is older than today
       var today = new Date();
       if (d < today) {
+        this.send('setDateToday');
+        return;
+      }
+
+      // if date is past 2 weeks
+      var weeks = new Date();
+      weeks.setDate(today.getDate() + 14);
+      if (d > weeks) {
         this.send('setDateToday');
         return;
       }

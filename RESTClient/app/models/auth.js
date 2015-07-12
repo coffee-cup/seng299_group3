@@ -3,5 +3,6 @@ export default DS.Model.extend({
     accountID: DS.attr(),
     username: DS.attr(),
     name: DS.attr(),
+    isAdmin: DS.attr(),
     banned: DS.attr()
 });

@@ -11,10 +11,167 @@
 <body>  
 <div id="myTabContent" class="tab-content">
       <div align="center" class="tab-pane in active" id="current">
-      <p>current bookings</p>
-      </div>
+      <div class="sidebar-nav">
+        <div class="well">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Booking for {{user.name}}
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Number of People
+                </td>
+                <td>
+                  {{selectedGuests}}
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Date
+                </td>
+                <td>
+                  {{dateSelected}}
+                </td>
+                <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Room
+              </td>
+              <td>
+                {{selectedRoom.name}}
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Hours:
+              </td>
+              <td>
+                {{totalTime}}
+              </td>
+              <td>
+                {{priceRoom}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Microphones
+              </td>
+              <td>
+                {{selectedMicrophones}}
+              </td>
+              <td>
+                {{priceMicrophones}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of IPads
+              </td>
+              <td>
+                {{selectedIPads}}
+              </td>
+              <td>
+                {{priceIPads}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- well -->
+    </div><!-- sidebar -->      </div>
       <div align="center" class="tab-pane " id="past">
-       <p>past bookings</p> 
-      </div> 
+      <div class="sidebar-nav">
+        <div class="well">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Booking for {{user.name}}
+                </th>
+                <th>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Number of People
+                </td>
+                <td>
+                  {{selectedGuests}}
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Date
+                </td>
+                <td>
+                  {{dateSelected}}
+                </td>
+                <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Room
+              </td>
+              <td>
+                {{selectedRoom.name}}
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Hours:
+              </td>
+              <td>
+                {{totalTime}}
+              </td>
+              <td>
+                {{priceRoom}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of Microphones
+              </td>
+              <td>
+                {{selectedMicrophones}}
+              </td>
+              <td>
+                {{priceMicrophones}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Number of IPads
+              </td>
+              <td>
+                {{selectedIPads}}
+              </td>
+              <td>
+                {{priceIPads}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- well -->
+    </div><!-- sidebar -->
+  </div>
 </div>
 </body>

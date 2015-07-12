@@ -1,16 +1,19 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
+var Booking = require('./booking');
 
 var UserSchema = new Schema({
     name: String,
+    isAdmin: {type: Boolean},
     //username: { type: String},
     //password: { type: String},
-    banned: {type: Boolean, select: false},
-    
+    banned: {type: Boolean},
+
     // these seem to crash express with schema error. if this is only for me you can re-implement them.
     username: { type: String, required: true, index: {unique: true}},
-    password: { type: String, required: true, select: false}
+    password: { type: String, required: true},
+    bookings: [Booking]
 });
 
 //hash password before user is saved
@@ -18,7 +21,7 @@ UserSchema.pre('save', function(next) {
     var user = this;
 
     //hash password only if password has been changed or is new
-    if(!user.isModified('password')) 
+    if(!user.isModified('password'))
         return next();
 
     //generate the hash
