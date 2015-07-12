@@ -60,7 +60,15 @@ export default Ember.Route.extend({
     var _this = this;
     Ember.$.get(url, function(data) {
       if (data.rooms) {
-        _this.controllerFor('bookroom').set('rooms', data.rooms);
+        var unique_names = [];
+        var unique_rooms = [];
+        data.rooms.forEach(function(obj, i) {
+          if ($.inArray(obj.name, unique_names) == -1) {
+            unique_names.push(obj.name);
+            unique_rooms.push(obj);
+          }
+        });
+        _this.controllerFor('bookroom').set('rooms', unique_rooms);
       }
     });
   },
