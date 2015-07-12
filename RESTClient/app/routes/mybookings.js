@@ -6,6 +6,15 @@ export default Ember.Route.extend({
     }
   },
   model: function(){
-   this.controllerFor('mybookings');
+    var _this = this;
+
+    var c = this.controllerFor('application');
+    var auth = c.get('auth');
+    if (auth && auth.accountID) {
+      var url = c.get('SERVER_DOMAIN') + 'api/users/' + auth.accountID + '/bookings';
+      Ember.$.get(url, function(data) {
+        console.log(data)
+      });
+    }
   }
 });
