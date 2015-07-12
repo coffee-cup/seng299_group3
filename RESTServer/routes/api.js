@@ -34,13 +34,16 @@ router.route('/users/login')
 
 /* Booking routes */
 router.route('/bookings')
-    .post(function(req, res) { bookings.createBooking(req,res) })
     .get(function(req, res) { bookings.getAllBookings(req,res) });
 
 /* Single booking routes */
 router.route('/bookings/:booking_id')
     .get(function(req, res) { bookings.getSingleBooking(req, res, req.params.booking_id) })
     .delete(function(req, res) { bookings.deleteBooking(req, res, req.params.booking_id) });
+
+/* Create booking route */
+router.route('/users/:user_id/bookings')
+    .post(function(req, res) { bookings.createBooking(req,res, req.params.user_id) });
 
 /* Single Room routes */
 router.route('/rooms/:room_id')
