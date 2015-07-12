@@ -35,7 +35,16 @@ module.exports.createBooking = function(req, res, id) {
         booking.canceledStatus = false;
         booking.startTime = req.body.startTime;
         booking.endTime = req.body.endTime;
-        booking.room = req.body.room; //does not do anything in postman
+        
+        //check to ensure null objects are not passed in
+        //set to empty if object is null
+        if(req.body.room != null){
+            booking.room.push(req.body.room);
+        }
+        if(req.body.equipment != null){
+            booking.equipment.push(req.body.equipment);
+        }
+
 
         //error messages if booking times are between a different booking
         for(var i=0; i<datesBookings.length; i++){
@@ -63,7 +72,6 @@ module.exports.createBooking = function(req, res, id) {
                 }
 
                 user.bookings.push(booking);
-                console.log(user.bookings.length);
             
                 user.save(function(err) {
                     if(err) return res.send(err);
