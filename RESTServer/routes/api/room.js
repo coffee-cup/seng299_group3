@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
-var Room = require('../../models/room'); 
+var Room = require('../../models/room');
+var Equipment = require('../../models/equipment');
+
 
 module.exports.addRoom = function(req, res) {
     var room = new Room();
-    
+
     //set attributes of the room
     room.name = req.body.name;
     room.roomID = req.body.roomID;
@@ -16,8 +18,7 @@ module.exports.addRoom = function(req, res) {
         if(err) {
             //duplicate entry
             if(err.code == 11000)
-                return res.json({ success: false, messsage: 'A room with that name already exists. '
-                });
+                return res.json({ success: false, messsage: 'A room with that name already exists.'});
             else
                 return res.send(err);
             }
@@ -61,7 +62,7 @@ module.exports.updateRoom = function(req, res) {
         if(req.body.baseIPads) room.baseIPads = req.body.baseIPads;
 
         if(req.body.baseMics) room.baseMics = req.body.baseMics;
-        
+
         //save the room
         room.save(function(err) {
             if(err) res.send(err);
