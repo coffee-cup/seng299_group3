@@ -5,6 +5,11 @@ var posts = require('./api/post');
 var users = require('./api/user');
 var bookings = require('./api/booking');
 var rooms = require('./api/room');
+var bookroom = require('./api/bookroom');
+
+/* Bookroom routes */
+router.route('/bookroom')
+  .post(function(req, res) {bookroom.filterOptions(req, res) });
 
 /* Posts routes */
 router.route('/posts')

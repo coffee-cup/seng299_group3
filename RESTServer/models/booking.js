@@ -10,7 +10,7 @@ var BookingSchema = new Schema({
     canceledStatus: Boolean,
     startTime: Number, //temporarily set to number
     endTime: Number,    //temporarily set to number
-    room: Array,
+    room: [Room],
     equipment: Array
 });
 
