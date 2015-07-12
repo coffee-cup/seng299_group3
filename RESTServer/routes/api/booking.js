@@ -19,7 +19,7 @@ module.exports.createBooking = function(req, res, id) {
     var month = today.getMonth();
     var year = today.getFullYear();
 
-    var compareToday = new Date(year,month,day);
+    var noHoursToday = new Date(year,month,day);
 
     var twoWeeks = new Date(year,month,(day+14));
 
@@ -29,14 +29,6 @@ module.exports.createBooking = function(req, res, id) {
         if(err) {
           res.send(err);
         }
-
-        //adds users username to booking
-        User.findById(id, function(err, user) {
-            if(err) {
-                res.send(err)
-            }
-            booking.username = user.username;
-        });
 
         //initializes booking
         booking.date = req.body.date;
@@ -60,7 +52,7 @@ module.exports.createBooking = function(req, res, id) {
             return res.json({success: false, message: "Booking must be within two weeks of today"});
         }
         
-        if((booking.date <= compareToday)&&(booking.startTime < today.getHours())){
+        if((booking.date <= noHoursToday)&&(booking.startTime < today.getHours())){
             return res.json({success: false, message: "Cannot book on past dates" });
         }
 
@@ -77,32 +69,40 @@ module.exports.createBooking = function(req, res, id) {
                 return res.json({success: false, message: "Invalid. During current booking."});
             }
         }
-        
-        //save booking
-        booking.save(function(err) {
-            if(err) return res.send(err);
+        //adds users username to booking
+        User.findById(id, function(err, user) {
+            if(err) {
+                res.send(err)
+            }
+            //if user banned do not allow create booking
+            if((user.banned) && (user.bannedUntil > today)) {
+                return res.json({success: false, message: "User is banned" });
+           
+            }else {
+                user.banned = false;
+                user.bookings.push(booking);
+            
+                user.save(function(err) {
+                    if(err) return res.send(err);
+
+                });
+           
+                booking.username = user.username;
+            }
+
+
+            //save booking
+            booking.save(function(err) {
+                if(err) return res.send(err);
+
+                res.json({success: true, booking: booking});
+            });
 
         });
-            //add booking to users list of bookings
-            User.findById(id, function(err, user) {
-                if(err) {
-                    res.send(err);
-                }
-                if(user.banned) {
-                    return res.json({success: false, message: "User is banned" });
-                }else {
+    });
+};
 
-                    user.bookings.push(booking);
-            
-                    user.save(function(err) {
-                        if(err) return res.send(err);
 
-                    });
-                }
-                res.json({success: true, booking: booking});
-           
-            });
-        //res.json({success: true, booking: booking})was receiving erros on .getDate()
 
 module.exports.getAllBookings = function(req, res) {
   Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
@@ -192,9 +192,10 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
                 //ban user if cancel within 4 hours of booking startTime
                 if((Math.abs((booking.startTime - hours)) <= 4)&&(bookYear == year)&&(bookMonth == month)&&(bookDay == day)){
                     user.banned = true;
+                    user.bannedUntil = new Date(year, month, day, (hours+12));
                 }
                 user.bookings.splice(user.bookings.length-1, 1, booking);
-
+                
                 user.save(function(err) {
                     if(err) return res.send(err);
 
@@ -202,5 +203,15 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
             });
             
             res.sendStatus(200);
+    });
+};
+
+module.exports.deleteBooking = function(req, res, id) {
+    Booking.findByIdAndRemove(id, function(err, booking) {
+        if(err) {
+            res.send(err);
+        }
+
+        res.sendStatus(200);
     });
 };
