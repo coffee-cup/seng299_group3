@@ -105,7 +105,46 @@ module.exports.createBooking = function(req, res, id) {
 
 
 module.exports.getAllBookings = function(req, res) {
-  Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
+  var roomsize = 0;
+  switch (req.query.people) {
+    case 1:
+      roomsize = 2;
+      break;
+    case 2:
+      roomsize = 2;
+      break;
+    case 3:
+      roomsize = 4;
+      break;
+    case 4:
+      roomsize = 4;
+      break;
+    case 5:
+      roomsize = 8;
+      break;
+    case 6:
+      roomsize = 8;
+      break;
+    case 7:
+      roomsize = 8;
+      break;
+    case 8:
+      roomsize = 8;
+      break;
+    case 9:
+      roomsize = 12;
+      break;
+    case 10:
+      roomsize = 12;
+      break;
+    case 11:
+      roomsize = 12;
+      break;
+    case 12:
+      roomsize = 12;
+      break;
+  }
+  Booking.find({'date':req.query.date, 'people':roomsize}, function(err, bookings) {
     if(err) {
       res.send(err);
     }
@@ -140,7 +179,7 @@ module.exports.getAllBookings = function(req, res) {
       if(err) {
         res.send(err);
       }
-         for( var booking in bookings) {
+         for(var booking in bookings) {
 
          }
       res.json({bookings: bookings});
