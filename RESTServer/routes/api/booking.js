@@ -14,9 +14,16 @@ module.exports.getAllBookings = function(req, res) {
 
 module.exports.createBooking = function(req, res, id) {
     var booking = new Booking();
-    
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth();
+    var year = today.getFullYear();
+
+    var twoWeeks = new Date(year,month,(day+14));
+
     //gets all bookings on specified date for specified room
-    Booking.find({date: req.body.date, room: req.body.room}, function(err, datesBookings) {
+    //add in ,room: req.body.room as parameter once have room objects set up
+    Booking.find({date: req.body.date}, function(err, datesBookings) {
         if(err) {
           res.send(err);
         }
@@ -45,18 +52,26 @@ module.exports.createBooking = function(req, res, id) {
             booking.equipment.push(req.body.equipment);
         }
 
+        
+        //checks to ensure booking is within two weeks of todays date
+        if((booking.date > twoWeeks)){
+            return res.json({success: false, message: "Booking must be within two weeks of today"});
+        }
+        else if(booking.date < today){
+            return res.json({success: false, message: "Cannot book on past dates" });
+        }
 
         //error messages if booking times are between a different booking
         for(var i=0; i<datesBookings.length; i++){
             
             //if new booking start time is between a previous booking start and end time return message
             if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
-                return res.json({success: false, messages: "Invalid. During current booking."});
+                return res.json({success: false, message: "Invalid. During current booking."});
             }
 
             //if new booking end time is between a previous booking start and end time return message
             if((booking.endTime > datesBookings[i].startTime) && (booking.endTime <= datesBookings[i].endTime)){
-                return res.json({success: false, messages: "Invalid. During current booking."});
+                return res.json({success: false, message: "Invalid. During current booking."});
             }
         }
         
@@ -85,7 +100,6 @@ module.exports.createBooking = function(req, res, id) {
 
 
 //was receiving erros on .getDate()
-
 
 /*module.exports.getAllBookings = function(req, res) {
   Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
