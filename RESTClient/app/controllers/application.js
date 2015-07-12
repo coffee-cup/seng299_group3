@@ -35,4 +35,11 @@ export default Ember.Controller.extend({
     // var footerHeight = $('footer').height();
     // $('#wrapper').height(containerHeight - footerHeight + 20);
   },
+
+  actions: {
+    sendNotification: function(message, type) {
+      type = type || 'success';
+      $.notify(message, type);
+    }
+  }
 });

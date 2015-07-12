@@ -61,6 +61,9 @@ export default Ember.Controller.extend({
             _this.store.push('auth', auth);
             _this.set('controllers.application.auth', auth);
 
+            // make success notification
+            _this.get('controllers.application').send('sendNotification', 'Logged in as ' + user.username, 'success');
+
             var redirect = _this.get('redirect');
             if (redirect) {
               var q = {

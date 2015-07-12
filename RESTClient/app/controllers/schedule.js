@@ -3,6 +3,7 @@ var scope = {
 };
 
 export default Ember.Controller.extend({
+  needs: ['application'],
 
   // the day for the schedule view
   date: new Date(),
