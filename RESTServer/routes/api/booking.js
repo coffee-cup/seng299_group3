@@ -19,6 +19,8 @@ module.exports.createBooking = function(req, res, id) {
     var month = today.getMonth();
     var year = today.getFullYear();
 
+    var compareToday = new Date(year,month,day);
+
     var twoWeeks = new Date(year,month,(day+14));
 
     //gets all bookings on specified date for specified room
@@ -53,11 +55,12 @@ module.exports.createBooking = function(req, res, id) {
         }
 
         
-        //checks to ensure booking is within two weeks of todays date
+        //checks to ensure booking is within two weeks of todays date and is not before todays date
         if((booking.date > twoWeeks)){
             return res.json({success: false, message: "Booking must be within two weeks of today"});
         }
-        else if(booking.date < today){
+        
+        if((booking.date <= compareToday)&&(booking.startTime < today.getHours())){
             return res.json({success: false, message: "Cannot book on past dates" });
         }
 
@@ -85,15 +88,21 @@ module.exports.createBooking = function(req, res, id) {
                 if(err) {
                     res.send(err);
                 }
+                if(user.banned) {
+                    return res.json({success: false, message: "User is banned" });
+                }else {
 
-                user.bookings.push(booking);
+                    user.bookings.push(booking);
             
-                user.save(function(err) {
-                    if(err) return res.send(err);
+                    user.save(function(err) {
+                        if(err) return res.send(err);
 
-                });
+                    });
+                }
+                res.json({success: true, booking: booking});
+           
             });
-        res.json({success: true, booking: booking});
+        //res.json({success: true, booking: booking});
 
     });
 };
@@ -159,11 +168,47 @@ module.exports.getSingleBooking = function(req, res, id) {
     });
 };
 
-module.exports.deleteBooking = function(req, res, id) {
-    Booking.findByIdAndRemove(id, function(err) {
-        if(err) {
-            res.send(err);
-        }
-        res.sendStatus(200);
+module.exports.cancelBooking = function(req, res, user_id, booking_id){
+    var today = new Date();
+    var hours = today.getHours();
+    var day = today.getDate();
+    var month = today.getMonth();
+    var year = today.getFullYear();
+
+
+    Booking.findByIdAndRemove(booking_id, function(err, booking) {
+            if(err) {
+                res.send(err);
+            }
+            var bookDay = booking.date.getDate();
+            var bookMonth = booking.date.getMonth();
+            var bookYear = booking.date.getFullYear();
+
+            //set booking canceledStatus and save booking
+            booking.canceledStatus = true;
+
+            booking.save(function(err) {
+                if(err) return res.send(err);
+            });
+
+            //change canceled status of users booking
+            User.findById(user_id, function(err, user) {
+                if(err) {
+                    res.send(err);
+                }
+
+                //ban user if cancel within 4 hours of booking startTime
+                if((Math.abs((booking.startTime - hours)) <= 4)&&(bookYear == year)&&(bookMonth == month)&&(bookDay == day)){
+                    user.banned = true;
+                }
+                user.bookings.splice(user.bookings.length-1, 1, booking);
+
+                user.save(function(err) {
+                    if(err) return res.send(err);
+
+                });
+            });
+            
+            res.sendStatus(200);
     });
 };
