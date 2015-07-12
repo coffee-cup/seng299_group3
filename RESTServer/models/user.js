@@ -13,7 +13,8 @@ var UserSchema = new Schema({
     // these seem to crash express with schema error. if this is only for me you can re-implement them.
     username: { type: String, required: true, index: {unique: true}},
     password: { type: String, required: true},
-    bookings: [Booking]
+    bookings: Array
+    //bookings: [{ type: Schema.ObjectId, ref: 'Booking'}]    
 });
 
 //hash password before user is saved

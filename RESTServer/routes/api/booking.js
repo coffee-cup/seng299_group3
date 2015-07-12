@@ -50,21 +50,28 @@ module.exports.createBooking = function(req, res, id) {
                 return res.json({success: false, messages: "Invalid. During current booking."});
             }
         }
-
+        
         //save booking
         booking.save(function(err) {
             if(err) return res.send(err);
-           
-           //add booking to user who created the booking 
+
+        });
+            //add booking to users list of bookings
             User.findById(id, function(err, user) {
                 if(err) {
-                    res.send(err)
+                    res.send(err);
                 }
-                user.bookings.push(booking);
-            });    
 
-            res.json({success: true, booking: booking});
-        });
+                user.bookings.push(booking);
+                console.log(user.bookings.length);
+            
+                user.save(function(err) {
+                    if(err) return res.send(err);
+
+                });
+            });
+        res.json({success: true, booking: booking});
+
     });
 };
 
