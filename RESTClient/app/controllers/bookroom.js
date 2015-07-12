@@ -4,6 +4,7 @@ var scope = {
 
 export default Ember.Controller.extend({
   queryParams: ['hour', 'ampm', 'date', 'people', 'room_id'],
+  needs: ['application'],
 
   dateSelected: 1,
   selectedGuests: 0,
@@ -20,13 +21,6 @@ export default Ember.Controller.extend({
   dates: [1,2,3,4,5,6,7,8,9,10],
   sTimes: [4,5,6,7,8,9,10,11,12],
   eTimes: [5,6,7,8,9,10,11,12,1],
-
-  rooms: [
-    {name: 'Fox Double', size: 2, baseIPad: 1, baseMics: 1, price: 20},
-    {name: 'Fox Quad', size: 4, baseIPad: 2, baseMics: 2, price: 35},
-    {name: 'Fox Grande', size: 8, baseIPad: 4, baseMics: 4, price: 65},
-    {name: 'Fox Enorme', size: 12, baseIPad: 6, baseMics: 6, price: 80},
-  ],
 
    totalTime: function(){
      var s = parseInt(this.get('selectedSTime'));
@@ -74,14 +68,10 @@ export default Ember.Controller.extend({
      return this.get('priceRoom') + this.get('priceIPads') + this.get('priceMicrophones');
    }.property('priceRoom', 'priceIPads', 'priceMicrophones'),
 
+  // computed property for getting user
   user: function() {
-    var user = {
-      username: 'username',
-      name: 'Name',
-      accountID: 'id'
-    };
-    return user;
-  }.property(),
+    return this.get('controllers.application.auth');
+  }.property('controllers.application.auth'),
 
   getDates : function(){
     this.get('');

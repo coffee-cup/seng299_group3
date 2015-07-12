@@ -55,6 +55,22 @@ export default Ember.Route.extend({
 
     if (params.people) {c.set('people', params.people);}
     if (params.room_id) {c.set('room_id', params.room_id);}
+
+    var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms';
+    var _this = this;
+    Ember.$.get(url, function(data) {
+      if (data.rooms) {
+        var unique_names = [];
+        var unique_rooms = [];
+        data.rooms.forEach(function(obj, i) {
+          if ($.inArray(obj.name, unique_names) == -1) {
+            unique_names.push(obj.name);
+            unique_rooms.push(obj);
+          }
+        });
+        _this.controllerFor('bookroom').set('rooms', unique_rooms);
+      }
+    });
   },
 
   actions: {
