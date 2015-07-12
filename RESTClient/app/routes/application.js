@@ -8,6 +8,8 @@ export default Ember.Route.extend({
     var accountID = $.cookie('auth_accountID');
     var username = $.cookie('auth_username');
     var name = $.cookie('auth_name');
+    var isAdmin = $.cookie('isAdmin');
+    var banned = $.cookie('banned');
 
     var auth = {
       id: 1,
@@ -24,6 +26,8 @@ export default Ember.Route.extend({
       auth.accountID = accountID;
       auth.username = username;
       auth.name = name;
+      auth.banned = banned || false;
+      auth.isAdmin = isAdmin || false;
     }
 
     this.store.push('auth', auth);

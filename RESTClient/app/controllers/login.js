@@ -45,7 +45,6 @@ export default Ember.Controller.extend({
         }
         console.log(url);
         Ember.$.post(url, postData, function( data ) {
-          console.log(data);
           if (!data.user) {
             _this.set('error_message', data.message);
           } else {

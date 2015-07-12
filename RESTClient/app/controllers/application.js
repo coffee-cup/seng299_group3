@@ -14,10 +14,11 @@ export default Ember.Controller.extend({
       var auth = this.get('auth');
 
       if (auth.accountID && auth.username && auth.name) {
-        console.log('storing auth in cookies');
         Ember.$.cookie('auth_accountID', auth.accountID);
         Ember.$.cookie('auth_username', auth.username);
         Ember.$.cookie('auth_name', auth.name);
+        Ember.$.cookie('isAdmin', auth.isAdmin);
+        Ember.$.cookie('banned', auth.banned);
       }
     }.observes('auth'),
 
