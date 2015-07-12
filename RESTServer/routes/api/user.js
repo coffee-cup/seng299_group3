@@ -15,9 +15,6 @@ module.exports.addUser = function(req, res) {
 
     var user = new User();
 
-    console.log('test');
-    console.log(req.body);
-
     //set atrributes of the user
     user.name = req.body.name;
     user.isAdmin = req.body.isAdmin || false;
