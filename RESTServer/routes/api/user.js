@@ -4,7 +4,8 @@ var jwt = require('jsonwebtoken');
 var superSecret = 'ilovescotchscotchyscotchscotch'; //secret part to make JWT. from MEAN machine, can change if want
 
 module.exports.addUser = function(req, res) {
-    var user = new User();
+
+  console.log(req.body);
 
     // check if request has attributes
     if (!req.body.username || !req.body.password || !req.body.name) {
@@ -12,8 +13,14 @@ module.exports.addUser = function(req, res) {
       return;
     }
 
+    var user = new User();
+
+    console.log('test');
+    console.log(req.body);
+
     //set atrributes of the user
     user.name = req.body.name;
+    user.isAdmin = req.body.isAdmin || false;
     user.username = req.body.username;
     user.password = req.body.password;
     user.banned = false;
