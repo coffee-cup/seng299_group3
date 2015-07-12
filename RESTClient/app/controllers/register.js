@@ -73,6 +73,8 @@ export default Ember.Controller.extend({
               username: user.username
             };
 
+            _this.get('controllers.application').send('sendNotification', 'Registered account', 'success');
+
             _this.store.push('auth', auth);
             _this.set('controllers.application.auth', auth);
             var redirect = _this.get('redirect');

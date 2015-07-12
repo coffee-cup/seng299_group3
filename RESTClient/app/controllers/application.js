@@ -39,7 +39,10 @@ export default Ember.Controller.extend({
   actions: {
     sendNotification: function(message, type) {
       type = type || 'success';
-      $.notify(message, type);
+      $.notify(message, {
+        autoHideDelay: 2000,
+        className: type
+      });
     }
   }
 });
