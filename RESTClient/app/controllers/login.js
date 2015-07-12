@@ -1,5 +1,6 @@
 export default Ember.Controller.extend({
   needs: ['application'],
+  queryParams: ['n', 'hour', 'ampm', 'date', 'people', 'room_id'],
 
   error_username: false,
   error_password: false,
@@ -59,7 +60,24 @@ export default Ember.Controller.extend({
             // overwrite user in applications
             _this.store.push('auth', auth);
             _this.set('controllers.application.auth', auth);
-            _this.transitionToRoute('index');
+
+            // make success notification
+            _this.get('controllers.application').send('sendNotification', 'Logged in as ' + user.username, 'success');
+
+            var redirect = _this.get('redirect');
+            if (redirect) {
+              var q = {
+                // 'hour', 'ampm', 'date', 'people', 'room_id'
+                hour: _this.get('hour'),
+                ampm: _this.get('ampm'),
+                date: _this.get('date'),
+                people: _this.get('people'),
+                room_id: _this.get('room_id')
+              }
+              _this.transitionToRoute(redirect, {queryParams: q});
+            } else {
+              _this.transitionToRoute('index');
+            }
           }
         }).error(function(err) {
           // could not connect to server
@@ -72,6 +90,25 @@ export default Ember.Controller.extend({
       var auth = this.store.all('auth').objectAt(0);
       console.log(auth.id);
       console.log(auth.get('authToken'));
+    },
+
+    redirectAccount: function() {
+      var redirect = this.get('redirect');
+      if (redirect) {
+        var q = {
+          // 'hour', 'ampm', 'date', 'people', 'room_id'
+          hour: this.get('hour'),
+          ampm: this.get('ampm'),
+          date: this.get('date'),
+          people: this.get('people'),
+          room_id: this.get('room_id'),
+          n: redirect
+        };
+        console.log(q);
+        this.transitionToRoute('register', {queryParams: q});
+      } else {
+        this.transitionToRoute('register');
+      }
     }
   }
 });

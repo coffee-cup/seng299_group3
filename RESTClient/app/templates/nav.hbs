@@ -8,7 +8,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Foxy Karaoke</a>
+      <a class="navbar-brand" href="#">
+        <div id="nav-logo">
+          <img src="images/foxlogo.png">
+          Fox Karaoke
+        </div>
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,11 +33,19 @@
         {{#if auth.username}}
           <!-- <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li> -->
           <li>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{auth.username}}</button>
+            <div id='profile-button' class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{auth.username}}</button>
               <ul class="dropdown-menu">
-                <li>Username - {{user.username}}</li>
-                <li>Name {{user.name}}</li>
+                <li>
+                  <div class="row">
+                    <div class="ul-first col-xs-6">Name:</div>
+                    <div class="ul-second col-xs-6">{{user.name}}</div>
+                  </div>
+                </li>
+                <div class="row">
+                    <div class="ul-first col-xs-6">Username:</div>
+                    <div class="ul-second col-xs-6">{{user.username}}</div>
+                  </div>
                 <li role="seperator" class="divider"></li>
                 <li>{{#link-to 'changepassword'}}Change Password{{/link-to}}</li>
               </ul>
@@ -40,8 +53,8 @@
           </li>
           <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
         {{else}}
-          <li>{{#link-to 'login'}}Login{{/link-to}}</li>
-          <li>{{#link-to 'register'}}Register{{/link-to}}</li>
+          <li>{{#link-to 'login' (query-params n=na)}}Login{{/link-to}}</li>
+          <li>{{#link-to 'register' (query-params n=na)}}Register{{/link-to}}</li>
         {{/if}}
       </ul>
 
