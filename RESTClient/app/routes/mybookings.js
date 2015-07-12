@@ -13,7 +13,13 @@ export default Ember.Route.extend({
     if (auth && auth.accountID) {
       var url = c.get('SERVER_DOMAIN') + 'api/users/' + auth.accountID + '/bookings';
       Ember.$.get(url, function(data) {
-        console.log(data)
+        if (!data.past_bookings || !data.current_bookings) {
+          console.log('error getting user bookings from server');
+          return;
+        }
+
+        c.set('past_bookings', data.past_bookings);
+        c.set('current_bookings', data.current_bookings);
       });
     }
   }
