@@ -11,12 +11,12 @@ export default Ember.Route.extend({
     var isAdmin = $.cookie('isAdmin');
     var banned = $.cookie('banned');
 
+    // convert isAdmin to boolean
+    isAdmin = (isAdmin == 'true');
+
     var auth = {
       id: 1,
-      accountID: null,
-      authToken: null,
-      username: null,
-      name: null
+      authToken: null
     }
 
     // if user found in the cookies
