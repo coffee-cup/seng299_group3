@@ -5,6 +5,8 @@ $nav-colour: #0f3780;
 $dark-text: black;
 $light-text: white;
 $footer-colour: #09214D;
+$selection-text: white;
+$selection-highlight: #DB0A5B;
 
 $free-slot-colour: #D8EEFF;
 $taken-slot-colour: #001147;
@@ -23,6 +25,16 @@ $slot-hover-colour: #f351f9;
   height: -webkit-calc($value);
   height: -o-calc($value);
   height: calc($value);
+}
+
+::-moz-selection { /* Code for Firefox */
+    color: $selection-text;
+    background: $selection-highlight;
+}
+
+::selection {
+    color: $selection-text;
+    background: $selection-highlight;
 }
 
 img.blur { width:367; height:459px; -webkit-filter: blur(3px); filter: blur(3px); }
