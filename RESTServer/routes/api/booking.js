@@ -54,6 +54,14 @@ module.exports.createBooking = function(req, res, id) {
         //save booking
         booking.save(function(err) {
             if(err) return res.send(err);
+           
+           //add booking to user who created the booking 
+            User.findById(id, function(err, user) {
+                if(err) {
+                    res.send(err)
+                }
+                user.bookings.push(booking);
+            });    
 
             res.json({success: true, booking: booking});
         });
