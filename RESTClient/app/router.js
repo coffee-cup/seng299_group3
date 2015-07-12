@@ -15,6 +15,7 @@ Router.map(function() {
 
   this.route('login');
   this.route('logout');
+  this.route('admin');
 
   this.route('posts'); // example route
 });

@@ -45,6 +45,7 @@ export default Ember.Controller.extend({
         }
         console.log(url);
         Ember.$.post(url, postData, function( data ) {
+          console.log(data);
           if (!data.user) {
             _this.set('error_message', data.message);
           } else {
@@ -54,7 +55,9 @@ export default Ember.Controller.extend({
               authToken: null,
               accountID: user._id,
               name: user.name,
-              username: user.username
+              username: user.username,
+              banned: user.banned || false,
+              isAdmin: user.isAdmin || false
             };
 
             // overwrite user in applications

@@ -11,7 +11,7 @@ var UserSchema = new Schema({
 
     // these seem to crash express with schema error. if this is only for me you can re-implement them.
     username: { type: String, required: true, index: {unique: true}},
-    password: { type: String, required: true, select: false}
+    password: { type: String, required: true}
 });
 
 //hash password before user is saved
