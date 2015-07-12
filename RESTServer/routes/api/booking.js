@@ -102,15 +102,9 @@ module.exports.createBooking = function(req, res, id) {
                 res.json({success: true, booking: booking});
            
             });
-        //res.json({success: true, booking: booking});
+        //res.json({success: true, booking: booking})was receiving erros on .getDate()
 
-    });
-};
-
-
-//was receiving erros on .getDate()
-
-/*module.exports.getAllBookings = function(req, res) {
+module.exports.getAllBookings = function(req, res) {
   Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
     if(err) {
       res.send(err);
@@ -146,15 +140,13 @@ module.exports.createBooking = function(req, res, id) {
       if(err) {
         res.send(err);
       }
+         for( var booking in bookings) {
 
-      // FOR LOOP DOES NOT WORK IN JS
-      // for(booking b : bookings) {
-
-      // }
+         }
       res.json({bookings: bookings});
     });
   });
-};*/
+};
 
 module.exports.getSingleBooking = function(req, res, id) {
     Booking.findById(id, function(err, booking) {
