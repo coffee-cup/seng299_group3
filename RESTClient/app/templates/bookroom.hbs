@@ -46,9 +46,9 @@
         {{view "select" id="inputIPads" class="form-control" content=extraIPads value=selectedIPads}}
       </div>
 
-
-
-      <div {{action 'createBooking'}} id='create-booking-link' class="notAButton">Create Booking</div>
+      <div class="form-group">
+        <div {{action 'createBooking'}} id='create-booking-link' class="">Create Booking</div>
+      </div>
 
     </form>
   </div>
@@ -297,7 +297,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sml btn-danger" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-lrg" data-dismiss="modal">Confirm</button>
+        <button type="button" id="booking-confirm" class="btn btn-lrg" data-dismiss="modal">Confirm</button>
       </div>
     </div>
   </div>

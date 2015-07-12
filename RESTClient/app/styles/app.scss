@@ -225,7 +225,7 @@ nav {
   padding-right: 1em;
   padding-top: 1em;
   padding-left: 0;
-  text-align: right;
+  text-align: center;
 
   label {
     padding-top: 0.5em;
@@ -298,13 +298,27 @@ header {
 }
 
 #create-booking-link {
+  @extend .blue-button;
+
+  margin-top: 0.5em;
   text-align: center;
   font-size: 1.3em;
-  border: solid 1px grey;
-  padding: 1em;
-  margin-top: 0.2em;
   cursor: pointer;
-  @include border-radius(8px);
+}
+
+#booking-confirm {
+  background-color: $nav-colour;
+  color: white;
+}
+
+.user-link {
+  color: #337AB7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.user-link:hover {
+  color: #23527c;
 }
 
 // To make the grid split into 5 ways

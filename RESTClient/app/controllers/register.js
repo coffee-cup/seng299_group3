@@ -1,5 +1,6 @@
 export default Ember.Controller.extend({
   needs: ['application'],
+  queryParams: ['n', 'hour', 'ampm', 'date', 'people', 'room_id'],
 
   username: '',
   name: '',
@@ -72,9 +73,16 @@ export default Ember.Controller.extend({
               username: user.username
             };
 
+            _this.get('controllers.application').send('sendNotification', 'Registered account', 'success');
+
             _this.store.push('auth', auth);
             _this.set('controllers.application.auth', auth);
-            _this.transitionToRoute('index');
+            var redirect = _this.get('redirect');
+            if (redirect) {
+              _this.transitionToRoute(redirect);
+            } else {
+              _this.transitionToRoute('index');
+            }
           }
         }).error(function(err) {
           // could not connect to server
@@ -83,6 +91,25 @@ export default Ember.Controller.extend({
       } else {
         console.log('we have an error');
       }
+    },
+
+    redirectLogin: function() {
+      var redirect = this.get('redirect');
+      if (redirect) {
+        var q = {
+          // 'hour', 'ampm', 'date', 'people', 'room_id'
+          hour: this.get('hour'),
+          ampm: this.get('ampm'),
+          date: this.get('date'),
+          people: this.get('people'),
+          room_id: this.get('room_id'),
+          n: redirect
+        };
+        console.log(q);
+        this.transitionToRoute('login', {queryParams: q});
+      } else {
+        this.transitionToRoute('login');
+      }
     }
-  }
+  },
 });

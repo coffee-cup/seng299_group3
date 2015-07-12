@@ -16,7 +16,12 @@ export default Ember.Route.extend({
           accountID: null
         }
     this.store.push('auth', auth);
-    this.controllerFor('application').set('auth', auth)
+    this.controllerFor('application').set('auth', auth);
+
+    // give logging out alert
+    this.controllerFor('application').send('sendNotification', 'Successfully logged out');
+    console.log('calling this');
+
     this.transitionTo('index');
   }
 });

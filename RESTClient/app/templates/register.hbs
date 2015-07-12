@@ -29,7 +29,7 @@
         {{error_message}}
       </div>
       <button type="submit" class="blue-button btn btn-default">Register</button>
-      <span class="user-link">{{#link-to 'login'}}Already have an account? Login.{{/link-to}}</span>
+      <span class="user-link" {{action 'redirectLogin'}}>Already have an account? Login.</span>
     </form>
   </div>
 </div>

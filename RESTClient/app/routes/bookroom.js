@@ -2,14 +2,26 @@
 export default Ember.Route.extend({
 
   beforeModel: function() {
-    var auth = this.controllerFor('application').get('auth');
-    if (!auth || !auth.accountID) {
-     this.transitionTo('login', {queryParams: {n: 'bookroom'}});
-    }
+
   },
 
   model: function(params) {
-    var c = this.controllerFor('bookroom');
+    console.log(params);
+    var auth = this.controllerFor('application').get('auth');
+    // if there is no user logged in
+    if (!auth || !auth.accountID) {
+     this.transitionTo('login', {queryParams: {
+      n: 'bookroom',
+      hour: params.hour,
+      ampm: params.ampm,
+      date: params.date,
+      people: params.people,
+      room_id: params.room_id
+    }});
+     return;
+   }
+
+   var c = this.controllerFor('bookroom');
 
     // params.date, .hour, .ampm, .room_id, .people
     // to make request to server to check if that time is available

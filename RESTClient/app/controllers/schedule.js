@@ -3,6 +3,7 @@ var scope = {
 };
 
 export default Ember.Controller.extend({
+  needs: ['application'],
 
   // the day for the schedule view
   date: new Date(),
@@ -12,7 +13,7 @@ export default Ember.Controller.extend({
   // the number of people to make api call for get avaialbe rooms with
   num_people: 2,
 
-  people_options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12+'],
+  people_options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
 
   // called when the controller loads for first time
   // not when page is naviagted to
