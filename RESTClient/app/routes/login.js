@@ -26,5 +26,11 @@ export default Ember.Route.extend({
       if (params.people) c.set('people', params.people);
       if (params.room_id) c.set('room_id', params.room_id);
     }
+  },
+
+  actions: {
+    didTransition: function(queryParams) {
+      this.controllerFor('application').send('setActiveTab', 'Login');
+    }
   }
 });

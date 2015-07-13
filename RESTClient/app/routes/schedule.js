@@ -578,6 +578,8 @@ export default Ember.Route.extend({
 
   actions: {
     didTransition: function(params) {
+      this.controllerFor('application').send('setActiveTab', 'Home');
+
       // on the did transition of the page we want to load the datepicker
       // only if the page has been loaded
       this.controllerFor('schedule').send('transition');

@@ -13,10 +13,10 @@
     <div class="col-md-2 col-sm-12 sch-side">
       <div class="row">
 
-        <div class="col-md-12 col-sm-6 col-xs-6">
+        <div class="col-xs-12">
           <div class="row">
             <div class="col-sm-12 sch-people">
-              <div class="row form-group">
+              <div align="center" class="row form-group">
                 <label class="col-xs-7 control-label" for="formGroupInputSmall"># Of People</label>
                 <div class="col-xs-5">
                   {{view "select" id="sch-num-people" class="form-control" content=people_options value=num_people}}
@@ -24,7 +24,7 @@
               </div>
             </div>
 
-            <div class="col-sm-12 sch-cal">
+            <div align="center" class="col-sm-12 sch-cal">
               <div class="form-group">
                 {{bootstrap-datepicker-inline id=sch-calendar value=date}}
               </div>
