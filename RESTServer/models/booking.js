@@ -16,12 +16,16 @@ var BookingSchema = new Schema({
 
 var booking = mongoose.model('Booking', BookingSchema);
 
-var roomAvailability = function (date, bookings) {
+var roomAvailability = function (date, roomid, callback) {
   queryDate = new Date(date);
+  nextDate = new Date(queryDate);
+  nextDate.setDate(nextDate.getDate()+1);
   var bookingList = [];
-  //{$and : [{'date': { $gte : queryDate}}, {'date' : { $lte : queryDate.getDate() +1 }}]}
-
-    // console.log(bookings);
+  var availabilityList = [];
+  booking.find({'date': { $gte : queryDate, $lt : nextDate}, 'room.roomID' : roomid}, function(err, bookings) {
+    if(err) {
+      console.log(err);
+    }
     if ([0,5,6].indexOf(queryDate.getDay()) != -1){
       for(i = 14; i < 27; i++) {
         bookingList.push({
@@ -38,19 +42,21 @@ var roomAvailability = function (date, bookings) {
         });
       }
     }
-
     for(var slot in bookingList){
-      for(var booking in bookings) {
-        if (slot.time >= booking.startTime && slot.time <= booking.endTime){
-          slot.booked = true;
+      for(var currentBooking in bookings) {
+        if (bookingList[slot].time >= bookings[currentBooking].startTime && bookingList[slot].time <= bookings[currentBooking].endTime){
+          bookingList[slot].booked = true;
           break;
         }
       }
+      availabilityList.push(bookingList[slot]);
     }
-  return bookingList;
+  callback(availabilityList);
+  });
 }
 
 module.exports = {
   booking: booking,
   roomAvailability: roomAvailability
 }
+
