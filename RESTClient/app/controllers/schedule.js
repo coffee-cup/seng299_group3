@@ -6,8 +6,8 @@ export default Ember.Controller.extend({
   needs: ['application'],
 
   // the day for the schedule view
-  date: new Date(),
   today: new Date(),
+  date: new Date(),
 
   cannot_book_message: '',
   cannot_book: false,
