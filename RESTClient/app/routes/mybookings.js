@@ -18,8 +18,8 @@ export default Ember.Route.extend({
           return;
         }
 
-        c.set('past_bookings', data.past_bookings);
-        c.set('current_bookings', data.current_bookings);
+        this.controllerFor('mybookings').set('past_bookings', data.past_bookings);
+        this.controllerFor('mybookings').set('current_bookings', data.current_bookings);
       });
     }
   },
