@@ -57,8 +57,6 @@ export default Ember.Controller.extend({
           this.set('tabs.' + k, false);
         }
       }
-
-      console.log(this.get('tabs'));
     },
 
     sendNotification: function(message, type) {

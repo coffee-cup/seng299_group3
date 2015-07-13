@@ -106,7 +106,7 @@ Room.find(function(err, rooms) {
     var room9 = new Room({
       "name": "Fox Enorme",
       "roomID": 9,
-      "size": 8,
+      "size": 12,
       "price": 45,
       "baseIPads":6,
       "baseMics": 6,
@@ -116,7 +116,7 @@ Room.find(function(err, rooms) {
     var room10 = new Room({
       "name": "Fox Enorme",
       "roomID": 10,
-      "size": 8,
+      "size": 12,
       "price": 45,
       "baseIPads":6,
       "baseMics": 6,

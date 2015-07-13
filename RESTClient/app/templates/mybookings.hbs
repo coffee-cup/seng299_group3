@@ -1,6 +1,6 @@
 <header>
   <div class="header-content main-header">
-    <h1>My Bookings</h1>
+    <h1>{{user.name}}'s Bookings</h1>
     <hr>
   </div>
 </header>
@@ -10,178 +10,22 @@
 </ul>
 <body>
 
-{{#each current_booking as |booking|}}
-  {{booking.date}}
-{{/each}}
-
-{{#each past_booking as |booking|}}
-  {{booking.date}}
-{{/each}}
-
   <div id="myTabContent" class="tab-content">
-    <div align="center" class="tab-pane in active" id="current">
 
-      <div class="sidebar-nav">
-        <div class="well">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>
-                  Booking for {{user.name}}
-                </th>
-                <th>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  Number of People
-                </td>
-                <td>
-                  {{selectedGuests}}
-                </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Date
-                </td>
-                <td>
-                  {{dateSelected}}
-                </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Room
-                </td>
-                <td>
-                  {{selectedRoom.name}}
-                </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Number of Hours:
-                </td>
-                <td>
-                  {{totalTime}}
-                </td>
-                <td>
-                  {{priceRoom}}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Number of Microphones
-                </td>
-                <td>
-                  {{selectedMicrophones}}
-                </td>
-                <td>
-                  {{priceMicrophones}}
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Number of IPads
-                </td>
-                <td>
-                  {{selectedIPads}}
-                </td>
-                <td>
-                  {{priceIPads}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div><!-- well -->
-      </div><!-- sidebar -->      </div>
-      <div align="center" class="tab-pane " id="past">
-        <div class="sidebar-nav">
-          <div class="well">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>
-                    Booking for {{user.name}}
-                  </th>
-                  <th>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Number of People
-                  </td>
-                  <td>
-                    {{selectedGuests}}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Date
-                  </td>
-                  <td>
-                    {{dateSelected}}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Room
-                  </td>
-                  <td>
-                    {{selectedRoom.name}}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Number of Hours:
-                  </td>
-                  <td>
-                    {{totalTime}}
-                  </td>
-                  <td>
-                    {{priceRoom}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Number of Microphones
-                  </td>
-                  <td>
-                    {{selectedMicrophones}}
-                  </td>
-                  <td>
-                    {{priceMicrophones}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Number of IPads
-                  </td>
-                  <td>
-                    {{selectedIPads}}
-                  </td>
-                  <td>
-                    {{priceIPads}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div><!-- well -->
-        </div><!-- sidebar -->
+    <div align="center" class="tab-pane in active row" id="current">
+      <div class="col-sm-12 col-md-4 col-md-offset-4">
+        {{#each current_bookings as |booking|}}
+        {{#booking-grid booking=booking}}{{/booking-grid}}
+        {{/each}}
       </div>
     </div>
-  </body>
+
+    <div align="center" class="tab-pane row" id="past">
+      <div class="col-sm-12 col-md-5">
+        {{#each past_bookings as |booking|}}
+        {{#booking-grid booking=booking}}{{/booking-grid}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</body>

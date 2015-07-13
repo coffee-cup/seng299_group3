@@ -442,3 +442,47 @@ $dropDown       : false;
     background-image: none
 }
 
+#room-disable-form {
+  padding: 1em;
+}
+
+#disabled-rooms {
+  h3 {
+    border-bottom: solid 1px grey;
+  }
+
+  .disabled-room {
+    padding: 1em 0;
+    border: solid 1px grey;
+    @include border-radius(3px);
+    margin-bottom: 0.5em;
+  }
+
+  .room-enable {
+    color: $nav-colour;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.mb-definer {
+  text-align: left;
+  font-weight: 700;
+}
+
+.mb-value {
+  text-align: left
+}
+
+.booking-row {
+  background-color: rgb(230, 230, 230);
+  padding: 3em 0;
+  border-left: solid 2px $bgHighlight;
+  margin-bottom: 1.5em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#sch-howtouse {
+  padding-left: 0.5em;
+}
