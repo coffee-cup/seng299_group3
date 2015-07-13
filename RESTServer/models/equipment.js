@@ -2,8 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EquipmentSchema = new Schema({
-    equiptment_id: String,
-    type: String
+    equipment_id: Number,
+    type: String,
+    checkedOut: Boolean,
+    outDate: Date,
+    inDate: Date
     // bookingID: Number,
     //availability: wasn't sure what type for availablitity
 });
@@ -24,8 +27,11 @@ Equipment.find(function(err, ments) {
     var i;
     for(i=1;i<=10;i++) {
       var e = new Equipment({
-        equiptment_id: i,
-        type: 'ipad'
+        equipment_id: i,
+        type: 'ipad',
+        checkedOut: false,
+        outDate: new Date(),
+        inDate: new Date()
       });
       e.save();
     }
@@ -33,8 +39,10 @@ Equipment.find(function(err, ments) {
     // add 10 mics
     for(i=1;i<=10;i++) {
       var e = new Equipment({
-        equiptment_id: 10 + i,
-        type: 'mic'
+        equipment_id: 10 + i,
+        type: 'mic',
+        checkedOut: false,
+        outDate: new Date()
       });
       e.save();
     }
