@@ -92,8 +92,8 @@ actions: {
       var people = this.get('num_people');
 
       // localhost:7000/api/availability?day=13&month=7&year=2015&num_people=1
-
-      var url = this.get('domain') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + people;
+      var dateString = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+      var url = this.get('domain') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + people + '&date=' + dateString;
       var _this = this;
       Ember.$.get(url, function( data ) {
         console.log(data.rooms);

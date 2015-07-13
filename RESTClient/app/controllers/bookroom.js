@@ -115,9 +115,21 @@ export default Ember.Controller.extend({
 
   actions: {
     createBooking: function() {
-      console.log('test');
       $('#bookingConfirmModal').modal('show');
     },
 
+    createBookingServer: function() {
+
+      var postData = {
+        roomID: this.get('selectedRoom').roomID,
+        date: this.get('dateSelected'),
+        startTime: this.get('startTime'),
+        endTime: ghis.get('endTime'),
+        numberOfPeople: this.get('people'),
+        ipads: this.get('extraIpads'),
+        mics: this.get('extraMics')
+
+      }
+    }
   }
 });
