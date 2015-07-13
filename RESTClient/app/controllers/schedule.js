@@ -95,7 +95,9 @@ actions: {
       var dateString = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
       var url = this.get('domain') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + people + '&date=' + dateString;
       var _this = this;
+      console.log(url);
       Ember.$.get(url, function( data ) {
+        console.log(data);
         console.log(data.rooms);
         if (data.rooms) {
           _this.set('rooms', data.rooms);

@@ -32,6 +32,7 @@ export default Ember.Route.extend({
 
   if (params.date) {
     c.set('dateSelected', moment(d).format('dddd MMMM Do'));
+    c.set('dateReal', d);
   } else {
     values_from_query = false;
   }
@@ -70,8 +71,9 @@ export default Ember.Route.extend({
   }
 
   var dateString = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
-  var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + this.get('selectedGuests') + '&date=' + dateString;
+  var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + params.people + '&date=' + dateString;
   var _this = this;
+  console.log(url);
   Ember.$.get(url, function( data ) {
     var allRooms = [];
     var selectedRoom;
@@ -79,6 +81,8 @@ export default Ember.Route.extend({
       console.log('ERROR');
       return;
     }
+
+    console.log(data);
 
     data.rooms.forEach(function(obj, i) {
       obj.displayName = obj.roomID + ' - ' + obj.name;
@@ -92,6 +96,9 @@ export default Ember.Route.extend({
     var bc = _this.controllerFor('bookroom');
     bc.set('selectedRoom', selectedRoom);
     bc.set('roomDisplayName', selectedRoom.displayName);
+
+    console.log('SELECTED ROOM');
+    console.log(selectedRoom);
 
     var eTimes = [];
     var sTime = parseInt(params.hour);
@@ -120,6 +127,7 @@ export default Ember.Route.extend({
     });
     bc.set('eTimes', eTimes);
     bc.set('end', eTimes[0]);
+    bc.send('changeEquipment');
   });
 
 },
