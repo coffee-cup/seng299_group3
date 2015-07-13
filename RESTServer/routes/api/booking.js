@@ -102,54 +102,88 @@ module.exports.createBooking = function(req, res, id) {
     });
 };
 
-
-//was receiving erros on .getDate()
-
-/*module.exports.getAllBookings = function(req, res) {
-  Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
-    if(err) {
-      res.send(err);
+module.exports.getAllBookings = function(req, res) {
+    var roomsize = 0;
+    switch (req.query.people) {
+        case 1:
+            roomsize = 2;
+            break;
+        case 2:
+            roomsize = 2;
+            break;
+        case 3:
+            roomsize = 4;
+            break;
+        case 4:
+            roomsize = 4;
+            break;
+        case 5:
+            roomsize = 8;
+            break;
+        case 6:
+            roomsize = 8;
+            break;
+        case 7:
+            roomsize = 8;
+            break;
+        case 8:
+            roomsize = 8;
+            break;
+        case 9:
+            roomsize = 12;
+            break;
+        case 10:
+            roomsize = 12;
+            break;
+        case 11:
+            roomsize = 12;
+            break;
+        case 12:
+            roomsize = 12;
+            break;
     }
-    var bookingList = [];
-    if ([0,5,6].indexOf(req.query.date.getDay()) != -1){
-      for(i = 14; i < 25; i++) {
-        bookingList.push({
-          "booked": false,
-          "time"  : i
-        });
-      }
-      for(i = 1; i < 3; i++) {
-        bookingList.push({
-          "booked": false,
-          "time"  : i
-        });
-      }
+    Booking.find({'date':req.query.date, 'people':roomsize}, function(err, bookings) {
+        if(err) {
+            res.send(err);
+        }
+        var bookingList = [];
+        if ([0,5,6].indexOf(req.query.date.getDay()) != -1){
+            for(i = 14; i < 25; i++) {
+            bookingList.push({
+                "booked": false,
+                "time"  : i
+            });
+        }
+        for(i = 1; i < 3; i++) {
+            bookingList.push({
+                "booked": false,
+                "time"  : i
+            });
+        }
 
-    } else {
-      for(i = 16; i < 25; i++) {
-        bookingList.push({
-          "booked": false,
-          "time"  : i
+        } else {
+        for(i = 16; i < 25; i++) {
+            bookingList.push({
+                "booked": false,
+                "time"  : i
+            });
+        }
+            bookingList.push({
+                "booked": false,
+                "time"  : i
+            });
+        }
+        bookings.sort({'startTime': 1}).toArray(function(err, bookings) {
+        if(err) {
+            res.send(err);
+        }
+        for(var booking in bookings) {
+
+        }
+        res.json({bookings: bookings});
         });
-      }
-      bookingList.push({
-        "booked": false,
-        "time"  : i
-      });
-    }
-    bookings.sort({'startTime': 1}).toArray(function(err, bookings) {
-      if(err) {
-        res.send(err);
-      }
-
-      // FOR LOOP DOES NOT WORK IN JS
-      // for(booking b : bookings) {
-
-      // }
-      res.json({bookings: bookings});
     });
-  });
-};*/
+};
 
 module.exports.getSingleBooking = function(req, res, id) {
     Booking.findById(id, function(err, booking) {
@@ -206,6 +240,27 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
             });
             
             res.sendStatus(200);
+    });
+};
+
+module.exports.findBookingsForUser = function(req, res, id) {
+    User.findById(id, function(err, user) {
+        if (!user) {
+            return res.json({success: false, message: 'No user with that id'});
+        }
+        var past_bookings = [];
+        var current_bookings = [];
+        var today = new Date();
+
+        user.bookings.forEach(function(b) {
+        if (b.date > today) {
+            current_bookings.push(b);
+        } else {
+            past_bookings.push(b);
+        }
+        });
+
+        return res.json({past_bookings: past_bookings, current_bookings: current_bookings});
     });
 };
 
