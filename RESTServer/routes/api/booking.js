@@ -119,9 +119,8 @@ module.exports.createBooking = function(req, res, id) {
                                                 }
                                             }
 
-
         //gets all bookings on specified date for specified room
-        Booking.booking.find({date: req.body.date, room: room}, function(err, datesBookings) {
+        Booking.booking.find({date: req.body.date, roomId: room.roomId}, function(err, datesBookings) {
             if(err) {
             res.send(err);
             }
@@ -146,10 +145,14 @@ module.exports.createBooking = function(req, res, id) {
 
             //error messages if booking times are between a different booking
             for(var i=0; i<datesBookings.length; i++){
-                console.log('test');
+                console.log(datesBookings[i].startTime);
+                console.log("end "+datesBookings[i].endTime);
                 //if new booking start time is between a previous booking start and end time return message
                 if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
                     return res.json({success: false, message: "Invalid. During current booking."});
+                }else if((bookings.startTime < datesBooking[i].startTime)&&(booking.startTime <= datesBooking[i].endTime)){
+                    return res.json({success: false, message: "Invalid. During current booking."});
+
                 }
 
                 //if new booking end time is between a previous booking start and end time return message
