@@ -11,31 +11,42 @@
 
     <div class="row">
 
-      <div class="col-xs-8 sch-people">
+      <form id="room-disable-form" class="form-horizontal">
         <div class="form-group">
-          <label class="col-xs-5 control-label">
-            Room
-          </label>
-          <div class="col-xs-7">
-            {{view "select" id="sch-num-people" class="form-control" content=room_options value=selected_room optionLabelPath="content.name"}}
+          <label for="inputEmail3" class="col-sm-2 control-label">Room</label>
+          <div class="col-sm-5">
+            {{view "select" id="sch-num-people" class="form-control" content=rooms value=selected_room optionLabelPath="content.displayName"}}
+          </div>
+          <div class="col-sm-4">
+            <button {{action 'disableRoom'}} class="blue-button btn btn-default">Disable</button>
           </div>
         </div>
-      </div>
-
-      <div class="col-xs-5 sch-cal">
-        <div class="form-group">
-          {{bootstrap-datepicker placeholder="Click to play" class="form-control" value=date}}
-        </div>
-      </div>
+      </form>
 
     </div>
+
   </div>
 </div>
 
-<div class="row">
+<div id="disabled-rooms" class="row">
   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
 
     <h3>Current Disabled Rooms</h3>
+
+      {{#each down_rooms as |room|}}
+        <div class="disabled-room row">
+          <div class="col-xs-2">
+            {{room.roomID}}
+          </div>
+          <div class="col-xs-6">
+            {{room.name}}
+          </div>
+          <div {{action 'enableRoom' room._id}} class="room-enable col-xs-4">
+            Enable
+          </div>
+        </div>
+      {{/each}}
+
   </div>
 </div>
 

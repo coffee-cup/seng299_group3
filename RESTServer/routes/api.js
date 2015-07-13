@@ -14,7 +14,7 @@ router.route('/posts')
 /* Single post routes */
 router.route('/posts/:post_id')
 	.get(function(req, res) { posts.getSinglePost(req, res, req.params.post_id) })
-	.put(function(req, res) { posts.updatePost(req, res, req.params.post_id) })
+	.post(function(req, res) { posts.updatePost(req, res, req.params.post_id) })
 	.delete(function(req, res) { posts.deletePost(req, res, req.params.post_id) });
 
 /* Users routes */
@@ -25,7 +25,7 @@ router.route('/users')
 /* Single user routes */
 router.route('/users/:user_id')
     .get(function(req, res) { users.getSingleUser(req, res, req.params.user_id) })
-    .put(function(req, res) { users.updateUser(req, res, req.params.user_id) })
+    .post(function(req, res) { users.updateUser(req, res, req.params.user_id) })
     .delete(function(req, res) { users.deleteUser(req, res, req.params.user_id) });
 
 /* Login route*/
@@ -53,7 +53,7 @@ router.route('/users/:user_id/bookings')
 /* Single Room routes */
 router.route('/rooms/:room_id')
     .get(function(req, res) { rooms.getSingleRoom(req,res) })
-    .put(function(req, res) { rooms.updateRoom(req,res) });
+    .post(function(req, res) { rooms.updateRoom(req,res) });
 
 /* Multi Room routes */
 router.route('/rooms')
