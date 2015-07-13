@@ -110,11 +110,11 @@ module.exports.getRoomAvailability = function(req, res) {
             allBooked = false;
           }
         }
-<<<<<<< HEAD
       }
       if(!allBooked){
         return res.json({rooms: posRooms});
       } else {
+        posRooms = [];
         index++;
         populateResponse(roomSize[index]);
       }
@@ -137,7 +137,6 @@ module.exports.getRoomAvailability = function(req, res) {
                 price: room[0].price
               }
             posRooms.push(roomInstance);
-            console.log(posRooms);
             numThreads--;
             if(numThreads == 0){
               returnRooms();
