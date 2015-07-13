@@ -28,7 +28,15 @@ module.exports.addRoom = function(req, res) {
 };
 
 module.exports.getAllRooms = function(req, res) {
-    Room.find(function(err, rooms) {
+
+    var search = {isDown: false};
+    // if isDown is in the query,
+    // the search by isDown=value
+    if (req.query.isDown) {
+        search.isDown = (req.query.isDown == 'true');
+    }
+
+    Room.find(search, null, {sort: {roomID: 1}}, function(err, rooms) {
         if (err) {
             res.send(err);
         }
@@ -46,10 +54,18 @@ module.exports.getSingleRoom = function(req, res) {
 };
 
 module.exports.updateRoom = function(req, res) {
+    console.log(req.params.room_id);
     Room.findById(req.params.room_id, function(err, room) {
         if (err) {
-            res.send(err);
+            return res.send({success: false, message: 'Error retrieving room'});
         }
+
+        if (!room) {
+            return res.json({success: false, message: 'Could not find room with that id'});
+        }
+
+        console.log(req.body);
+
         //only updates values present in the request
         if(req.body.name) room.name = req.body.name;
 
@@ -63,12 +79,14 @@ module.exports.updateRoom = function(req, res) {
 
         if(req.body.baseMics) room.baseMics = req.body.baseMics;
 
+        if (req.body.isDown) room.isDown = req.body.isDown;
+
         //save the room
         room.save(function(err) {
             if(err) res.send(err);
 
             //return a message
-            res.json({message: 'Room updated'});
+            res.json({room: room});
         });
     });
 };
