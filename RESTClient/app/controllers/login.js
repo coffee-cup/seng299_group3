@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   error_password: false,
   error_message: '',
 
-  domain_path: 'api/users/login',
+  domain_path: 'api/login',
   domain: function() {
     return this.get('controllers.application.SERVER_DOMAIN');
   }.property(),

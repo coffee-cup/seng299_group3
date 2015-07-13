@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
 
     // get rooms that are NOT down
     Ember.$.get(url + '?isDown=false', function(data) {
+
       if (data.rooms) {
 
         var rooms = [];
