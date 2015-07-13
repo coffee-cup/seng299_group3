@@ -38,7 +38,7 @@ export default Ember.Route.extend({
       hours.push(h);
       hours.push(h+1);
       hours.push(h+2);
-      console.log(hours);
+      console.log("hours " +hours);
       c.set('hours', hours);
       var eHours = hours.slice(1,hours.length);
       console.log(eHours);
@@ -60,10 +60,45 @@ export default Ember.Route.extend({
       c.set('selectedSTime', null);
     }
 
-    if (params.date) {c.set('date', new Date(params.date));}
-    else {c.set('date', null);}
+    var dates = [];
+    var d = new Date();
+    var lastDay = new Date();
+    lastDay.setDate(lastDay.getDate()+14);
 
-    if (params.people) {c.set('people', params.people);}
+    for(var i = 0; i <= 14; i++){
+      var temp = new Date();
+      temp.setDate(temp.getDate()+i);
+      dates.push(temp.toDateString());
+    }
+    if (params.date) {
+      console.log('param date: ' + params.date);
+      var pDate = new Date(params.date);
+      console.log("pDate: " + pDate.toDateString()  );
+      console.log("days: " + pDate.getDate());
+      pDate = pDate.toDateString();
+      // var dates = [pDate].concat(dates);
+      // dates.unshift(pDate);
+     //  dates.push(d);
+    }else{
+      dates.unshift('');
+    }
+    c.set('dates', dates);
+    c.set('datePicked', false);
+
+
+    var numGuests = [];
+    for(var i = 0; i < 11; i++){
+      numGuests.push(i);
+    }
+    if (params.people) {
+      //var numGuests = [params.people].concat(numGuests);
+      //numGuests.unshift(String(params.people))
+      c.set('selectedGuests', params.people);
+      console.log(params.people);
+      c.set('guestsPicked', true);
+    }
+    c.set('numGuests', numGuests);
+
     if (params.room_id) {c.set('room_id', params.room_id);}
 
     var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms';
@@ -71,7 +106,6 @@ export default Ember.Route.extend({
 
     console.log('URL-->   ' + url);
     Ember.$.get(url, function(data) {
-      console.log('I better be in here');
       if (data.rooms) {
         var allRooms = [];
         allRooms.push('Choose A Room...');
@@ -79,13 +113,12 @@ export default Ember.Route.extend({
           obj.displayName = obj.roomID + ' - ' + obj.name;
           allRooms.push(obj);
         });
-        console.log('the line below this is important');
-        console.log(data.rooms);
         _this.controllerFor('bookroom').set('rooms', allRooms);
         _this.controllerFor('bookroom').set('selectedRoom', allRooms[0]);
         _this.controllerFor('bookroom').set('showStartTime', false);
       }
     });
+
   },
 
   actions: {
