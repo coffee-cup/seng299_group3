@@ -70,7 +70,7 @@ export default Ember.Route.extend({
   }
 
   var dateString = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
-  var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + people + '&date=' + dateString;
+  var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + this.get('selectedGuests') + '&date=' + dateString;
   var _this = this;
   Ember.$.get(url, function( data ) {
     var allRooms = [];

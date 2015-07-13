@@ -68,6 +68,10 @@ export default Ember.Controller.extend({
     return selectedRoom.price;
   },
 
+  endTimeChanged: function() {
+    this.send('changeEquipment');
+  }.observes('end'),
+
   // dateSelectionChanged: function(){
   //   this.set('datePicked', true);
   //   console.log('date changed');
@@ -114,21 +118,28 @@ export default Ember.Controller.extend({
   // }.observes('selectedIPads'),
 
   actions: {
+    changeEquipment: function() {
+      console.log('change me');
+
+      // get extra mics
+      var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/bookroom/';
+    },
+
     createBooking: function() {
       $('#bookingConfirmModal').modal('show');
     },
 
     createBookingServer: function() {
+      var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms/' + selectedRoom._id;
 
       var postData = {
         roomID: this.get('selectedRoom').roomID,
         date: this.get('dateSelected'),
         startTime: this.get('startTime'),
         endTime: ghis.get('endTime'),
-        numberOfPeople: this.get('people'),
+        numberOfPeople: this.get('selectedGuests'),
         ipads: this.get('extraIpads'),
         mics: this.get('extraMics')
-
       }
     }
   }
