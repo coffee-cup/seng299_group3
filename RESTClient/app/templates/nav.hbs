@@ -20,12 +20,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
      <ul class="nav navbar-nav">
 
-      <li class="active">{{#link-to 'schedule'}}Home{{/link-to}}</li>
-      <li>{{#link-to 'mybookings'}}My Bookings{{/link-to}}</li>
+      <li class={{if tabs.Home 'active'}}>{{#link-to 'schedule'}}Home{{/link-to}}</li>
+      <li class={{if tabs.MyBookings 'active'}}>{{#link-to 'mybookings'}}My Bookings{{/link-to}}</li>
 
       <!-- Need the query-params date='', etc... to reset the query params - weird ember thing -->
-      <li>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li>
-      <li>{{#link-to 'about'}}About{{/link-to}}</li>
+      <li class={{if tabs.MakeBooking 'active'}}>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li>
+      <li class={{if tabs.About 'active'}}>{{#link-to 'about'}}About{{/link-to}}</li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
@@ -57,8 +57,8 @@
       </li>
       <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
       {{else}}
-      <li>{{#link-to 'login' (query-params n=na)}}Login{{/link-to}}</li>
-      <li>{{#link-to 'register' (query-params n=na)}}Register{{/link-to}}</li>
+      <li class={{if tabs.Login 'active'}}>{{#link-to 'login' (query-params n=na)}}Login{{/link-to}}</li>
+      <li class={{if tabs.Register 'active'}}>{{#link-to 'register' (query-params n=na)}}Register{{/link-to}}</li>
       {{/if}}
     </ul>
 

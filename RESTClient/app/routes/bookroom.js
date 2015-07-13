@@ -75,7 +75,7 @@ export default Ember.Route.extend({
 
   actions: {
     didTransition: function(queryParams) {
-      // called everytime page is tranistioned to
+      this.controllerFor('application').send('setActiveTab', 'MakeBooking');
     }
   }
 });

@@ -22,5 +22,11 @@ export default Ember.Route.extend({
         c.set('current_bookings', data.current_bookings);
       });
     }
+  },
+
+  actions: {
+    didTransition: function(queryParams) {
+      this.controllerFor('application').send('setActiveTab', 'MyBookings');
+    }
   }
 });

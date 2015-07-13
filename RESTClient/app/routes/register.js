@@ -31,5 +31,11 @@ export default Ember.Route.extend({
       console.log('penis');
       console.log(params);
     }
+  },
+
+  actions: {
+    didTransition: function(queryParams) {
+      this.controllerFor('application').send('setActiveTab', 'Register');
+    }
   }
 });

@@ -3,7 +3,7 @@ var Room = require('../../models/room');
 var Equipment = require('../../models/equipment');
 var Booking = require('../../models/booking');
 
-function filterRoomsForPeople() {
+function filterRoomsForPeople(num_people, rooms) {
 
 }
 

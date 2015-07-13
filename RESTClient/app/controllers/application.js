@@ -9,6 +9,16 @@ export default Ember.Controller.extend({
     // so we can use null in the template
     na: null,
 
+    // tabs and whether or not they are selected or not
+    tabs: {
+      Home: true,
+      MyBookings: false,
+      MakeBooking: false,
+      About: false,
+      Login: false,
+      Register: false
+    },
+
     // if the auth object changes, then reset values in cookies
     authChanged: function() {
       var auth = this.get('auth');
@@ -38,6 +48,19 @@ export default Ember.Controller.extend({
   },
 
   actions: {
+    setActiveTab: function(tab) {
+      var tabs = this.get('tabs');
+      for (var k in tabs) {
+        if (k == tab) {
+          this.set('tabs.' + k, true);
+        } else {
+          this.set('tabs.' + k, false);
+        }
+      }
+
+      console.log(this.get('tabs'));
+    },
+
     sendNotification: function(message, type) {
       type = type || 'success';
       $.notify(message, {
