@@ -24,33 +24,21 @@
       {{#if showSelectedRoom}}
       <div class="form-group">
         <label for="sel1">Select Room:</label>
-        {{view "select" id="inputRoom" class="form-control" content=rooms optionLabelPath="content.displayName" value=selectedRoom.id}}
+        {{view "select" id="inputRoom" class="form-control" content=rooms optionLabelPath="content.displayName" value=selectedRoom}}
       </div>
       {{/if}}
 
       {{#if showStartTime}}
       <div class="form-group">
         <label for="sel1">Start Time:</label>
-        {{view "select" id="inputSTime" class="form-control" content=hours value=start}}
+        {{view "select" id="inputSTime" class="form-control" content=sTimes value=start}}
       </div>
       {{/if}}
 
       {{#if showEndTime}}
       <div class="form-group">
         <label for="sel1">End Time:</label>
-        {{view "select" id="inputETime" class="form-control" content=eHours value=end}}
-
-        <select class="form-control" value=end>
-          <option data-hidden="true">
-            Choose
-          </option>
-
-          {{#each eHours as |e|}}
-            <option>
-              {{e}}
-            </option>
-          {{/each}}
-        </select>
+        {{view "select" id="inputETime" class="form-control" content=eTimes value=end}}
       </div>
       {{/if}}
 

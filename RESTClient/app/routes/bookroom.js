@@ -74,6 +74,7 @@ export default Ember.Route.extend({
       console.log('I better be in here');
       if (data.rooms) {
         var allRooms = [];
+        allRooms.push('Choose A Room...');
         data.rooms.forEach(function(obj, i) {
           obj.displayName = obj.roomID + ' - ' + obj.name;
           allRooms.push(obj);
@@ -81,7 +82,8 @@ export default Ember.Route.extend({
         console.log('the line below this is important');
         console.log(data.rooms);
         _this.controllerFor('bookroom').set('rooms', allRooms);
-        _this.controllerFor('bookroom').set('selectedRooms', allRooms[0])
+        _this.controllerFor('bookroom').set('selectedRoom', allRooms[0]);
+        _this.controllerFor('bookroom').set('showStartTime', false);
       }
     });
   },

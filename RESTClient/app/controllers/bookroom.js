@@ -28,7 +28,6 @@ export default Ember.Controller.extend({
   selectedMicrophones: 0,
 
   //BACKEND CALL THIS PART
-  selectedRoom: ["Choose a Room..."],
   numGuests: [0,1,2,3,4,5,6,7,8,9,10,11,12],
   extraMicrophones: [0,1,2,3,4,5,6,7,8,9,10],
   extraIPads: [0,1,2,3,4,5,6,7,8,9,10],
@@ -128,8 +127,10 @@ export default Ember.Controller.extend({
   }.observes('selectedGuests'),
 
   roomSelectionChanged: function(){
+    console.log('room changed');
     this.set('showStartTime', true);
-  }.observes('selectedRoom.id'),
+    console.log(this.get('showStartTime'));
+  }.observes('selectedRoom'),
 
   startTimeChanged: function(){
     this.set('showEndTime', true);
