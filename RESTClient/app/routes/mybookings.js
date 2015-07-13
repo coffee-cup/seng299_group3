@@ -18,12 +18,11 @@ export default Ember.Route.extend({
           return;
         }
 
-        this.controllerFor('mybookings').set('past_bookings', data.past_bookings);
-        this.controllerFor('mybookings').set('current_bookings', data.current_bookings);
+        _this.controllerFor('mybookings').set('past_bookings', data.past_bookings);
+        _this.controllerFor('mybookings').set('current_bookings', data.current_bookings);
       });
     }
   },
-
   actions: {
     didTransition: function(queryParams) {
       this.controllerFor('application').send('setActiveTab', 'MyBookings');
