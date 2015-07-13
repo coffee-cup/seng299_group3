@@ -31,12 +31,19 @@ export default Ember.Route.extend({
     // parse the date depending on ampm etc
     if (params.hour && (params.ampm=='am' || params.ampm=='pm') && parseInt(params.hour)) {
       var h = parseInt(params.hour);
-
+      var hours = [];
+      hours.push(h);
+      hours.push(h+1);
+      console.log(hours);
+      c.set('hours', hours);
+      var eHours = hours.slice(1,2);
+      console.log(eHours);
+      c.set('eHours', eHours);
       // convert to 24-hour time - easier to work with
       if (params.ampm == 'pm') {
         h = h + 12;
       }
-      c.set('selectedSTime', h);
+
 
       var endTime = h + 1;
       if (endTime >= 24) {
@@ -65,6 +72,7 @@ export default Ember.Route.extend({
           obj.displayName = obj.roomID + ' - ' + obj.name;
           allRooms.push(obj);
         });
+        console.log(allRooms);
         _this.controllerFor('bookroom').set('rooms', allRooms);
       }
     });

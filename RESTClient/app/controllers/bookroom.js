@@ -6,7 +6,6 @@ export default Ember.Controller.extend({
   queryParams: ['hour', 'ampm', 'date', 'people', 'room_id'],
   needs: ['application'],
 
-  dateSelected: 1,
   selectedGuests: 0,
   selectedSTime: 4,
   selectedETime: 5,

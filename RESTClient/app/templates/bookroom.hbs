@@ -20,6 +20,7 @@
         {{view "select" id="inputGuests" class="form-control" content=numGuests value=selectedGuests}}
       </div>
 
+      <!--
       <div class="form-group">
         <label for="sel1">Start Time:</label>
         {{view "select" id="inputSTime" class="form-control" content=sTimes value=selectedSTime}}
@@ -29,7 +30,17 @@
         <label for="sel1">End Time:</label>
         {{view "select" id="inputETime" class="form-control" content=eTimes value=selectedETime}}
       </div>
+      -->
 
+      <div class="form-group">
+        <label for="sel1">Start Time:</label>
+        {{view "select" id="inputSTime" class="form-control" content=hours}}
+      </div>
+
+      <div class="form-group">
+        <label for="sel1">End Time:</label>
+        {{view "select" id="inputETime" class="form-control" content=eHours}}
+      </div>
 
       <div class="form-group">
         <label for="sel1">Select Room:</label>
