@@ -44,7 +44,7 @@ var roomAvailability = function (date, roomid, callback) {
     }
     for(var slot in bookingList){
       for(var currentBooking in bookings) {
-        if (bookingList[slot].time >= bookings[currentBooking].startTime && bookingList[slot].time <= bookings[currentBooking].endTime){
+        if (bookingList[slot].time >= bookings[currentBooking].startTime && bookingList[slot].time < bookings[currentBooking].endTime){
           bookingList[slot].booked = true;
           break;
         }

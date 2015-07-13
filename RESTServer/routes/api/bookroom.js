@@ -12,7 +12,7 @@ module.exports.getAvailableEquipment = function(req, res) {
 
     var date = req.query.date ;
     Booking.booking.find({'date': { $gte : new Date(date)}, 'canceledStatus': false}, function(err, bookings) {
-        console.log(bookings);      
+        console.log(bookings);
         if (err) {
             res.send(err);
         }
