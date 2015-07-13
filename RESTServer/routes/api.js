@@ -5,11 +5,6 @@ var posts = require('./api/post');
 var users = require('./api/user');
 var bookings = require('./api/booking');
 var rooms = require('./api/room');
-var bookroom = require('./api/bookroom');
-
-/* Bookroom routes */
-router.route('/bookroom')
-  .post(function(req, res) {bookroom.filterOptions(req, res) });
 
 /* Posts routes */
 router.route('/posts')
@@ -42,12 +37,13 @@ router.route('/bookings/:booking_id')
     .get(function(req, res) { bookings.getSingleBooking(req, res, req.params.booking_id) })
     .delete(function(req, res) { bookings.deleteBooking(req, res, req.params.booking_id) });
 
-/* Cancel Booking Route */ 
+/* Cancel Booking Route */
 router.route('/users/:user_id/bookings/:booking_id')
     .delete(function(req, res) { bookings.cancelBooking(req, res, req.params.user_id, req.params.booking_id) });
 
 /* Create booking route */
 router.route('/users/:user_id/bookings')
+    .get(function(req, res) {bookings.findBookingsForUser(req, res, req.params.user_id) })
     .post(function(req, res) { bookings.createBooking(req,res, req.params.user_id) });
 
 /* Single Room routes */

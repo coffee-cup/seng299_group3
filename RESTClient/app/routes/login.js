@@ -2,8 +2,12 @@
 export default Ember.Route.extend({
   beforeModel: function() {
     // reset input values
-    this.controllerFor('login').set('username', '');
-    this.controllerFor('login').set('password', '');
+    var c = this.controllerFor('login');
+    c.set('username', '');
+    c.set('password', '');
+    c.set('error_username', false);
+    c.set('error_password', false);
+    c.set('error_message', '');
   },
 
   model: function(params) {
@@ -25,6 +29,12 @@ export default Ember.Route.extend({
       if (params.date) c.set('date', params.date);
       if (params.people) c.set('people', params.people);
       if (params.room_id) c.set('room_id', params.room_id);
+    }
+  },
+
+  actions: {
+    didTransition: function(queryParams) {
+      this.controllerFor('application').send('setActiveTab', 'Login');
     }
   }
 });

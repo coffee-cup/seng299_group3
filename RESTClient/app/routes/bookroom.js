@@ -6,7 +6,6 @@ export default Ember.Route.extend({
   },
 
   model: function(params) {
-    console.log(params);
     var auth = this.controllerFor('application').get('auth');
     // if there is no user logged in
     if (!auth || !auth.accountID) {
@@ -58,6 +57,7 @@ export default Ember.Route.extend({
 
     var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms';
     var _this = this;
+
     Ember.$.get(url, function(data) {
       if (data.rooms) {
         var unique_names = [];
@@ -75,7 +75,7 @@ export default Ember.Route.extend({
 
   actions: {
     didTransition: function(queryParams) {
-      // called everytime page is tranistioned to
+      this.controllerFor('application').send('setActiveTab', 'MakeBooking');
     }
   }
 });

@@ -6,6 +6,27 @@ export default Ember.Route.extend({
     }
   },
   model: function(){
-   this.controllerFor('mybookings');
+    var _this = this;
+
+    var c = this.controllerFor('application');
+    var auth = c.get('auth');
+    if (auth && auth.accountID) {
+      var url = c.get('SERVER_DOMAIN') + 'api/users/' + auth.accountID + '/bookings';
+      Ember.$.get(url, function(data) {
+        if (!data.past_bookings || !data.current_bookings) {
+          console.log('error getting user bookings from server');
+          return;
+        }
+
+        this.controllerFor('mybookings').set('past_bookings', data.past_bookings);
+        this.controllerFor('mybookings').set('current_bookings', data.current_bookings);
+      });
+    }
+  },
+
+  actions: {
+    didTransition: function(queryParams) {
+      this.controllerFor('application').send('setActiveTab', 'MyBookings');
+    }
   }
 });
