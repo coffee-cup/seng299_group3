@@ -119,7 +119,6 @@ export default Ember.Controller.extend({
 
   actions: {
     changeEquipment: function() {
-      console.log('change me');
 
       var postData = {
         date: this.get('dateReal'),
@@ -132,7 +131,7 @@ export default Ember.Controller.extend({
       var query = '?date=' + dateString + '&startTime=' + this.get('startTime') + '&endTime=' + this.get('end').tf + '&type=' + 'm';
       // get extra mics
       var selectedRoom = this.get('selectedRoom');
-      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/bookroom/' + query;
+      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/bookrooms/' + query;
       console.log(url)
       Ember.$.get(url, function(data) {
         console.log(data);

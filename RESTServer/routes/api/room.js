@@ -3,7 +3,7 @@ var Room = require('../../models/room');
 var Booking = require('../../models/booking.js');
 
 module.exports.addRoom = function(req, res) {
-    var room = new Room();
+  var room = new Room();
 
     //set attributes of the room
     room.name = req.body.name;
@@ -15,15 +15,15 @@ module.exports.addRoom = function(req, res) {
     room.isDown = req.body.isDown;
 
     room.save(function(err) {
-        if(err) {
-            res.send(err);
-        }
+      if(err) {
+        res.send(err);
+      }
         // this returns the room so that after the room has been created, the data can be used in the view
         res.json({room: room});
-    });
-};
+      });
+  };
 
-module.exports.getAllRooms = function(req, res) {
+  module.exports.getAllRooms = function(req, res) {
     var search = {
       isDown: false
     }
@@ -31,27 +31,27 @@ module.exports.getAllRooms = function(req, res) {
       search.isDown = true
     }
     Room.find(search, null, function(err, rooms) {
-        if (err) {
-            res.send(err);
-        }
-        res.json({rooms: rooms});
+      if (err) {
+        res.send(err);
+      }
+      res.json({rooms: rooms});
     });
-};
+  };
 
-module.exports.getSingleRoom = function(req, res) {
+  module.exports.getSingleRoom = function(req, res) {
     Room.findById(req.params.room_id, function(err, room) {
-        if (err) {
-            res.send(err);
-        }
-        res.json({room: room});
+      if (err) {
+        res.send(err);
+      }
+      res.json({room: room});
     });
-};
+  };
 
-module.exports.updateRoom = function(req, res) {
+  module.exports.updateRoom = function(req, res) {
     Room.findById(req.params.room_id, function(err, room) {
-        if (err) {
-            res.send(err);
-        }
+      if (err) {
+        res.send(err);
+      }
         //only updates values present in the request
         if(req.body.name) room.name = req.body.name;
 
@@ -69,19 +69,19 @@ module.exports.updateRoom = function(req, res) {
 
         //save the room
         room.save(function(err) {
-            if(err) res.send(err);
+          if(err) res.send(err);
 
             //return a message
             res.json({room: room});
-        });
-    });
-};
+          });
+      });
+  };
 
-module.exports.getRoomAvailability = function(req, res) {
+  module.exports.getRoomAvailability = function(req, res) {
     Room.find({ isDown: false }, null, {sort: {roomID: 1}}, function(err, rooms) {
-        if (err) {
-            res.send(err);
-        }
+      if (err) {
+        res.send(err);
+      }
 
         //var size = 0;
         var size = req.query.num_people;
@@ -101,7 +101,10 @@ module.exports.getRoomAvailability = function(req, res) {
 
         var posRooms = [];
         function returnRooms(){
-          return res.json({rooms: posRooms});
+          var sorted = posRooms.sort(function(a, b) {
+            return a.roomID - b.roomID;
+          });
+          return res.json({rooms: sorted});
         }
         var numThreads = 0;
         console.log(roomIds);
@@ -109,26 +112,28 @@ module.exports.getRoomAvailability = function(req, res) {
           numThreads++;
           Booking.roomAvailability(date, roomIds[i], function(times, roomid){
             Room.find({roomID: roomid}, null, {sort: {roomID: 1}}, function(err, room) {
-            var roomInstance = {
-              times: times,
-              name: room[0].name,
-              size: room[0].size,
-              roomID: roomid,
-              date: date,
-              people: size,
-              baseMics: room[0].baseMics,
-              baseIPads: room[0].baseIPads,
-              price: room[0].price
-            }
-            console.log(roomInstance);
-            posRooms.push(roomInstance);
-            console.log(posRooms);
-            numThreads--;
-              if(numThreads == 0){
-                returnRooms();
+              if (room.length > 0) {
+                var roomInstance = {
+                  times: times,
+                  name: room[0].name,
+                  size: room[0].size,
+                  roomID: roomid,
+                  date: date,
+                  people: size,
+                  baseMics: room[0].baseMics,
+                  baseIPads: room[0].baseIPads,
+                  price: room[0].price
+                }
+                console.log(roomInstance);
+                posRooms.push(roomInstance);
+                console.log(posRooms);
+                numThreads--;
+                if(numThreads == 0){
+                  returnRooms();
+                }
               }
             });
           });
         }
-    });
+      });
 };
