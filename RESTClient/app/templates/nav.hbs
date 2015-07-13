@@ -24,7 +24,7 @@
       <li class={{if tabs.MyBookings 'active'}}>{{#link-to 'mybookings'}}My Bookings{{/link-to}}</li>
 
       <!-- Need the query-params date='', etc... to reset the query params - weird ember thing -->
-      <li class={{if tabs.MakeBooking 'active'}}>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li>
+      <!-- <li class={{if tabs.MakeBooking 'active'}}>{{#link-to 'bookroom' (query-params date='' ampm='' room_id='' hour='')}}Make Booking{{/link-to}}</li> -->
       <li class={{if tabs.About 'active'}}>{{#link-to 'about'}}About{{/link-to}}</li>
     </ul>
 
