@@ -118,7 +118,7 @@ module.exports.getRoomAvailability = function(req, res) {
               people: size,
               baseMics: room[0].baseMics,
               baseIPads: room[0].baseIPads,
-              price: room.price
+              price: room[0].price
             }
             console.log(roomInstance);
             posRooms.push(roomInstance);
