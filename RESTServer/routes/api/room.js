@@ -89,7 +89,7 @@ module.exports.getRoomAvailability = function(req, res) {
         var roomIds;
         if (size == 0) {
           size = 12;
-        } else if (size == 1) {
+        } else if (size == 1 || size == 2) {
           roomIds = [1,2]
         } else if (size >= 3 && size <= 4) {
           roomIds = [3,4,5]
