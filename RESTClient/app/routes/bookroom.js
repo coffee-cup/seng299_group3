@@ -38,7 +38,7 @@ export default Ember.Route.extend({
       hours.push(h);
       hours.push(h+1);
       hours.push(h+2);
-      console.log(hours);
+      console.log("hours " +hours);
       c.set('hours', hours);
       var eHours = hours.slice(1,hours.length);
       console.log(eHours);
@@ -60,8 +60,30 @@ export default Ember.Route.extend({
       c.set('selectedSTime', null);
     }
 
-    if (params.date) {c.set('date', new Date(params.date));}
-    else {c.set('date', null);}
+    var dates = [];
+    dates.push('');
+    var d = new Date();
+    console.log("hopefully today: " + d);
+    var lastDay = new Date();
+    lastDay.setDate(lastDay.getDate()+14);
+    console.log(lastDay);
+    if (params.date) {
+      c.set('date', new Date(params.date));
+      //dates.push(d);
+    }
+    else {
+      c.set('date', new Date());
+      //dates.push(d);
+    }
+    for(var i = 0; i <= 14; i++){
+      var temp = new Date();
+      temp.setDate(temp.getDate()+i);
+      dates.push(temp);
+    }
+    c.set('dates', dates);
+
+
+    console.log(c.get('date'));
 
     if (params.people) {c.set('people', params.people);}
     if (params.room_id) {c.set('room_id', params.room_id);}
@@ -86,6 +108,7 @@ export default Ember.Route.extend({
         _this.controllerFor('bookroom').set('showStartTime', false);
       }
     });
+
   },
 
   actions: {
