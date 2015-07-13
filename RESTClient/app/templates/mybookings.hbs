@@ -1,6 +1,6 @@
 <header>
   <div class="header-content main-header">
-    <h1>My Bookings</h1>
+    <h1>{{user.name}}'s Bookings</h1>
     <hr>
   </div>
 </header>
@@ -10,178 +10,83 @@
 </ul>
 <body>
 
-{{#each current_booking as |booking|}}
+<!-- {{#each current_bookings as |booking|}}
   {{booking.date}}
-{{/each}}
+{{/each}} -->
 
-{{#each past_booking as |booking|}}
+<!-- {{#each past_booking as |booking|}}
   {{booking.date}}
-{{/each}}
+{{/each}} -->
 
   <div id="myTabContent" class="tab-content">
     <div align="center" class="tab-pane in active" id="current">
-
+      {{#each current_bookings as |booking|}}
       <div class="sidebar-nav">
         <div class="well">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>
-                  Booking for {{user.name}}
-                </th>
-                <th>
-                </th>
+                <th>Booking for {{booking.date}}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>
-                  Number of People
-                </td>
-                <td>
-                  {{selectedGuests}}
-                </td>
-                <td>
-                </td>
+                <td>Number of People</td>
+              <td>{{booking.numberOfPeople}}</td>
               </tr>
               <tr>
-                <td>
-                  Date
-                </td>
-                <td>
-                  {{dateSelected}}
-                </td>
-                <td>
-                </td>
+                <td>Room</td>
+              <td>{{booking.room}}</td>
               </tr>
               <tr>
-                <td>
-                  Room
-                </td>
-                <td>
-                  {{selectedRoom.name}}
-                </td>
-                <td>
-                </td>
+                <td>Start Time</td>
+              <td>{{booking.startTime}}</td>
               </tr>
               <tr>
-                <td>
-                  Number of Hours:
-                </td>
-                <td>
-                  {{totalTime}}
-                </td>
-                <td>
-                  {{priceRoom}}
-                </td>
+                <td>End Time</td>
+              <td>{{booking.endTime}}</td>
               </tr>
               <tr>
-                <td>
-                  Number of Microphones
-                </td>
-                <td>
-                  {{selectedMicrophones}}
-                </td>
-                <td>
-                  {{priceMicrophones}}
-                </td>
+                <td>Number of Microphones</td>
+               <!-- <td>{{booking.equipment}}</td> -->
+              <!--  <td>{{priceMicrophones}}</td> -->
               </tr>
               <tr>
-                <td>
-                  Number of IPads
-                </td>
-                <td>
-                  {{selectedIPads}}
-                </td>
-                <td>
-                  {{priceIPads}}
-                </td>
+                <td>Number of IPads</td>
+              <!--  <td>{{booking.equipment}}</td> -->
+             <!--   <td>{{priceIPads}}</td> -->
               </tr>
             </tbody>
           </table>
         </div><!-- well -->
-      </div><!-- sidebar -->      </div>
+      </div><!-- sidebar --> 
+      {{/each}}      
+</div>
       <div align="center" class="tab-pane " id="past">
+      {{#each past_bookings as |booking|}}
         <div class="sidebar-nav">
           <div class="well">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>
-                    Booking for {{user.name}}
-                  </th>
-                  <th>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Number of People
-                  </td>
-                  <td>
-                    {{selectedGuests}}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Date
-                  </td>
-                  <td>
-                    {{dateSelected}}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Room
-                  </td>
-                  <td>
-                    {{selectedRoom.name}}
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Number of Hours:
-                  </td>
-                  <td>
-                    {{totalTime}}
-                  </td>
-                  <td>
-                    {{priceRoom}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Number of Microphones
-                  </td>
-                  <td>
-                    {{selectedMicrophones}}
-                  </td>
-                  <td>
-                    {{priceMicrophones}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Number of IPads
-                  </td>
-                  <td>
-                    {{selectedIPads}}
-                  </td>
-                  <td>
-                    {{priceIPads}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Booking for {{booking.date}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{booking.room}} Room</td>
+                <td>{{booking.numberOfPeople}} People</td>
+                <td>{{booking.startTime}} - {{booking.endTime}}</td>
+              </tr>
+              <tr>
+                <td>Microphones</td>
+                <td> IPads</td>
+              </tr>
+            </tbody>
+          </table>
           </div><!-- well -->
         </div><!-- sidebar -->
+        {{/each}}
       </div>
     </div>
   </body>
