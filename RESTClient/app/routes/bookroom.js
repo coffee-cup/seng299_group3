@@ -37,9 +37,10 @@ export default Ember.Route.extend({
       var hours = [];
       hours.push(h);
       hours.push(h+1);
+      hours.push(h+2);
       console.log(hours);
       c.set('hours', hours);
-      var eHours = hours.slice(1,2);
+      var eHours = hours.slice(1,hours.length);
       console.log(eHours);
       c.set('eHours', eHours);
       // convert to 24-hour time - easier to work with
@@ -68,15 +69,19 @@ export default Ember.Route.extend({
     var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms';
     var _this = this;
 
+    console.log('URL-->   ' + url);
     Ember.$.get(url, function(data) {
+      console.log('I better be in here');
       if (data.rooms) {
         var allRooms = [];
         data.rooms.forEach(function(obj, i) {
           obj.displayName = obj.roomID + ' - ' + obj.name;
           allRooms.push(obj);
         });
-        console.log(allRooms);
+        console.log('the line below this is important');
+        console.log(data.rooms);
         _this.controllerFor('bookroom').set('rooms', allRooms);
+        _this.controllerFor('bookroom').set('selectedRooms', allRooms[0])
       }
     });
   },
