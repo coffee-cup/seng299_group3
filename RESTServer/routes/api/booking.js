@@ -23,16 +23,16 @@ module.exports.createBooking = function(req, res, id) {
         if(err) {
             res.send(err);
         }
-        if(req.body.numberOfPeople > room[0].size){
+        if(req.body.numberOfPeople > room.size){
             return res.json({success: false, message: "Too many people for room size"});
         }
-        if(room[0].size == 4){
-            if(req.body.numberOfPeople <= (room[0].size-2)){
+        if(room.size == 4){
+            if(req.body.numberOfPeople <= (room.size-2)){
               return res.json({success: false, message: "Not enough people for this room"});
               }
         }
-        if(room[0].size > 4){
-            if(req.body.numberOfPeople <= (room[0].size-4)){
+        if(room.size > 4){
+            if(req.body.numberOfPeople <= (room.size-4)){
               return res.json({success: false, message: "Not enough people for this room"});
             }
         }
