@@ -111,14 +111,14 @@ module.exports.getRoomAvailability = function(req, res) {
               console.log(room)
             var roomInstance = {
               times: times,
-              name: room.name,
-              size: room.size,
+              name: room[0].name,
+              size: room[0].size,
               roomID: roomIds[i],
               date: date,
               people: size,
-              baseMics: room.baseMics,
-              baseIPads: room.baseIPads,
-              price: room.price
+              baseMics: room[0].baseMics,
+              baseIPads: room[0].baseIPads,
+              price: room[0].price
             }
             posRooms.push(roomInstance);
             numThreads--;
