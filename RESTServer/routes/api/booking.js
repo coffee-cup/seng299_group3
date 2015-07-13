@@ -3,38 +3,32 @@ var Booking = require('../../models/booking');
 var User = require('../../models/user');
 
 module.exports.getAllBookings = function(req, res) {
-    Booking.find(function(err, bookings) {
-        if(err) {
-            res.send(err);
-        }
-        res.json({success: true, bookings:bookings});
-    });
+  Booking.find(function(err, bookings) {
+    if(err) {
+      res.send(err);
+    }
+    res.json({success: true, bookings:bookings});
+  });
 };
 
 
 module.exports.createBooking = function(req, res, id) {
-    var booking = new Booking();
-    var today = new Date();
-    var day = today.getDate();
-    var month = today.getMonth();
-    var year = today.getFullYear();
+  var booking = new Booking();
+  var today = new Date();
+  var day = today.getDate();
+  var month = today.getMonth();
+  var year = today.getFullYear();
 
-    var twoWeeks = new Date(year,month,(day+14));
+  var noHoursToday = new Date(year,month,day);
+
+  var twoWeeks = new Date(year,month,(day+14));
 
     //gets all bookings on specified date for specified room
     //add in ,room: req.body.room as parameter once have room objects set up
     Booking.find({date: req.body.date}, function(err, datesBookings) {
-        if(err) {
-          res.send(err);
-        }
-
-        //adds users username to booking
-        User.findById(id, function(err, user) {
-            if(err) {
-                res.send(err)
-            }
-            booking.username = user.username;
-        });
+      if(err) {
+        res.send(err);
+      }
 
         //initializes booking
         booking.date = req.body.date;
@@ -46,19 +40,20 @@ module.exports.createBooking = function(req, res, id) {
         //check to ensure null objects are not passed in
         //set to empty if object is null
         if(req.body.room != null){
-            booking.room.push(req.body.room);
+          booking.room.push(req.body.room);
         }
         if(req.body.equipment != null){
-            booking.equipment.push(req.body.equipment);
+          booking.equipment.push(req.body.equipment);
         }
 
 
         //checks to ensure booking is within two weeks of todays date
         if((booking.date > twoWeeks)){
-            return res.json({success: false, message: "Booking must be within two weeks of today"});
+          return res.json({success: false, message: "Booking must be within two weeks of today"});
         }
-        else if(booking.date < today){
-            return res.json({success: false, message: "Cannot book on past dates" });
+
+        if((booking.date <= noHoursToday)&&(booking.startTime < today.getHours())){
+          return res.json({success: false, message: "Cannot book on past dates" });
         }
 
         //error messages if booking times are between a different booking
@@ -66,43 +61,91 @@ module.exports.createBooking = function(req, res, id) {
 
             //if new booking start time is between a previous booking start and end time return message
             if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
-                return res.json({success: false, message: "Invalid. During current booking."});
+              return res.json({success: false, message: "Invalid. During current booking."});
             }
 
             //if new booking end time is between a previous booking start and end time return message
             if((booking.endTime > datesBookings[i].startTime) && (booking.endTime <= datesBookings[i].endTime)){
-                return res.json({success: false, message: "Invalid. During current booking."});
+              return res.json({success: false, message: "Invalid. During current booking."});
             }
-        }
+          }
 
-        //save booking
-        booking.save(function(err) {
-            if(err) return res.send(err);
+        //adds users username to booking
+        User.findById(id, function(err, user) {
+          if(err) {
+            res.send(err)
+          }
+            //if user banned do not allow create booking
+            if((user.banned) && (user.bannedUntil > today)) {
+              return res.json({success: false, message: "User is banned" });
 
-        });
-            //add booking to users list of bookings
-            User.findById(id, function(err, user) {
-                if(err) {
-                    res.send(err);
-                }
+            }else {
+              user.banned = false;
+              user.bookings.push(booking);
 
-                user.bookings.push(booking);
+              user.save(function(err) {
+                if(err) return res.send(err);
 
-                user.save(function(err) {
-                    if(err) return res.send(err);
+              });
 
-                });
+              booking.username = user.username;
+            }
+
+
+            //save booking
+            booking.save(function(err) {
+              if(err) return res.send(err);
+
+              res.json({success: true, booking: booking});
             });
-        res.json({success: true, booking: booking});
 
-    });
+          });
+      });
 };
 
 
-//was receiving erros on .getDate()
 
-/*module.exports.getAllBookings = function(req, res) {
-  Booking.find({'date':req.query.date, 'people':req.query.people}, function(err, bookings) {
+module.exports.getAllBookings = function(req, res) {
+  var roomsize = 0;
+  switch (req.query.people) {
+    case 1:
+    roomsize = 2;
+    break;
+    case 2:
+    roomsize = 2;
+    break;
+    case 3:
+    roomsize = 4;
+    break;
+    case 4:
+    roomsize = 4;
+    break;
+    case 5:
+    roomsize = 8;
+    break;
+    case 6:
+    roomsize = 8;
+    break;
+    case 7:
+    roomsize = 8;
+    break;
+    case 8:
+    roomsize = 8;
+    break;
+    case 9:
+    roomsize = 12;
+    break;
+    case 10:
+    roomsize = 12;
+    break;
+    case 11:
+    roomsize = 12;
+    break;
+    case 12:
+    roomsize = 12;
+    break;
+  }
+  Booking.find({'date':req.query.date, 'people':roomsize}, function(err, bookings) {
     if(err) {
       res.send(err);
     }
@@ -137,35 +180,33 @@ module.exports.createBooking = function(req, res, id) {
       if(err) {
         res.send(err);
       }
+      for(var booking in bookings) {
 
-      // FOR LOOP DOES NOT WORK IN JS
-      // for(booking b : bookings) {
-
-      // }
+      }
       res.json({bookings: bookings});
     });
   });
-};*/
+};
 
 module.exports.getSingleBooking = function(req, res, id) {
-    Booking.findById(id, function(err, booking) {
-        if(err) {
-            res.send(err);
-        }
-        if(booking == null){
-            res.json({success: false, message: "No booking with that ID"});
-        }
-        res.json({success: true, booking: booking});
-    });
+  Booking.findById(id, function(err, booking) {
+    if(err) {
+      res.send(err);
+    }
+    if(booking == null){
+      res.json({success: false, message: "No booking with that ID"});
+    }
+    res.json({success: true, booking: booking});
+  });
 };
 
 module.exports.deleteBooking = function(req, res, id) {
-    Booking.findByIdAndRemove(id, function(err) {
-        if(err) {
-            res.send(err);
-        }
-        res.sendStatus(200);
-    });
+  Booking.findByIdAndRemove(id, function(err) {
+    if(err) {
+      res.send(err);
+    }
+    res.sendStatus(200);
+  });
 };
 
 module.exports.findBookingsForUser = function(req, res, id) {
@@ -188,4 +229,14 @@ module.exports.findBookingsForUser = function(req, res, id) {
 
     return res.json({past_bookings: past_bookings, current_bookings: current_bookings});
   });
-}
+};
+
+module.exports.deleteBooking = function(req, res, id) {
+  Booking.findByIdAndRemove(id, function(err, booking) {
+    if(err) {
+      res.send(err);
+    }
+
+    res.sendStatus(200);
+  });
+};
