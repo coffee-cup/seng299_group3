@@ -486,3 +486,35 @@ $dropDown       : false;
 #sch-howtouse {
   padding-left: 0.5em;
 }
+
+.mb-upsize-link {
+  margin-top: 0.3em;
+
+  span {
+    color: green;
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: underline;
+  }
+}
+
+.mb-cancel-link {
+
+  margin-top: 0.3em;
+
+  span {
+    font-weight: 400;
+    background-color: #B30006;
+    color: white;
+    padding: 0.3em;
+    cursor: pointer;
+    font-size: 0.8em;
+  }
+}
+
+#cannot-book-row {
+  font-size: 2em;
+  font-weight: 300;
+  margin: 4em;
+  text-align: center;
+}
