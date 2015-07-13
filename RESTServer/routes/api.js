@@ -32,10 +32,6 @@ router.route('/users/:user_id')
 router.route('/users/login')
     .post(function(req,res) { users.validateUser(req,res) });
 
-/* Booking routes */
-router.route('/bookings')
-    .get(function(req, res) { bookings.getAllBookings(req,res) });
-
 /* Single booking routes */
 router.route('/bookings/:booking_id')
     .get(function(req, res) { bookings.getSingleBooking(req, res, req.params.booking_id) })

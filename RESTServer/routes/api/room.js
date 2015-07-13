@@ -13,6 +13,7 @@ module.exports.addRoom = function(req, res) {
     room.price = req.body.price;
     room.baseIPads = req.body.baseIPads;
     room.baseMics = req.body.baseMics;
+    room.isDown = req.body.isDown;
 
     room.save(function(err) {
         if(err) {
@@ -78,6 +79,8 @@ module.exports.updateRoom = function(req, res) {
         if(req.body.baseIPads) room.baseIPads = req.body.baseIPads;
 
         if(req.body.baseMics) room.baseMics = req.body.baseMics;
+        
+        if(req.body.isDown) room.isDown = req.body.isDown;
 
         if (req.body.isDown) room.isDown = req.body.isDown;
 
