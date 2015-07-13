@@ -1,0 +1,45 @@
+<div class="booking-row row">
+  <div class="mb-definer col-xs-6">
+    Date
+  </div>
+  <div class="mb-value col-xs-6">
+    {{formatted-date booking.date}}
+  </div>
+
+  <div class="mb-definer col-xs-6">
+    # people
+  </div>
+  <div class="mb-value col-xs-6">
+    {{booking.numberOfPeople}}
+  </div>
+
+  <div class="mb-definer col-xs-6">
+    Time
+  </div>
+  <div class="mb-value col-xs-6">
+    {{time-range booking.startTime booking.endTime}}
+  </div>
+
+  <div class="mb-definer col-xs-6">
+    # Mics
+  </div>
+  <div class="mb-value col-xs-6">
+    0
+  </div>
+
+  <div class="mb-definer col-xs-6">
+    # iPads
+  </div>
+  <div class="mb-value col-xs-6">
+    0
+  </div>
+
+  {{#if current}}
+    <div class="mb-cancel-link mb-definer col-xs-6">
+      <span {{action 'cancelBooking' booking._id}}>Cancel Booking</span>
+    </div>
+    <div class="mb-upsize-link mb-value col-xs-6">
+      <span>Upsize Room</span>
+    </div>
+  {{/if}}
+</div>

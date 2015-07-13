@@ -464,3 +464,57 @@ $dropDown       : false;
     cursor: pointer;
   }
 }
+
+.mb-definer {
+  text-align: left;
+  font-weight: 700;
+}
+
+.mb-value {
+  text-align: left
+}
+
+.booking-row {
+  background-color: rgb(230, 230, 230);
+  padding: 3em 0;
+  border-left: solid 2px $bgHighlight;
+  margin-bottom: 1.5em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#sch-howtouse {
+  padding-left: 0.5em;
+}
+
+.mb-upsize-link {
+  margin-top: 0.3em;
+
+  span {
+    color: green;
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: underline;
+  }
+}
+
+.mb-cancel-link {
+
+  margin-top: 0.3em;
+
+  span {
+    font-weight: 400;
+    background-color: #B30006;
+    color: white;
+    padding: 0.3em;
+    cursor: pointer;
+    font-size: 0.8em;
+  }
+}
+
+#cannot-book-row {
+  font-size: 2em;
+  font-weight: 300;
+  margin: 4em;
+  text-align: center;
+}

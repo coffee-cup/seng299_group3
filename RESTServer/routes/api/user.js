@@ -5,8 +5,6 @@ var superSecret = 'ilovescotchscotchyscotchscotch'; //secret part to make JWT. f
 
 module.exports.addUser = function(req, res) {
 
-  console.log(req.body);
-
     // check if request has attributes
     if (!req.body.username || !req.body.password || !req.body.name) {
       res.json({success: false, message: 'all attributes not provided'});
@@ -21,7 +19,6 @@ module.exports.addUser = function(req, res) {
     user.username = req.body.username;
     user.password = req.body.password;
     user.banned = false;
-    user.bookings = [];
 
     user.save(function(err) {
       if(err) {

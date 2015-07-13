@@ -7,13 +7,20 @@ export default Ember.Controller.extend({
 
   // the day for the schedule view
   date: new Date(),
-
   today: new Date(),
+
+  cannot_book_message: '',
+  cannot_book: false,
 
   // the number of people to make api call for get avaialbe rooms with
   num_people: 2,
 
   people_options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+
+  domain_path: 'api/room/getRoomsByCapacity',
+  domain: function() {
+    return this.get('controllers.application.SERVER_DOMAIN');
+  }.property(),
 
   // called when the controller loads for first time
   // not when page is naviagted to
@@ -50,10 +57,6 @@ export default Ember.Controller.extend({
     }); */
 },
 
-formattedDate: function() {
-  return moment(this.get('date')).format('dddd MMMM Do');
-}.property('date'),
-
 peopleChanged: function() {
   this.send('updateSchedule');
 }.observes('num_people'),
@@ -83,6 +86,17 @@ actions: {
       console.log('\nUPDATE SCHEDULE VIEW');
       console.log('PEOPLE: ' + this.get('num_people'));
       console.log('DATE: ' + this.get('date'));
+
+      var postBody = {
+        num_people: this.get('num_people'),
+        date: this.get('date')
+      }
+
+      var url = this.get('domain') + this.get('domain_path');
+      Ember.$.post(url, postData, function( data ) {
+        console.log(data);
+      });
+
     },
 
     transition: function() {
@@ -94,9 +108,10 @@ actions: {
       var d = this.get('date');
 
       // if date is older than today
-      var today = new Date();
+      var today = this.get('today');
       if (d < today) {
-        this.send('setDateToday');
+        this.set('cannot_book_message', 'Cannot book rooms older than today');
+        this.set('cannot_book', true);
         return;
       }
 
@@ -104,20 +119,24 @@ actions: {
       var weeks = new Date();
       weeks.setDate(today.getDate() + 14);
       if (d > weeks) {
-        this.send('setDateToday');
+        this.set('cannot_book_message', 'Cannot book rooms more than 2 weeks in future');
+        this.set('cannot_book', true);
         return;
       }
+
+      this.set('cannot_book', false);
 
       this.send('updateSchedule');
     },
 
     setDateToday: function() {
+      console.log('setting date today');
       // for some reason have to make a new date this way,
       // otherwise it does not select the day in the calendar
       var d = new Date();
-      $('#sch-calendar').datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+      // $('#sch-calendar').datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
 
-      this.set('date', new Date());
+      this.set('date', d);
     }
   }
 
