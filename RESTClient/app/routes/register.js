@@ -27,7 +27,6 @@ export default Ember.Route.extend({
       // if user was trying to book a room
       // capture the params
       if (params.hour) c.set('hour', params.hour);
-      if (params.ampm) c.set('ampm', params.ampm);
       if (params.date) c.set('date', params.date);
       if (params.people) c.set('people', params.people);
       if (params.room_id) c.set('room_id', params.room_id);

@@ -15,7 +15,6 @@ export default Ember.Route.extend({
      this.transitionTo('login', {queryParams: {
       n: 'bookroom',
       hour: params.hour,
-      ampm: params.ampm,
       date: params.date,
       people: params.people,
       room_id: params.room_id
@@ -25,105 +24,108 @@ export default Ember.Route.extend({
 
    var c = this.controllerFor('bookroom');
 
-    // params.date, .hour, .ampm, .room_id, .people
-    // to make request to server to check if that time is available
-    // since the user can book for multiple hours, the startTime value is params.date
-    // the endTime will default be params.date + 1
-    // the request should use only the information
+   var d = new Date(params.date);
+   if (!(d && params.hour && params.room_id && params.people) || d == "Invalid Date") {
+    this.transitionTo('index');
+    return;
+  }
 
-    // parse the date depending on ampm etc
-    if (params.hour && (params.ampm=='am' || params.ampm=='pm') && parseInt(params.hour)) {
-      var h = parseInt(params.hour);
-      var hours = [];
-      hours.push(h);
-      hours.push(h+1);
-      hours.push(h+2);
-      console.log("hours " +hours);
-      c.set('hours', hours);
-      var eHours = hours.slice(1,hours.length);
-      console.log(eHours);
-      c.set('eHours', eHours);
-      // convert to 24-hour time - easier to work with
-      if (params.ampm == 'pm') {
-        h = h + 12;
-      }
+  if (params.date) {
+    c.set('dateSelected', moment(d).format('dddd MMMM Do'));
+  } else {
+    values_from_query = false;
+  }
 
+  c.set('numGuests', [1,2,3,4,5,6,7,8,9,10,11,12]);
+  if (params.people) {
+    c.set('selectedGuests', parseInt(params.people));
+  } else {
+    values_from_query = false;
+  }
 
-      var endTime = h + 1;
-      if (endTime >= 24) {
-        endTime = endTime - 24;
-      }
-      c.set('selectedETime', endTime);
-    } else {
-      c.set('selectedETime', '');
-      console.log('test');
-      c.set('selectedSTime', null);
+  if (params.room_id) {
+    c.set('room_id', params.room_id);
+  } else {
+    c.set('room_id', 1);
+    values_from_query = false;
+  }
+
+  if (params.hour) {
+    var t = parseInt(params.hour);
+    var value = t;
+    var ampm = 'am';
+    if (value > 24) {
+      t = value - 24;
+      ampm = 'am';
+    } else if (value == 24) {
+      t = 12;
+      ampm = 'am';
+    } else if (value > 12) {
+      t = value - 12;
+      ampm = 'pm'
     }
 
-    var dates = [];
-    var d = new Date();
-    var lastDay = new Date();
-    lastDay.setDate(lastDay.getDate()+14);
+    c.set('startTime', value);
+    c.set('startTimeString', t + ampm)
+  }
 
-    for(var i = 0; i <= 14; i++){
-      var temp = new Date();
-      temp.setDate(temp.getDate()+i);
-      dates.push(temp.toDateString());
+  var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + params.people;
+  var _this = this;
+  Ember.$.get(url, function( data ) {
+    var allRooms = [];
+    var selectedRoom;
+    if (!data.rooms) {
+      console.log('ERROR');
+      return;
     }
-    if (params.date) {
-      console.log('param date: ' + params.date);
-      var pDate = new Date(params.date);
-      console.log("pDate: " + pDate.toDateString()  );
-      console.log("days: " + pDate.getDate());
-      pDate = pDate.toDateString();
-      // var dates = [pDate].concat(dates);
-      // dates.unshift(pDate);
-     //  dates.push(d);
-    }else{
-      dates.unshift('');
-    }
-    c.set('dates', dates);
-    c.set('datePicked', false);
 
+    data.rooms.forEach(function(obj, i) {
+      obj.displayName = obj.roomID + ' - ' + obj.name;
+      allRooms.push(obj);
 
-    var numGuests = [];
-    for(var i = 0; i < 11; i++){
-      numGuests.push(i);
-    }
-    if (params.people) {
-      //var numGuests = [params.people].concat(numGuests);
-      //numGuests.unshift(String(params.people))
-      c.set('selectedGuests', params.people);
-      console.log(params.people);
-      c.set('guestsPicked', true);
-    }
-    c.set('numGuests', numGuests);
-
-    if (params.room_id) {c.set('room_id', params.room_id);}
-
-    var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms';
-    var _this = this;
-
-    console.log('URL-->   ' + url);
-    Ember.$.get(url, function(data) {
-      if (data.rooms) {
-        var allRooms = [];
-        allRooms.push('Choose A Room...');
-        data.rooms.forEach(function(obj, i) {
-          obj.displayName = obj.roomID + ' - ' + obj.name;
-          allRooms.push(obj);
-        });
-        _this.controllerFor('bookroom').set('rooms', allRooms);
-        _this.controllerFor('bookroom').set('selectedRoom', allRooms[0]);
-        _this.controllerFor('bookroom').set('showStartTime', false);
+      if (obj.roomID == parseInt(params.room_id)) {
+        selectedRoom = obj;
       }
     });
 
-  },
+    var bc = _this.controllerFor('bookroom');
+    bc.set('selectedRoom', selectedRoom);
+    bc.set('roomDisplayName', selectedRoom.displayName);
 
-  actions: {
-    didTransition: function(queryParams) {
-      this.controllerFor('application').send('setActiveTab', 'MakeBooking');
-    }
+    var eTimes = [];
+    var sTime = parseInt(params.hour);
+    selectedRoom.times.forEach(function(time) {
+      if (time.time >= sTime) {
+        if (!time.booked) {
+
+          var t = time.time + 1;
+          var value = time.time + 1;
+          var ampm = 'am';
+          if (value > 24) {
+            t = value - 24;
+            ampm = 'am';
+          } else if (value == 24) {
+            t = 12;
+            ampm = 'am';
+          } else if (value > 12) {
+            t = value - 12;
+            ampm = 'pm'
+          }
+          eTimes.push({tf: time.time + 1, ts: t + ampm});
+        } else {
+          return false;
+        }
+      }
+    });
+    bc.set('eTimes', eTimes);
+    bc.set('end', eTimes[0]);
+  });
+
+},
+
+actions: {
+  didTransition: function(queryParams) {
+    this.controllerFor('application').send('setActiveTab', 'MakeBooking');
   }
+}
 });
