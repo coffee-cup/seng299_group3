@@ -12,81 +12,28 @@
 
 <!-- {{#each current_bookings as |booking|}}
   {{booking.date}}
-{{/each}} -->
+  {{/each}} -->
 
 <!-- {{#each past_booking as |booking|}}
   {{booking.date}}
-{{/each}} -->
+  {{/each}} -->
 
   <div id="myTabContent" class="tab-content">
-    <div align="center" class="tab-pane in active" id="current">
-      {{#each current_bookings as |booking|}}
-      <div class="sidebar-nav">
-        <div class="well">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Booking for {{booking.date}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Number of People</td>
-              <td>{{booking.numberOfPeople}}</td>
-              </tr>
-              <tr>
-                <td>Room</td>
-              <td>{{booking.room}}</td>
-              </tr>
-              <tr>
-                <td>Start Time</td>
-              <td>{{booking.startTime}}</td>
-              </tr>
-              <tr>
-                <td>End Time</td>
-              <td>{{booking.endTime}}</td>
-              </tr>
-              <tr>
-                <td>Number of Microphones</td>
-               <!-- <td>{{booking.equipment}}</td> -->
-              <!--  <td>{{priceMicrophones}}</td> -->
-              </tr>
-              <tr>
-                <td>Number of IPads</td>
-              <!--  <td>{{booking.equipment}}</td> -->
-             <!--   <td>{{priceIPads}}</td> -->
-              </tr>
-            </tbody>
-          </table>
-        </div><!-- well -->
-      </div><!-- sidebar --> 
-      {{/each}}      
-</div>
-      <div align="center" class="tab-pane " id="past">
-      {{#each past_bookings as |booking|}}
-        <div class="sidebar-nav">
-          <div class="well">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Booking for {{booking.date}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{booking.room}} Room</td>
-                <td>{{booking.numberOfPeople}} People</td>
-                <td>{{booking.startTime}} - {{booking.endTime}}</td>
-              </tr>
-              <tr>
-                <td>Microphones</td>
-                <td> IPads</td>
-              </tr>
-            </tbody>
-          </table>
-          </div><!-- well -->
-        </div><!-- sidebar -->
+
+    <div align="center" class="tab-pane in active row" id="current">
+      <div class="col-sm-12 col-md-4 col-md-offset-4">
+        {{#each current_bookings as |booking|}}
+        {{#booking-grid booking=booking}}{{/booking-grid}}
         {{/each}}
       </div>
     </div>
-  </body>
+
+    <div align="center" class="tab-pane row" id="past">
+      <div class="col-sm-12 col-md-5">
+        {{#each past_bookings as |booking|}}
+        {{#booking-grid booking=booking}}{{/booking-grid}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</body>
