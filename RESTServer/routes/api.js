@@ -28,10 +28,6 @@ router.route('/users/:user_id')
     .post(function(req, res) { users.updateUser(req, res, req.params.user_id) })
     .delete(function(req, res) { users.deleteUser(req, res, req.params.user_id) });
 
-/* Login route*/
-router.route('/users/login')
-    .post(function(req,res) { users.validateUser(req,res) });
-
 /* Single booking routes */
 router.route('/bookings/:booking_id')
     .get(function(req, res) { bookings.getSingleBooking(req, res, req.params.booking_id) })
@@ -45,6 +41,10 @@ router.route('/users/:user_id/bookings/:booking_id')
 router.route('/users/:user_id/bookings')
     .get(function(req, res) {bookings.findBookingsForUser(req, res, req.params.user_id) })
     .post(function(req, res) { bookings.createBooking(req,res, req.params.user_id) });
+
+/* Login route*/
+router.route('/login')
+    .post(function(req,res) { users.validateUser(req,res) });
 
 /* Single Room routes */
 router.route('/rooms/:room_id')

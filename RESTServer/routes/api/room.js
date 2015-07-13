@@ -65,8 +65,6 @@ module.exports.updateRoom = function(req, res) {
             return res.json({success: false, message: 'Could not find room with that id'});
         }
 
-        console.log(req.body);
-
         //only updates values present in the request
         if(req.body.name) room.name = req.body.name;
 
@@ -79,7 +77,7 @@ module.exports.updateRoom = function(req, res) {
         if(req.body.baseIPads) room.baseIPads = req.body.baseIPads;
 
         if(req.body.baseMics) room.baseMics = req.body.baseMics;
-        
+
         if(req.body.isDown) room.isDown = req.body.isDown;
 
         if (req.body.isDown) room.isDown = req.body.isDown;
