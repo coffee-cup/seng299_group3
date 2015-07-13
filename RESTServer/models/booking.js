@@ -51,7 +51,7 @@ var roomAvailability = function (date, roomid, callback) {
       }
       availabilityList.push(bookingList[slot]);
     }
-  callback(availabilityList);
+  callback(availabilityList, roomid);
   });
 }
 

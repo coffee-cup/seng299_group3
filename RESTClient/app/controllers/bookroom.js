@@ -121,8 +121,22 @@ export default Ember.Controller.extend({
     changeEquipment: function() {
       console.log('change me');
 
+      var postData = {
+        date: this.get('dateReal'),
+        startTime: this.get('startTime'),
+        endTime: this.get('end').tf
+      }
+
+      var d = this.get('dateReal');
+      var dateString = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
+      var query = '?date=' + dateString + '&startTime=' + this.get('startTime') + '&endTime=' + this.get('end').tf + '&type=' + 'm';
       // get extra mics
-      var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/bookroom/';
+      var selectedRoom = this.get('selectedRoom');
+      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/bookroom/' + query;
+      console.log(url)
+      Ember.$.get(url, function(data) {
+        console.log(data);
+      });
     },
 
     createBooking: function() {
@@ -130,17 +144,31 @@ export default Ember.Controller.extend({
     },
 
     createBookingServer: function() {
-      var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms/' + selectedRoom._id;
+      var selectedRoom = this.get('selectedRoom');
+      var user = this.get('user');
+      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/users/' + user.accountID + '/bookings/';
 
       var postData = {
-        roomID: this.get('selectedRoom').roomID,
-        date: this.get('dateSelected'),
+        roomId: selectedRoom.roomID,
+        date: this.get('dateReal'),
         startTime: this.get('startTime'),
-        endTime: ghis.get('endTime'),
+        endTime: this.get('end').tf,
         numberOfPeople: this.get('selectedGuests'),
         ipads: this.get('extraIpads'),
         mics: this.get('extraMics')
       }
+
+      console.log(postData);
+
+      var _this = this;
+      Ember.$.post(url, postData, function(data) {
+        if (data.success) {
+          _this.get('controllers.application').send('sendNotification', 'Successfully created booking', 'success');
+        } else {
+          _this.get('controllers.application').send('sendNotification', 'Could not create booking, sorry', 'error');
+        }
+        _this.transitionToRoute('mybookings');
+      });
     }
   }
 });

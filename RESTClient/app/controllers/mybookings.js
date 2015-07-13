@@ -55,7 +55,7 @@ export default Ember.Controller.extend({
         current_bookings.push(obj);
       });
 
-      console.log(past_bookings);
+      console.log(current_bookings);
 
       _this.set('past_bookings', past_bookings);
       _this.set('current_bookings', current_bookings);
