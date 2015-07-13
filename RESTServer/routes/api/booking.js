@@ -15,6 +15,7 @@ module.exports.createBooking = function(req, res, id) {
     var day = today.getDate();
     var month = today.getMonth();
     var year = today.getFullYear();
+    var hours = today.getHours();
 
     var noHoursToday = new Date(year,month,day);
     var twoWeeks = new Date(year,month,(day+14));
@@ -132,20 +133,20 @@ module.exports.createBooking = function(req, res, id) {
             booking.startTime = req.body.startTime;
             booking.endTime = req.body.endTime;
             booking.room = room;
-            booking.date.setHours(booking.startTime);
-
+            //booking.date.setHours(booking.startTime);
+            
             //checks to ensure booking is within two weeks of todays date and is not before todays date
             if((booking.date > twoWeeks)){
                 return res.json({success: false, message: "Booking must be within two weeks of today"});
             }
 
-            if((booking.date < today)){
+            if((booking.date <= noHoursToday)&&(booking.startTime < hours)){
                 return res.json({success: false, message: "Cannot book on past dates" });
             }
 
             //error messages if booking times are between a different booking
             for(var i=0; i<datesBookings.length; i++){
-
+                console.log('test');
                 //if new booking start time is between a previous booking start and end time return message
                 if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
                     return res.json({success: false, message: "Invalid. During current booking."});
