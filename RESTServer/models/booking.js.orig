@@ -4,6 +4,7 @@ var Room = require('./room');
 var Equipment = require('./equipment');
 
 var BookingSchema = new Schema({
+<<<<<<< HEAD
   username: String,
   numberOfPeople: Number,
   date: Date,
@@ -12,19 +13,33 @@ var BookingSchema = new Schema({
   endTime: Number,    //temporarily set to number
   room: [Room],
   equipment: Array
+=======
+    username: String,
+    numberOfPeople: Number,
+    date: Date,
+    canceledStatus: Boolean,
+    startTime: Number, //temporarily set to number
+    endTime: Number,    //temporarily set to number
+    roomId: Number,
+    room: Array,
+    ipads: Number,
+    mics: Number,
+    equipment: Array
+>>>>>>> 7b171d5d4f2f142ab38c7670ea4116bb1d82307a
 });
 
 var booking = mongoose.model('Booking', BookingSchema);
 
 var roomAvailability = function (date, roomid) {
   queryDate = new Date(date);
-  var bookingList = [];
+  var bookList = [];
+  var async_done = false;
   //{$and : [{'date': { $gte : queryDate}}, {'date' : { $lte : queryDate.getDate() +1 }}]}
   booking.find({}, function(err, bookings) {
     if(err) {
       console.log(err);
     }
-    console.log(bookings);
+      console.log(bookings);
     if ([0,5,6].indexOf(queryDate.getDay()) != -1){
       for(i = 14; i < 27; i++) {
         bookingList.push({
@@ -56,9 +71,13 @@ var roomAvailability = function (date, roomid) {
     async_done = true;
     console.log('done');
   });
+
+  while(!async_done) {
+    continue;
+  }
+
   return bookingList;
 }
-
 module.exports = {
   booking: booking,
   roomAvailability: roomAvailability
