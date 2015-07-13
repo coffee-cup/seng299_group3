@@ -1,6 +1,6 @@
 export default Ember.Controller.extend({
   needs: ['application'],
-  queryParams: ['n', 'hour', 'ampm', 'date', 'people', 'room_id'],
+  queryParams: ['n', 'hour', 'date', 'people', 'room_id'],
 
   username: '',
   name: '',

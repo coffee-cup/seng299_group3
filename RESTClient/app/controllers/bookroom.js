@@ -3,7 +3,7 @@ var scope = {
 };
 
 export default Ember.Controller.extend({
-  queryParams: ['hour', 'ampm', 'date', 'people', 'room_id'],
+  queryParams: ['hour', 'date', 'people', 'room_id'],
   needs: ['application'],
 
   datePicked: false,
