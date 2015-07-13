@@ -87,14 +87,18 @@ actions: {
       console.log('PEOPLE: ' + this.get('num_people'));
       console.log('DATE: ' + this.get('date'));
 
-      var postBody = {
-        num_people: this.get('num_people'),
-        date: this.get('date')
-      }
+      var d = this.get('date');
+      var people = this.get('num_people');
 
-      var url = this.get('domain') + this.get('domain_path');
-      Ember.$.post(url, postData, function( data ) {
-        console.log(data);
+      // localhost:7000/api/availability?day=13&month=7&year=2015&num_people=1
+
+      var url = this.get('domain') + 'api/availability?day=' + d.getDate() + '&month=' + (d.getMonth() + 1) + '&year=' + d.getFullYear() + '&num_people=' + people;
+      var _this = this;
+      Ember.$.get(url, function( data ) {
+        console.log(data.rooms);
+        if (data.rooms) {
+          _this.set('rooms', data.rooms);
+        }
       });
 
     },

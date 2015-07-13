@@ -573,7 +573,7 @@ var rooms1 = [
 
 export default Ember.Route.extend({
   model: function() {
-    return rooms1;
+    this.controllerFor('schedule').set('date', new Date());
   },
 
   actions: {

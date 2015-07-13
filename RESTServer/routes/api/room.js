@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
-var Room = require('../../models/room'); 
-var Booking = require('../../models/booking.js'); 
+var Room = require('../../models/room');
+var Booking = require('../../models/booking.js');
 
 module.exports.addRoom = function(req, res) {
     var room = new Room();
-    
+
     //set attributes of the room
     room.name = req.body.name;
     room.roomID = req.body.roomID;
@@ -24,7 +24,13 @@ module.exports.addRoom = function(req, res) {
 };
 
 module.exports.getAllRooms = function(req, res) {
-    Room.find(function(err, rooms) {
+    var search = {
+      isDown: false
+    }
+    if (req.query.isDown == 'true') {
+      search.isDown = true
+    }
+    Room.find(search, null, function(err, rooms) {
         if (err) {
             res.send(err);
         }
@@ -60,19 +66,19 @@ module.exports.updateRoom = function(req, res) {
         if(req.body.baseMics) room.baseMics = req.body.baseMics;
 
         if(req.body.isDown) room.isDown = req.body.isDown;
-        
+
         //save the room
         room.save(function(err) {
             if(err) res.send(err);
 
             //return a message
-            res.json({message: 'Room updated'});
+            res.json({room: room});
         });
     });
 };
 
 module.exports.getRoomAvailability = function(req, res) {
-    Room.find({ isDown: false }, function(err, rooms) {
+    Room.find({ isDown: false }, null, {sort: {roomID: 1}}, function(err, rooms) {
         if (err) {
             res.send(err);
         }
@@ -81,8 +87,20 @@ module.exports.getRoomAvailability = function(req, res) {
         var size = req.query.num_people;
         var date = req.query.date;
 
+        if (size == 0) {
+          size = 12;
+        } else if (size == 1) {
+          size = 2;
+        } else if (size >= 3 && size <= 4) {
+          size = 4;
+        } else if (size >= 5 && size <= 8) {
+          size = 8;
+        } else if (size >= 9) {
+          size = 12;
+        }
+
         var posRooms = [];
-	var roomInstance =
+      	var roomInstance =
         {
             times: [
                 {
@@ -95,13 +113,61 @@ module.exports.getRoomAvailability = function(req, res) {
             name: String,
             baseMics: Number,
             baseIPads: Number
-        };         
-            	   
+        };
+
         var i = 0;
+        var j = 0;
+        var dateString = req.query.year + '/' + req.query.month + '/' + req.query.day;
+        var d = new Date(dateString);
+        Booking.booking.find({date: d}, null, {sort: {startTime: 1}}, function(err, bookings) {
+
+          for (i=0;i<rooms.length;i++) {
+            var r = rooms[i];
+            var bookings_for_room = []
+
+            for (j=0;j<bookings.length;j++) {
+              var b = bookings[j];
+
+              if (b.room[0].roomID == r.roomID) {
+                  bookings_for_room.push(b);
+              }
+            }
+
+            var times = Booking.roomAvailability(d, bookings_for_room);
+            var roomInstance = {
+              times: times,
+              name: r.name,
+              size: r.size,
+              roomID: r.roomID,
+              date: d,
+              people: size,
+              baseMics: r.baseMics,
+              baseIPads: r.baseIPads
+            }
+
+            var all_booked = true;
+            times.forEach(function(obj) {
+              if (!obj.booked) {
+                all_booked = false;
+              }
+            });
+
+            if (r.size > size && !all_booked) {
+              return res.json({rooms: posRooms});
+            } else {
+              posRooms.push(roomInstance);
+            }
+          }
+
+          return res.json({rooms: posRooms});
+        });
+        return;
+
+        // old
 
         if (size == 0)
-        {          
-            	   
+        {
+
             for(i = 0; i < rooms.length; i++)
             {
                 roomInstance.times = Booking.roomAvailability(date, roomInstance.room_id);

@@ -10,21 +10,18 @@ var BookingSchema = new Schema({
   canceledStatus: Boolean,
   startTime: Number, //temporarily set to number
   endTime: Number,    //temporarily set to number
-  room: [Room],
+  room: Array,
   equipment: Array
 });
 
 var booking = mongoose.model('Booking', BookingSchema);
 
-var roomAvailability = function (date, roomid) {
+var roomAvailability = function (date, bookings) {
   queryDate = new Date(date);
   var bookingList = [];
   //{$and : [{'date': { $gte : queryDate}}, {'date' : { $lte : queryDate.getDate() +1 }}]}
-  booking.find({}, function(err, bookings) {
-    if(err) {
-      console.log(err);
-    }
-    console.log(bookings);
+
+    // console.log(bookings);
     if ([0,5,6].indexOf(queryDate.getDay()) != -1){
       for(i = 14; i < 27; i++) {
         bookingList.push({
@@ -41,9 +38,7 @@ var roomAvailability = function (date, roomid) {
         });
       }
     }
-    if(err) {
-      console.log(err);
-    }
+
     for(var slot in bookingList){
       for(var booking in bookings) {
         if (slot.time >= booking.startTime && slot.time <= booking.endTime){
@@ -52,10 +47,6 @@ var roomAvailability = function (date, roomid) {
         }
       }
     }
-
-    async_done = true;
-    console.log('done');
-  });
   return bookingList;
 }
 

@@ -69,20 +69,20 @@
     {{else}}
       <div id="schedules" class="row">
 
-        {{#each model as |room|}}
+        {{#each rooms as |room|}}
         <div class="col-md-5ths col-xs-12 sch-room">
 
           <div class="row sch-room-header">
 
             <div class="row">
               <div class="col-xs-12 sch-room-name text-center text-uppercase">
-                <h3>{{room.name}}</h3>
+                <h4>{{room.roomID}} - {{room.name}}</h4>
                 <div class="row">
                   <div class="col-xs-6 col-sm-12">
-                    Capacity 4
+                    Capacity {{room.size}}
                   </div>
                   <div class="col-xs-6 col-sm-12">
-                    3 iPads | 4 Mics
+                    {{room.baseIPads}} iPads | {{room.baseMics}} Mics
                   </div>
                 </div>
               </div>
