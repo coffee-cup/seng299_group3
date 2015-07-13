@@ -149,11 +149,11 @@ export default Ember.Controller.extend({
       var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/users/' + user.accountID + '/bookings/';
 
       var postData = {
-        roomID: selectedRoom.roomID,
+        roomId: selectedRoom.roomID,
         date: this.get('dateReal'),
         startTime: this.get('startTime'),
         endTime: this.get('end').tf,
-        num_people: this.get('selectedGuests'),
+        numberOfPeople: this.get('selectedGuests'),
         ipads: this.get('extraIpads'),
         mics: this.get('extraMics')
       }
