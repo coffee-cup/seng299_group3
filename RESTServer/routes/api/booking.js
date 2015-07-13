@@ -192,88 +192,6 @@ module.exports.createBooking = function(req, res, id) {
     });
 };
 
-module.exports.getAllBookings = function(req, res) {
-    var roomsize = 0;
-    switch (req.query.people) {
-        case 1:
-            roomsize = 2;
-            break;
-        case 2:
-            roomsize = 2;
-            break;
-        case 3:
-            roomsize = 4;
-            break;
-        case 4:
-            roomsize = 4;
-            break;
-        case 5:
-            roomsize = 8;
-            break;
-        case 6:
-            roomsize = 8;
-            break;
-        case 7:
-            roomsize = 8;
-            break;
-        case 8:
-            roomsize = 8;
-            break;
-        case 9:
-            roomsize = 12;
-            break;
-        case 10:
-            roomsize = 12;
-            break;
-        case 11:
-            roomsize = 12;
-            break;
-        case 12:
-            roomsize = 12;
-            break;
-    }
-    Booking.find({'date':req.query.date, 'people':roomsize}, function(err, bookings) {
-        if(err) {
-            res.send(err);
-        }
-        var bookingList = [];
-        if ([0,5,6].indexOf(req.query.date.getDay()) != -1){
-            for(i = 14; i < 25; i++) {
-            bookingList.push({
-                "booked": false,
-                "time"  : i
-            });
-        }
-        for(i = 1; i < 3; i++) {
-            bookingList.push({
-                "booked": false,
-                "time"  : i
-            });
-        }
-
-        } else {
-        for(i = 16; i < 25; i++) {
-            bookingList.push({
-                "booked": false,
-                "time"  : i
-            });
-        }
-            bookingList.push({
-                "booked": false,
-                "time"  : i
-            });
-        }
-        bookings.sort({'startTime': 1}).toArray(function(err, bookings) {
-        if(err) {
-            res.send(err);
-        }
-        for(var booking in bookings) {
-
-        }
-        res.json({bookings: bookings});
-        });
-    });
-};
 
 module.exports.getSingleBooking = function(req, res, id) {
     Booking.findById(id, function(err, booking) {
@@ -310,23 +228,6 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
             if(err) return res.send(err);
         });
 
-        //change canceled status of users booking
-        User.findById(user_id, function(err, user) {
-            if(err) {
-                res.send(err);
-            }
-            var bookDay = booking.date.getDate();
-            var bookMonth = booking.date.getMonth();
-            var bookYear = booking.date.getFullYear();
-
-            //set booking canceledStatus and save booking
-            booking.canceledStatus = true;
-
-            booking.save(function(err) {
-                if(err) return res.send(err);
-            });
-
-            //change canceled status of users booking
             User.findById(user_id, function(err, user) {
                 if(err) {
                     res.send(err);
@@ -357,7 +258,7 @@ module.exports.findBookingsForUser = function(req, res, id) {
         var current_bookings = [];
         var today = new Date();
 
-        Booking.find({username: user.username}, function(err, bookings){
+        Booking.booking.find({username: user.username}, function(err, bookings){
             
             var i;
             for(i=0; i<bookings.length; i++){

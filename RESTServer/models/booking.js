@@ -16,7 +16,7 @@ var BookingSchema = new Schema({
 
 var booking = mongoose.model('Booking', BookingSchema);
 
-var roomAvailability = function (date, roomid) {
+var roomAvailability = function (date, roomid, callback) {
   queryDate = new Date(date);
   nextDate = new Date(queryDate);
   nextDate.setDate(nextDate.getDate()+1);
@@ -51,8 +51,7 @@ var roomAvailability = function (date, roomid) {
       }
       availabilityList.push(bookingList[slot]);
     }
-  console.log(availabilityList);
-  return availabilityList;
+  callback(availabilityList);
   });
 }
 
