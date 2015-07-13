@@ -19,7 +19,24 @@ export default Ember.Controller.extend({
       _this.set('past_bookings', data.past_bookings);
       _this.set('current_bookings', data.current_bookings);
     });
+   },
 
-   }
- }
+    cancelBooking: function(booking_id) {
+      var user = this.get('user');
+      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/cancelbooking/' + user.accountID + '/' +  booking_id;
+      var _this = this;
+      Ember.$.ajax({
+        url: url,
+        type: 'DELETE',
+        success: function(data) {
+          if (data.success) {
+            _this.get('controllers.application').send('sendNotification', 'Successfully cancelled booking', 'success');
+          } else {
+            _this.get('controllers.application').send('sendNotification', 'Could not cancel booking', 'error');
+          }
+          _this.send('getBookings');
+        }
+      });
+    }
+  }
 });

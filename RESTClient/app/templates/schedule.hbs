@@ -57,6 +57,16 @@
     </div>
 
     <div class="col-md-10 col-sm-12">
+
+    {{#if cannot_book}}
+
+      <div id='cannot-book-row' class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+          {{cannot_book_message}}
+        </div>
+      </div>
+
+    {{else}}
       <div id="schedules" class="row">
 
         {{#each model as |room|}}
@@ -111,6 +121,8 @@
         {{/each}}
 
       </div>
+    {{/if}}
+
     </div>
 
   </div>

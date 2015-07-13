@@ -34,12 +34,20 @@ export default Ember.Route.extend({
     // parse the date depending on ampm etc
     if (params.hour && (params.ampm=='am' || params.ampm=='pm') && parseInt(params.hour)) {
       var h = parseInt(params.hour);
-
+      var hours = [];
+      hours.push(h);
+      hours.push(h+1);
+      hours.push(h+2);
+      console.log(hours);
+      c.set('hours', hours);
+      var eHours = hours.slice(1,hours.length);
+      console.log(eHours);
+      c.set('eHours', eHours);
       // convert to 24-hour time - easier to work with
       if (params.ampm == 'pm') {
         h = h + 12;
       }
-      c.set('selectedSTime', h);
+
 
       var endTime = h + 1;
       if (endTime >= 24) {
@@ -61,14 +69,21 @@ export default Ember.Route.extend({
     var url = this.controllerFor('application').get('SERVER_DOMAIN') + 'api/rooms';
     var _this = this;
 
+    console.log('URL-->   ' + url);
     Ember.$.get(url, function(data) {
+      console.log('I better be in here');
       if (data.rooms) {
         var allRooms = [];
+        allRooms.push('Choose A Room...');
         data.rooms.forEach(function(obj, i) {
           obj.displayName = obj.roomID + ' - ' + obj.name;
           allRooms.push(obj);
         });
+        console.log('the line below this is important');
+        console.log(data.rooms);
         _this.controllerFor('bookroom').set('rooms', allRooms);
+        _this.controllerFor('bookroom').set('selectedRoom', allRooms[0]);
+        _this.controllerFor('bookroom').set('showStartTime', false);
       }
     });
   },

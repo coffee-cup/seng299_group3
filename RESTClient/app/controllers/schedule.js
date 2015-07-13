@@ -7,8 +7,10 @@ export default Ember.Controller.extend({
 
   // the day for the schedule view
   date: new Date(),
-
   today: new Date(),
+
+  cannot_book_message: '',
+  cannot_book: false,
 
   // the number of people to make api call for get avaialbe rooms with
   num_people: 2,
@@ -106,9 +108,10 @@ actions: {
       var d = this.get('date');
 
       // if date is older than today
-      var today = new Date();
+      var today = this.get('today');
       if (d < today) {
-        this.send('setDateToday');
+        this.set('cannot_book_message', 'Cannot book rooms older than today');
+        this.set('cannot_book', true);
         return;
       }
 
@@ -116,20 +119,24 @@ actions: {
       var weeks = new Date();
       weeks.setDate(today.getDate() + 14);
       if (d > weeks) {
-        this.send('setDateToday');
+        this.set('cannot_book_message', 'Cannot book rooms more than 2 weeks in future');
+        this.set('cannot_book', true);
         return;
       }
+
+      this.set('cannot_book', false);
 
       this.send('updateSchedule');
     },
 
     setDateToday: function() {
+      console.log('setting date today');
       // for some reason have to make a new date this way,
       // otherwise it does not select the day in the calendar
       var d = new Date();
-      $('#sch-calendar').datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+      // $('#sch-calendar').datepicker('setDate', new Date(d.getFullYear(), d.getMonth(), d.getDate()));
 
-      this.set('date', new Date());
+      this.set('date', d);
     }
   }
 

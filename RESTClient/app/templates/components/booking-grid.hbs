@@ -33,4 +33,13 @@
   <div class="mb-value col-xs-6">
     0
   </div>
+
+  {{#if current}}
+    <div class="mb-cancel-link mb-definer col-xs-6">
+      <span {{action 'cancelBooking' booking._id}}>Cancel Booking</span>
+    </div>
+    <div class="mb-upsize-link mb-value col-xs-6">
+      <span>Upsize Room</span>
+    </div>
+  {{/if}}
 </div>
