@@ -16,7 +16,7 @@ var BookingSchema = new Schema({
 
 module.exports = mongoose.model('Booking', BookingSchema);
 
-function roomAvailability(date, roomid) {
+module.exports.roomAvailability = function (date, roomid) {
   Booking.find({'date':date, 'room.roomID':roomid}, function(err, bookings) {
     if(err) {
       res.send(err);
