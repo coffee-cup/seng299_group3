@@ -64,12 +64,13 @@ export default Ember.Controller.extend({
 
     cancelBooking: function(booking_id) {
       var user = this.get('user');
-      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/bookings/' +  booking_id;
+      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/cancelbooking/' +  user.accountID + '/' + booking_id;
       var _this = this;
       Ember.$.ajax({
         url: url,
         type: 'DELETE',
         success: function(data) {
+          console.log(data);
           if (data.success) {
             _this.get('controllers.application').send('sendNotification', 'Successfully cancelled booking', 'success');
           } else {

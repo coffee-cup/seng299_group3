@@ -5,7 +5,7 @@ var Room = require('../../models/room');
 var Equipment = require('../../models/equipment');
 
 module.exports.getTest = function(req, res) {
-  Booking.roomAvailability('07-13-2015',2); 
+  Booking.roomAvailability('07-13-2015',2);
   res.send('hello');
 };
 
@@ -23,15 +23,15 @@ module.exports.createBooking = function(req, res, id) {
         if(err) {
             res.send(err);
         }
-        if(req.body.numberOfPeople > room[0].size){
+        if(req.body.numberOfPeople > room.size){
             return res.json({success: false, message: "Too many people for room size"});
         }
-        if(room[0].size == 4){
+        if(room.size == 4){
             if(req.body.numberOfPeople <= (room.size-2)){
               return res.json({success: false, message: "Not enough people for this room"});
               }
         }
-        if(room[0].size > 4){
+        if(room.size > 4){
             if(req.body.numberOfPeople <= (room.size-4)){
               return res.json({success: false, message: "Not enough people for this room"});
             }
@@ -132,18 +132,14 @@ module.exports.createBooking = function(req, res, id) {
             booking.startTime = req.body.startTime;
             booking.endTime = req.body.endTime;
             booking.room = room;
-
-            if(req.body.equipment != null){
-                booking.equipment.push(req.body.equipment);
-            }
-
+            booking.date.setHours(booking.startTime);
 
             //checks to ensure booking is within two weeks of todays date and is not before todays date
             if((booking.date > twoWeeks)){
                 return res.json({success: false, message: "Booking must be within two weeks of today"});
             }
 
-            if((booking.date <= noHoursToday)&&(booking.startTime < today.getHours())){
+            if((booking.date < today)){
                 return res.json({success: false, message: "Cannot book on past dates" });
             }
 
@@ -245,7 +241,7 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
                 });
             });
 
-            res.sendStatus(200);
+            res.json({success: true, message: 'Successfully Cancelled booking'});
     });
 };
 
