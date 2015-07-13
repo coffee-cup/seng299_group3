@@ -78,7 +78,7 @@ export default Ember.Route.extend({
     for(var i = 0; i <= 14; i++){
       var temp = new Date();
       temp.setDate(temp.getDate()+i);
-      dates.push(temp);
+      dates.push(temp.toDateString());
     }
     c.set('dates', dates);
 
