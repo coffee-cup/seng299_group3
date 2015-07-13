@@ -82,10 +82,7 @@ module.exports.getRoomAvailability = function(req, res) {
     if (err) {
       res.send(err);
     }
-    var blockedRooms = [];
-    for(var room in rooms){
-      blockedRooms.push(rooms[room].roomID);
-    }
+
     //var size = 0;
     var size = req.query.num_people;
     var date = req.query.date;
@@ -117,7 +114,6 @@ module.exports.getRoomAvailability = function(req, res) {
       if(!allBooked){
         return res.json({rooms: posRooms});
       } else {
-        posRooms = [];
         index++;
         populateResponse(roomSize[index]);
       }
@@ -125,9 +121,6 @@ module.exports.getRoomAvailability = function(req, res) {
     function populateResponse(roomIds){
       var numThreads = 0;
       for( var i in roomIds ) {
-        if(blockedRooms.indexOf(roomIds[i]) != -1){
-          continue;
-        }
         numThreads++;
           Booking.roomAvailability(date, roomIds[i], function(times, roomid){
             Room.find({roomID: roomid}, null, {sort: {roomID: 1}}, function(err, room) {
@@ -143,6 +136,7 @@ module.exports.getRoomAvailability = function(req, res) {
                 price: room[0].price
               }
             posRooms.push(roomInstance);
+            console.log(posRooms);
             numThreads--;
             if(numThreads == 0){
               returnRooms();
