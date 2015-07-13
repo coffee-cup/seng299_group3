@@ -128,13 +128,33 @@ export default Ember.Controller.extend({
 
       var d = this.get('dateReal');
       var dateString = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear();
-      var query = '?date=' + dateString + '&startTime=' + this.get('startTime') + '&endTime=' + this.get('end').tf + '&type=' + 'm';
+      var query = '?date=' + dateString + '&startTime=' + this.get('startTime') + '&endTime=' + this.get('end').tf + '&type=';
       // get extra mics
       var selectedRoom = this.get('selectedRoom');
+
+      var _this = this;
       var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/bookrooms/' + query;
-      console.log(url)
-      Ember.$.get(url, function(data) {
-        console.log(data);
+      Ember.$.get(url + 'm', function(data) {
+        if (data.type && data.numRemaining) {
+          var numMics = [];
+          for (var i=0;i<=data.numRemaining;i++) {
+            numMics.push(i);
+          }
+          _this.set('extraMicrophones', numMics);
+          _this.set('extraMics', numMics[0]);
+        }
+      });
+
+      var url = this.get('controllers.application.SERVER_DOMAIN') + 'api/bookrooms/' + query;
+      Ember.$.get(url + 'i', function(data) {
+        if (data.type && data.numRemaining) {
+          var numMics = [];
+          for (var i=0;i<=data.numRemaining;i++) {
+            numMics.push(i);
+          }
+          _this.set('extraIPads', numMics);
+          _this.set('extraIpads', numMics[0]);
+        }
       });
     },
 
