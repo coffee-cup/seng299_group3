@@ -5,7 +5,7 @@ var Room = require('../../models/room');
 var Equipment = require('../../models/equipment');
 
 module.exports.getTest = function(req, res) {
-  Booking.roomAvailability('07-13-2015',2); 
+  Booking.roomAvailability('07-13-2015',2);
   res.send('hello');
 };
 
@@ -245,7 +245,7 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
                 });
             });
 
-            res.sendStatus(200);
+            res.json({success: true, message: 'Successfully Cancelled booking'});
     });
 };
 
