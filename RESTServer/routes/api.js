@@ -56,4 +56,7 @@ router.route('/rooms')
     .post(function(req, res) { rooms.addRoom(req,res) })
     .get(function(req, res) { rooms.getAllRooms(req,res) });
 
+router.route('/availability')
+    .get(function(req, res) { rooms.getRoomAvailability(req,res) });
+
 module.exports = router;
