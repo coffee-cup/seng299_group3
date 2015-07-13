@@ -44,7 +44,7 @@ function roomAvailability(date, roomid) {
       }
       for(var slot in bookingList){
           for(var booking in bookings) {
-              if (slot.time >== booking.startTime && slot.time <== booking.endTime){
+              if (slot.time >= booking.startTime && slot.time <= booking.endTime){
               slot.booked = true;
               break;
               }
