@@ -150,7 +150,7 @@ module.exports.createBooking = function(req, res, id) {
                 //if new booking start time is between a previous booking start and end time return message
                 if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
                     return res.json({success: false, message: "Invalid. During current booking."});
-                }else if((bookings.startTime < datesBooking[i].startTime)&&(booking.startTime <= datesBooking[i].endTime)){
+                }else if((booking.startTime < datesBooking[i].startTime)&&(booking.startTime <= datesBooking[i].endTime)){
                     return res.json({success: false, message: "Invalid. During current booking."});
 
                 }
