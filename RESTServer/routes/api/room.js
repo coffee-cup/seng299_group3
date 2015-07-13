@@ -100,38 +100,33 @@ module.exports.getRoomAvailability = function(req, res) {
         }
 
         var posRooms = [];
+        function returnRooms(){
+          return res.json({rooms: posRooms});
+        }
         var numThreads = 0;
         for( var i in roomIds ) {
           numThreads++;
-          Booking.roomAvailability(date, size, function(times){});
-        }
-
+          Booking.roomAvailability(date, roomIds[i], function(times){
+            Room.find({roomID: roomIds[i]}, function(err, room) {
+              console.log(room)
             var roomInstance = {
               times: times,
-              name: r.name,
-              size: r.size,
-              roomID: r.roomID,
-              date: d,
+              name: room.name,
+              size: room.size,
+              roomID: roomIds[i],
+              date: date,
               people: size,
-              baseMics: r.baseMics,
-              baseIPads: r.baseIPads,
-              price: r.price
+              baseMics: room.baseMics,
+              baseIPads: room.baseIPads,
+              price: room.price
             }
-
-            var all_booked = true;
-            times.forEach(function(obj) {
-              if (!obj.booked) {
-                all_booked = false;
+            posRooms.push(roomInstance);
+            numThreads--;
+              if(numThreads == 0){
+                returnRooms();
               }
             });
-
-            if (r.size > size && !all_booked) {
-              return res.json({rooms: posRooms});
-            } else {
-              posRooms.push(roomInstance);
-            }
-
-          return res.json({rooms: posRooms});
-        return;
+          });
+        }
     });
 };
