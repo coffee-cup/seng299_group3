@@ -6,6 +6,9 @@ export default Ember.Controller.extend({
   queryParams: ['hour', 'date', 'people', 'room_id'],
   needs: ['application'],
 
+  extraMics: 0,
+  extraIpads: 0,
+
  // totalMicrophones: function(){
  //   console.log('tm');
  //   return this.get('selectedMicrophones') + this.get('selectedRoom.baseMics');
@@ -61,8 +64,8 @@ export default Ember.Controller.extend({
   },
 
   totalPrice: function() {
-    // var selectedRoom = this.get('selectedRoom');
-    // return selectedRoom.price;
+    var selectedRoom = this.get('selectedRoom');
+    return selectedRoom.price;
   },
 
   // dateSelectionChanged: function(){

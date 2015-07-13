@@ -42,12 +42,12 @@
 
       <div class="form-group">
         <label for="sel1">Extra Microphones:</label>
-        {{view "select" id="inputMicrophones" class="form-control" content=extraMicrophones value=selectedMicrophones}}
+        {{view "select" id="inputMicrophones" class="form-control" content=extraMicrophones value=extraMics}}
       </div>
 
       <div class="form-group">
         <label for="sel1">Extra IPads:</label>
-        {{view "select" id="inputIPads" class="form-control" content=extraIPads value=selectedIPads}}
+        {{view "select" id="inputIPads" class="form-control" content=extraIPads value=extraIpads}}
       </div>
 
       <div class="form-group">
@@ -80,7 +80,7 @@
                 Number of People
               </td>
               <td>
-                <!-- {{selectedGuests}} -->
+                {{selectedGuests}}
               </td>
               <td>
                 -
@@ -91,7 +91,7 @@
                 Date
               </td>
               <td>
-                <!-- {{dateSelected}} -->
+                {{dateSelected}}
               </td>
               <td>
                 -
@@ -102,7 +102,7 @@
                 Room
               </td>
               <td>
-                <!-- {{selectedRoom.name}} -->
+                {{roomDisplayName}}
               </td>
               <td>
                 -
@@ -124,7 +124,7 @@
                 Number of Microphones
               </td>
               <td>
-                <!-- {{selectedMicrophones}} -->
+                {{extraMics}}
               </td>
               <td>
                 <!-- {{priceMicrophones}} -->
@@ -135,7 +135,7 @@
                 Number of IPads
               </td>
               <td>
-                <!-- {{selectedIPads}} -->
+                {{extraIpads}}
               </td>
               <td>
                 <!-- {{priceIPads}} -->
