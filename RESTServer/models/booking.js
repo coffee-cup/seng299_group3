@@ -21,7 +21,7 @@ var booking = mongoose.model('Booking', BookingSchema);
 
 var roomAvailability = function (date, bookings) {
   queryDate = new Date(date);
-  var bookList = [];
+  var bookingList = [];
   if ([0,5,6].indexOf(queryDate.getDay()) != -1){
     for(i = 14; i < 27; i++) {
       bookingList.push({
