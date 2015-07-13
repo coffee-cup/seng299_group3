@@ -4,6 +4,16 @@ var Room = require('./room');
 var Equipment = require('./equipment');
 
 var BookingSchema = new Schema({
+<<<<<<< HEAD
+  username: String,
+  numberOfPeople: Number,
+  date: Date,
+  canceledStatus: Boolean,
+  startTime: Number, //temporarily set to number
+  endTime: Number,    //temporarily set to number
+  room: [Room],
+  equipment: Array
+=======
     username: String,
     numberOfPeople: Number,
     date: Date,
@@ -15,6 +25,7 @@ var BookingSchema = new Schema({
     ipads: Number,
     mics: Number,
     equipment: Array
+>>>>>>> 7b171d5d4f2f142ab38c7670ea4116bb1d82307a
 });
 
 var booking = mongoose.model('Booking', BookingSchema);
