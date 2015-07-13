@@ -67,12 +67,13 @@ dateChanged: function() {
 
 actions: {
 
-  linkSlot: function(hour, ampm, booked, room_id) {
+  linkSlot: function(time, booked, room_id) {
     if (!booked) {
-      var query = '?hour=' + hour + '&ampm=' + ampm + '&room_id=' + 'room_id' + '&date=' + this.get('date') + '&people=' + this.get('num_people');
+      var query = '?hour=' + time + '&room_id=' + 'room_id' + '&date=' + this.get('date') + '&people=' + this.get('num_people');
+      console.log('linking to');
+      console.log(query);
       var queryParams = {
-        'hour': hour,
-        'ampm': ampm,
+        'hour': time,
         'room_id': 'room_id',
         'date': this.get('date'),
         'people': this.get('num_people')

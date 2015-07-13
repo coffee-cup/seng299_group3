@@ -101,9 +101,9 @@
 
           {{#each room.times as |time|}}
 
-          <div {{action 'linkSlot' time.hour time.ampm time.booked room.id}} class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
+          <div {{action 'linkSlot' time.time time.booked room.roomID}} class={{if time.booked 'row slot-taken sch-slot' 'row slot-free sch-slot'}}>
             <div class="col-xs-3 sch-time">
-              {{time.hour}} {{time.ampm}}
+              {{twosix-time time.time}}
             </div>
             <div class="col-xs-9 sch-message">
 
