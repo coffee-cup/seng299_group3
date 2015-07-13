@@ -65,7 +65,6 @@ export default Ember.Route.extend({
           obj.displayName = obj.roomID + ' - ' + obj.name;
           allRooms.push(obj);
         });
-        allRooms.splice(-1,1); //The last element is undefined, so we remove it
         _this.controllerFor('bookroom').set('rooms', allRooms);
       }
     });
