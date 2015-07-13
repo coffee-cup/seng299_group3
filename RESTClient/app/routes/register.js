@@ -7,6 +7,10 @@ export default Ember.Route.extend({
     c.set('password', '');
     c.set('name', '');
     c.set('repass', '');
+    c.set('error_pass', false);
+    c.set('error_username', false);
+    c.set('error_name', false);
+    c.set('error_message', '');
   },
 
   model: function(params) {
@@ -27,9 +31,6 @@ export default Ember.Route.extend({
       if (params.date) c.set('date', params.date);
       if (params.people) c.set('people', params.people);
       if (params.room_id) c.set('room_id', params.room_id);
-
-      console.log('penis');
-      console.log(params);
     }
   },
 
