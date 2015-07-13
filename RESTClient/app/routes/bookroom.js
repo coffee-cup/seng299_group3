@@ -76,8 +76,9 @@ export default Ember.Route.extend({
       console.log("pDate: " + pDate.toDateString()  );
       console.log("days: " + pDate.getDate());
       pDate = pDate.toDateString();
-      //dates.unshift(pDate);
-  //    //dates.push(d);
+      // var dates = [pDate].concat(dates);
+      // dates.unshift(pDate);
+     //  dates.push(d);
     }else{
       dates.unshift('');
     }
@@ -90,6 +91,7 @@ export default Ember.Route.extend({
       numGuests.push(i);
     }
     if (params.people) {
+      //var numGuests = [params.people].concat(numGuests);
       //numGuests.unshift(String(params.people))
       c.set('selectedGuests', params.people);
       console.log(params.people);
