@@ -1,11 +1,16 @@
 var mongoose = require('mongoose');
-var Booking = require('../../models/booking');
+var Booking = require('../../models/booking.js');
 var User = require('../../models/user');
 var Room = require('../../models/room');
 var Equipment = require('../../models/equipment');
 
+module.exports.getTest = function(req, res) {
+  Booking.roomAvailability('07-13-2015',2); 
+  res.send('hello');
+};
+
 module.exports.createBooking = function(req, res, id) {
-    var booking = new Booking();
+    var booking = new Booking.booking();
     var today = new Date();
     var day = today.getDate();
     var month = today.getMonth();
@@ -117,7 +122,7 @@ module.exports.createBooking = function(req, res, id) {
             }
 
         //gets all bookings on specified date for specified room
-        Booking.find({date: req.body.date, room: room}, function(err, datesBookings) {
+        Booking.booking.find({date: req.body.date, room: room}, function(err, datesBookings) {
             if(err) {
                 res.send(err);
             }
@@ -163,7 +168,6 @@ module.exports.createBooking = function(req, res, id) {
 
                 }else {
                     user.banned = false;
-                    user.bookings.push(booking);
 
                     user.save(function(err) {
                         if(err) return res.send(err);
@@ -187,7 +191,7 @@ module.exports.createBooking = function(req, res, id) {
 };
 
 module.exports.getSingleBooking = function(req, res, id) {
-  Booking.findById(id, function(err, booking) {
+  Booking.booking.findById(id, function(err, booking) {
     if(err) {
       res.send(err);
     }
@@ -207,7 +211,7 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
     var year = today.getFullYear();
 
 
-    Booking.findByIdAndRemove(booking_id, function(err, booking) {
+    Booking.booking.findByIdAndRemove(booking_id, function(err, booking) {
         if(err) {
             res.send(err);
         }
@@ -268,7 +272,7 @@ module.exports.findBookingsForUser = function(req, res, id) {
 };
 
 module.exports.deleteBooking = function(req, res, id) {
-  Booking.findByIdAndRemove(id, function(err, booking) {
+  Booking.booking.findByIdAndRemove(id, function(err, booking) {
     if(err) {
       res.send(err);
     }
