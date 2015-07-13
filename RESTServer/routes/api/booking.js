@@ -35,17 +35,17 @@ module.exports.createBooking = function(req, res, id) {
                              if(req.body.ipads != 0){
                                  var reqFullDate = new Date(req.body.date);
                                  reqFullDate.setHours(req.body.startTime);
-                                 
+
                                  var retFullDate = new Date(req.body.date);
                                  retFullDate.setHours(req.body.endTime);
-                                 
+
                                  ipadObjs.sort(function(a,b) {
                                                return a.equipment_id - b.equipment_id;
                                                });
-                                 
+
                                  var ipadsAdded = 0;
                                  var i;
-                                 
+
                                  for(i=0; i<ipadObjs.length; i++){
                                  if(ipadsAdded == req.body.ipads){
                                  break;
@@ -60,38 +60,38 @@ module.exports.createBooking = function(req, res, id) {
                                  ipadObjs[i].outDate = reqFullDate;
                                  ipadObjs[i].inDate = retFullDate;
                                  ipadsAdded++;
-                                 
+
                                  ipadObjs[i].save(function(err) {
                                                   if(err) return res.send(err);
                                                   });
                                  }
                                  }
-                                 
+
                                  if(ipadsAdded == 0){
                                     return res.json({success: false, message: "No available iPads"});
                                  }
                              }
-            
+
                              Equipment.find({type:'mic'},function(err, micObjs) {
                                             if(req.body.mics != 0){
                                                 var reqFullDate = new Date(req.body.date);
                                                 reqFullDate.setHours(req.body.startTime);
-                                                
+
                                                 var retFullDate = new Date(req.body.date);
                                                 retFullDate.setHours(req.body.endTime);
-                                                
+
                                                 micObjs.sort(function(a,b) {
                                                              return a.equipment_id - b.equipment_id;
                                                              });
-                                                
+
                                                 var micsAdded = 0;
                                                 var i;
                                                 for(i=0; i<micObjs.length; i++){
-                                                
+
                                                 if(micsAdded == req.body.mics){
                                                 break;
                                                 }
-                                                
+
                                                 if((micObjs[i].outDate.getFullYear() == reqFullDate.getFullYear()) &&(micObjs[i].outDate.getDate() == reqFullDate.getDate())&&(micObjs[i].outDate.getMonth() == reqFullDate.getMonth())&&(micObjs[i].outDate.getHours() == reqFullDate.getHours())){
                                                 //do nothing
                                                 }else if((retFullDate.getFullYear() > reqFullDate.getFullYear()) &&(retFullDate.getDate() > reqFullDate.getDate())&&(retFullDate.getMonth() > reqFullDate.getMonth())&&(retFullDate.getHours() > reqFullDate.getHours())){
@@ -102,7 +102,7 @@ module.exports.createBooking = function(req, res, id) {
                                                 micObjs[i].outDate = reqFullDate;
                                                 micObjs[i].inDate = retFullDate;
                                                 micsAdded++;
-                                                
+
                                                 micObjs[i].save(function(err) {
                                                                 if(err) return res.send(err);
                                                                 });
@@ -113,7 +113,7 @@ module.exports.createBooking = function(req, res, id) {
                                                 }
                                             }
 
-                             
+
         //gets all bookings on specified date for specified room
         Booking.find({date: req.body.date, room: room}, function(err, datesBookings) {
             if(err) {
@@ -127,24 +127,24 @@ module.exports.createBooking = function(req, res, id) {
             booking.startTime = req.body.startTime;
             booking.endTime = req.body.endTime;
             booking.room = room;
-        
+
             if(req.body.equipment != null){
                 booking.equipment.push(req.body.equipment);
             }
 
-        
+
             //checks to ensure booking is within two weeks of todays date and is not before todays date
             if((booking.date > twoWeeks)){
                 return res.json({success: false, message: "Booking must be within two weeks of today"});
             }
-        
+
             if((booking.date <= noHoursToday)&&(booking.startTime < today.getHours())){
                 return res.json({success: false, message: "Cannot book on past dates" });
             }
 
             //error messages if booking times are between a different booking
             for(var i=0; i<datesBookings.length; i++){
-            
+
                 //if new booking start time is between a previous booking start and end time return message
                 if((booking.startTime >= datesBookings[i].startTime) && (booking.startTime < datesBookings[i].endTime)){
                     return res.json({success: false, message: "Invalid. During current booking."});
@@ -163,14 +163,14 @@ module.exports.createBooking = function(req, res, id) {
                 //if user banned do not allow create booking
                 if((user.banned) && (user.bannedUntil > today)) {
                     return res.json({success: false, message: "User is banned" });
-           
+
                 }else {
                     user.banned = false;
-            
+
                     user.save(function(err) {
                         if(err) return res.send(err);
                     });
-           
+
                     booking.username = user.username;
                 }
 
@@ -317,13 +317,13 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
                     user.banned = true;
                     user.bannedUntil = new Date(year, month, day, (hours+12));
                 }
-                
+
                 user.save(function(err) {
                     if(err) return res.send(err);
 
                 });
             });
-            
+
             res.sendStatus(200);
     });
 };
@@ -337,12 +337,12 @@ module.exports.findBookingsForUser = function(req, res, id) {
         var current_bookings = [];
         var today = new Date();
 
-        Booking.find({username: user.username}, function(err, bookings){
-            
+        Booking.booking.find({username: user.username}, function(err, bookings){
+
             var i;
             for(i=0; i<bookings.length; i++){
                 bookings[i].date.setHours(bookings[i].startTime);
-                
+
                 if((bookings[i].date) > today) {
                     current_bookings.push(bookings[i]);
                 }else {

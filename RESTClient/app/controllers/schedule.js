@@ -74,7 +74,7 @@ actions: {
       console.log(query);
       var queryParams = {
         'hour': time,
-        'room_id': 'room_id',
+        'room_id': room_id,
         'date': this.get('date'),
         'people': this.get('num_people')
       };

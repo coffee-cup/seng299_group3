@@ -142,7 +142,8 @@ module.exports.getRoomAvailability = function(req, res) {
               date: d,
               people: size,
               baseMics: r.baseMics,
-              baseIPads: r.baseIPads
+              baseIPads: r.baseIPads,
+              price: r.price
             }
 
             var all_booked = true;
