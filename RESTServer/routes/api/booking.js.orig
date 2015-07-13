@@ -171,6 +171,11 @@ module.exports.createBooking = function(req, res, id) {
            
                 }else {
                     user.banned = false;
+<<<<<<< HEAD
+            
+=======
+
+>>>>>>> asyncSched
                     user.save(function(err) {
                         if(err) return res.send(err);
                     });
@@ -192,6 +197,7 @@ module.exports.createBooking = function(req, res, id) {
     });
 };
 
+<<<<<<< HEAD
 module.exports.getAllBookings = function(req, res) {
     var roomsize = 0;
     switch (req.query.people) {
@@ -231,6 +237,12 @@ module.exports.getAllBookings = function(req, res) {
         case 12:
             roomsize = 12;
             break;
+=======
+module.exports.getSingleBooking = function(req, res, id) {
+  Booking.booking.findById(id, function(err, booking) {
+    if(err) {
+      res.send(err);
+>>>>>>> asyncSched
     }
     Booking.find({'date':req.query.date, 'people':roomsize}, function(err, bookings) {
         if(err) {
@@ -295,6 +307,9 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
     var year = today.getFullYear();
 
 
+<<<<<<< HEAD
+    Booking.findByIdAndRemove(booking_id, function(err, booking) {
+=======
     Booking.booking.findByIdAndRemove(booking_id, function(err, booking) {
         if(err) {
             res.send(err);
@@ -312,6 +327,7 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
 
         //change canceled status of users booking
         User.findById(user_id, function(err, user) {
+>>>>>>> asyncSched
             if(err) {
                 res.send(err);
             }
@@ -377,6 +393,14 @@ module.exports.findBookingsForUser = function(req, res, id) {
 };
 
 module.exports.deleteBooking = function(req, res, id) {
+<<<<<<< HEAD
+    Booking.findByIdAndRemove(id, function(err, booking) {
+        if(err) {
+            res.send(err);
+        }
+        res.sendStatus(200);
+    });
+=======
   Booking.booking.findByIdAndRemove(id, function(err, booking) {
     if(err) {
       res.send(err);
@@ -384,4 +408,5 @@ module.exports.deleteBooking = function(req, res, id) {
 
     res.sendStatus(200);
   });
+>>>>>>> asyncSched
 };

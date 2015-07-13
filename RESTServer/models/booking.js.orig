@@ -4,20 +4,11 @@ var Room = require('./room');
 var Equipment = require('./equipment');
 
 var BookingSchema = new Schema({
-<<<<<<< HEAD
   username: String,
   numberOfPeople: Number,
   date: Date,
   canceledStatus: Boolean,
-  startTime: Number, //temporarily set to number
-  endTime: Number,    //temporarily set to number
-  room: [Room],
-  equipment: Array
-=======
-    username: String,
-    numberOfPeople: Number,
-    date: Date,
-    canceledStatus: Boolean,
+<<<<<<< HEAD
     startTime: Number, //temporarily set to number
     endTime: Number,    //temporarily set to number
     roomId: Number,
@@ -25,21 +16,51 @@ var BookingSchema = new Schema({
     ipads: Number,
     mics: Number,
     equipment: Array
->>>>>>> 7b171d5d4f2f142ab38c7670ea4116bb1d82307a
+  });
+=======
+  startTime: Number, //temporarily set to number
+  endTime: Number,    //temporarily set to number
+  room: Array,
+  equipment: Array
 });
+>>>>>>> asyncSched
 
 var booking = mongoose.model('Booking', BookingSchema);
 
-var roomAvailability = function (date, roomid) {
+var roomAvailability = function (date, bookings) {
   queryDate = new Date(date);
-  var bookList = [];
-  var async_done = false;
-  //{$and : [{'date': { $gte : queryDate}}, {'date' : { $lte : queryDate.getDate() +1 }}]}
-  booking.find({}, function(err, bookings) {
+  nextDate = new Date(queryDate);
+  nextDate.setDate(nextDate.getDate()+1);
+  var bookingList = [];
+<<<<<<< HEAD
+  if ([0,5,6].indexOf(queryDate.getDay()) != -1){
+    for(i = 14; i < 27; i++) {
+      bookingList.push({
+        "booked": false,
+        "time"  : i
+      });
+    }
+
+  } else {
+    for(i = 16; i < 26; i++) {
+      bookingList.push({
+        "booked": false,
+        "time"  : i
+      });
+    }
+  }
+
+  for(var slot in bookingList){
+    for(var booking in bookings) {
+      if (slot.time >= booking.startTime && slot.time <= booking.endTime){
+        slot.booked = true;
+        break;
+=======
+  var availabilityList = [];
+  booking.find({'date': { $gte : queryDate, $lt : nextDate}, 'room.roomID' : roomid}, function(err, bookings) {
     if(err) {
       console.log(err);
     }
-      console.log(bookings);
     if ([0,5,6].indexOf(queryDate.getDay()) != -1){
       for(i = 14; i < 27; i++) {
         bookingList.push({
@@ -56,27 +77,26 @@ var roomAvailability = function (date, roomid) {
         });
       }
     }
-    if(err) {
-      console.log(err);
-    }
     for(var slot in bookingList){
-      for(var booking in bookings) {
-        if (slot.time >= booking.startTime && slot.time <= booking.endTime){
-          slot.booked = true;
+      for(var currentBooking in bookings) {
+        if (bookingList[slot].time >= bookings[currentBooking].startTime && bookingList[slot].time <= bookings[currentBooking].endTime){
+          bookingList[slot].booked = true;
           break;
         }
+>>>>>>> asyncSched
       }
+      availabilityList.push(bookingList[slot]);
     }
-
-    async_done = true;
-    console.log('done');
-  });
-
-  while(!async_done) {
-    continue;
+<<<<<<< HEAD
   }
 
+
   return bookingList;
+=======
+  console.log(availabilityList);
+  return availabilityList;
+  });
+>>>>>>> asyncSched
 }
 module.exports = {
   booking: booking,

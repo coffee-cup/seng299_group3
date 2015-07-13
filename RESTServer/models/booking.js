@@ -8,49 +8,54 @@ var BookingSchema = new Schema({
   numberOfPeople: Number,
   date: Date,
   canceledStatus: Boolean,
-    startTime: Number, //temporarily set to number
-    endTime: Number,    //temporarily set to number
-    roomId: Number,
-    room: Array,
-    ipads: Number,
-    mics: Number,
-    equipment: Array
-  });
+  startTime: Number, //temporarily set to number
+  endTime: Number,    //temporarily set to number
+  room: Array,
+  equipment: Array
+});
 
 var booking = mongoose.model('Booking', BookingSchema);
 
-var roomAvailability = function (date, bookings) {
+var roomAvailability = function (date, roomid) {
   queryDate = new Date(date);
+  nextDate = new Date(queryDate);
+  nextDate.setDate(nextDate.getDate()+1);
   var bookingList = [];
-  if ([0,5,6].indexOf(queryDate.getDay()) != -1){
-    for(i = 14; i < 27; i++) {
-      bookingList.push({
-        "booked": false,
-        "time"  : i
-      });
+  var availabilityList = [];
+  booking.find({'date': { $gte : queryDate, $lt : nextDate}, 'room.roomID' : roomid}, function(err, bookings) {
+    if(err) {
+      console.log(err);
     }
+    if ([0,5,6].indexOf(queryDate.getDay()) != -1){
+      for(i = 14; i < 27; i++) {
+        bookingList.push({
+          "booked": false,
+          "time"  : i
+        });
+      }
 
-  } else {
-    for(i = 16; i < 26; i++) {
-      bookingList.push({
-        "booked": false,
-        "time"  : i
-      });
-    }
-  }
-
-  for(var slot in bookingList){
-    for(var booking in bookings) {
-      if (slot.time >= booking.startTime && slot.time <= booking.endTime){
-        slot.booked = true;
-        break;
+    } else {
+      for(i = 16; i < 26; i++) {
+        bookingList.push({
+          "booked": false,
+          "time"  : i
+        });
       }
     }
-  }
-
-
-  return bookingList;
+    for(var slot in bookingList){
+      for(var currentBooking in bookings) {
+        if (bookingList[slot].time >= bookings[currentBooking].startTime && bookingList[slot].time <= bookings[currentBooking].endTime){
+          bookingList[slot].booked = true;
+          break;
+        }
+      }
+      availabilityList.push(bookingList[slot]);
+    }
+  console.log(availabilityList);
+  return availabilityList;
+  });
 }
+
 module.exports = {
   booking: booking,
   roomAvailability: roomAvailability

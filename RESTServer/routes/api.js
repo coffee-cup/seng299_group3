@@ -59,4 +59,7 @@ router.route('/rooms')
 router.route('/availability')
     .get(function(req, res) { rooms.getRoomAvailability(req,res) });
 
+router.route('/test')
+    .get(function(req, res) { bookings.getTest(req,res) });
+
 module.exports = router;
