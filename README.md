@@ -1,7 +1,8 @@
 # Fox-karaoke
 
 This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+
+This is a Karaoke booking system created with Node and Ember. Instructions on how to run the system are shown below.
 
 ## Prerequisites
 
