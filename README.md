@@ -50,4 +50,11 @@ The app uses a mongo server hosted on MongoLab
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+  * 
+  
+### Admin User Testing
+
+*A user needs to be logged in as an Admin in order to disable rooms if they need to be made unbookable for any reason.
+*Username: admin
+*Password: admin
 
