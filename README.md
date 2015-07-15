@@ -56,6 +56,10 @@ The app uses a mongo server hosted on MongoLab
 ### Admin User Testing
 
 *A user needs to be logged in as an Admin in order to disable rooms if they need to be made unbookable for any reason.
-*Username: admin
-*Password: admin
+- Username: admin
+- Password: admin
 
+### Known Issues
+
+- There is currently no indication if the user is banned or not. If they are banned they will only find out after trying to book a room.
+- Calendar may become covered up on certain screen sizes. If this happens, decrease or increase browser window until calendar is visible.
