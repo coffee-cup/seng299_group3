@@ -97,10 +97,11 @@ actions: {
       var _this = this;
       console.log(url);
       Ember.$.get(url, function( data ) {
-        console.log(data);
-        console.log(data.rooms);
         if (data.rooms) {
-          _this.set('rooms', data.rooms);
+          var sorted = data.rooms.sort(function(a, b) {
+            return a.roomID - b.roomID;
+          });
+          _this.set('rooms', sorted);
         }
       });
 
