@@ -120,7 +120,7 @@ module.exports.createBooking = function(req, res, id) {
                                             }
 
         //gets all bookings on specified date for specified room
-        Booking.booking.find({date: req.body.date, roomId: room.roomId}, function(err, datesBookings) {
+        Booking.booking.find({date: req.body.date, room: room}, function(err, datesBookings) {
             if(err) {
             res.send(err);
             }
@@ -133,7 +133,7 @@ module.exports.createBooking = function(req, res, id) {
             booking.endTime = req.body.endTime;
             booking.room = room;
             //booking.date.setHours(booking.startTime);
-            
+
             //checks to ensure booking is within two weeks of todays date and is not before todays date
             if((booking.date > twoWeeks)){
                 return res.json({success: false, message: "Booking must be within two weeks of today"});
@@ -145,6 +145,11 @@ module.exports.createBooking = function(req, res, id) {
 
             //error messages if booking times are between a different booking
             for(var i=0; i<datesBookings.length; i++){
+
+                if (datesBookings[i].room.roomID != room.roomID) {
+                  continue;
+                }
+
                 console.log(datesBookings[i].startTime);
                 console.log("end "+datesBookings[i].endTime);
                 //if new booking start time is between a previous booking start and end time return message
