@@ -184,7 +184,11 @@ export default Ember.Controller.extend({
         if (data.success) {
           _this.get('controllers.application').send('sendNotification', 'Successfully created booking', 'success');
         } else {
-          _this.get('controllers.application').send('sendNotification', 'Could not create booking, sorry', 'error');
+          if (data.message == 'User is banned') {
+            _this.get('controllers.application').send('sendNotification', 'You are banned and cannot book for 4 hours');
+          } else {
+            _this.get('controllers.application').send('sendNotification', 'Could not create booking, sorry', 'error');
+          }
         }
         _this.transitionToRoute('mybookings');
       });

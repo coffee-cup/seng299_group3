@@ -102,9 +102,10 @@ export default Ember.Route.extend({
 
     var eTimes = [];
     var sTime = parseInt(params.hour);
+    var stopped = false;
     selectedRoom.times.forEach(function(time) {
       if (time.time >= sTime) {
-        if (!time.booked) {
+        if (!time.booked && !stopped) {
 
           var t = time.time + 1;
           var value = time.time + 1;
@@ -121,6 +122,7 @@ export default Ember.Route.extend({
           }
           eTimes.push({tf: time.time + 1, ts: t + ampm});
         } else {
+          stopped = true;
           return false;
         }
       }
