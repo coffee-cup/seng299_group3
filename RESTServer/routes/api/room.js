@@ -123,20 +123,21 @@ module.exports.getRoomAvailability = function(req, res) {
       for( var i in roomIds ) {
         numThreads++;
           Booking.roomAvailability(date, roomIds[i], function(times, roomid){
-            Room.find({roomID: roomid}, null, {sort: {roomID: 1}}, function(err, room) {
-              var roomInstance = {
-                times: times,
-                name: room[0].name,
-                size: room[0].size,
-                roomID: roomid,
-                date: date,
-                people: size,
-                baseMics: room[0].baseMics,
-                baseIPads: room[0].baseIPads,
-                price: room[0].price
-              }
-            posRooms.push(roomInstance);
-            console.log(posRooms);
+            Room.find({isDown: false, roomID: roomid}, null, {sort: {roomID: 1}}, function(err, room) {
+              if (room.length > 0) {
+                var roomInstance = {
+                  times: times,
+                  name: room[0].name,
+                  size: room[0].size,
+                  roomID: roomid,
+                  date: date,
+                  people: size,
+                  baseMics: room[0].baseMics,
+                  baseIPads: room[0].baseIPads,
+                  price: room[0].price
+                }
+              posRooms.push(roomInstance);
+            }
             numThreads--;
             if(numThreads == 0){
               returnRooms();

@@ -187,7 +187,7 @@ export default Ember.Controller.extend({
           if (data.message == 'User is banned') {
             _this.get('controllers.application').send('sendNotification', 'You are banned and cannot book for 4 hours');
           } else {
-            _this.get('controllers.application').send('sendNotification', 'Could not create booking, sorry', 'error');
+            _this.get('controllers.application').send('sendNotification', data.message || "Could not complete booking", 'error');
           }
         }
         _this.transitionToRoute('mybookings');
