@@ -19,11 +19,11 @@
       </div>
       <div class={{if error_pass 'form-group has-error' 'form-group'}}>
         <label for="inputPassword">Password</label>
-        {{input type="text" class="form-control" placeholder="Name" id="inputPassword" value=password}}
+        {{input type="password" class="form-control" placeholder="Name" id="inputPassword" value=password}}
       </div>
       <div class={{if error_pass 'form-group has-error' 'form-group'}}>
         <label for="inputPasswordAgain">Password (again)</label>
-        {{input type="text" class="form-control" placeholder="Name" id="inputRepass" value=repass}}
+        {{input type="password" class="form-control" placeholder="Name" id="inputRepass" value=repass}}
       </div>
       <div class="error">
         {{error_message}}
