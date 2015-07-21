@@ -244,13 +244,13 @@ module.exports.cancelBooking = function(req, res, user_id, booking_id){
                     user.bannedUntil = new Date(year, month, day, (hours+12));
                 }
 
+                res.json({success: true, message: 'Successfully Cancelled booking', banned: user.banned});
+
                 user.save(function(err) {
                     if(err) return res.send(err);
 
                 });
             });
-
-            res.json({success: true, message: 'Successfully Cancelled booking'});
     });
 };
 
