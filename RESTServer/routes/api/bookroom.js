@@ -12,7 +12,7 @@ module.exports.getAvailableEquipment = function(req, res) {
 
     var date = req.query.date ;
     Booking.booking.find({'date': { $gte : new Date(date)}, 'canceledStatus': false}, function(err, bookings) {
-        console.log(bookings);
+        // console.log(bookings);
         if (err) {
             res.send(err);
         }
@@ -22,15 +22,15 @@ module.exports.getAvailableEquipment = function(req, res) {
     var endTime = req.query.endTime ;
     var isMic = false; //false for iPad, true for Mic, iPad by default
     if(req.query.type == 'm'){isMic = true;}
-	console.log(new Date(date));
+	// console.log(new Date(date));
 
     var sum = 10;
     var minSum = 10;
     var i;
     var j;
     var k;
-    console.log('test');
-    console.log(bookings.length);
+    // console.log('test');
+    // console.log(bookings.length);
     for(i = startTime; i < endTime; i++)
     {
         console.log('i = '); console.log(i);
@@ -38,7 +38,7 @@ module.exports.getAvailableEquipment = function(req, res) {
         {
             if(  ( bookings[j].startTime >= startTime && bookings[j].startTime < endTime ) || ( bookings[j].endTime >= startTime && bookings[j].endTime <= endTime )  )
             {
-               console.log(isMic);
+               // console.log(isMic);
                if(isMic)
                {
 
