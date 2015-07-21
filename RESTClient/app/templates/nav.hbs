@@ -30,6 +30,10 @@
 
     <ul class="nav navbar-nav navbar-right">
 
+      {{#if auth.banned}}
+        <li class='user-banned'>Banned until {{formatted-time auth.bannedUntil}}</li>
+      {{/if}}
+
       {{#if auth.username}}
       <!-- <li>{{#link-to 'profile'}}{{auth.username}}{{/link-to}}</li> -->
       <li>

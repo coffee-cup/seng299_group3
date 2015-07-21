@@ -56,6 +56,7 @@ export default Ember.Controller.extend({
               name: user.name,
               username: user.username,
               banned: user.banned || false,
+              bannedUntil: user.bannedUntil || null,
               isAdmin: user.isAdmin || false
             };
 

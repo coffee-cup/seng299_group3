@@ -4,5 +4,6 @@ export default DS.Model.extend({
     username: DS.attr(),
     name: DS.attr(),
     isAdmin: DS.attr(),
-    banned: DS.attr()
+    banned: DS.attr(),
+    bannedUntil: DS.attr()
 });

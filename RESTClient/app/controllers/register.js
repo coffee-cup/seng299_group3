@@ -70,7 +70,9 @@ export default Ember.Controller.extend({
               authToken: null,
               accountID: user._id,
               name: user.name,
-              username: user.username
+              username: user.username,
+              banned: false,
+              bannedUntil: null
             };
 
             _this.get('controllers.application').send('sendNotification', 'Registered account', 'success');

@@ -73,6 +73,14 @@ export default Ember.Controller.extend({
           console.log(data);
           if (data.success) {
             _this.get('controllers.application').send('sendNotification', 'Successfully cancelled booking', 'success');
+
+            if (data.banned) {
+              var user = _this.get('user');
+              _this.set('controllers.application.auth.banned', data.banned);
+              _this.set('controllers.application.auth.bannedUntil', data.bannedUntil);
+              console.log('YOU WILL BE BANNED FOR THIS');
+            }
+
           } else {
             _this.get('controllers.application').send('sendNotification', 'Could not cancel booking', 'error');
           }

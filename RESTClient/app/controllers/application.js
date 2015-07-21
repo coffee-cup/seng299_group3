@@ -29,6 +29,7 @@ export default Ember.Controller.extend({
         Ember.$.cookie('auth_name', auth.name);
         Ember.$.cookie('isAdmin', auth.isAdmin);
         Ember.$.cookie('banned', auth.banned);
+        Ember.$.cookie('bannedUntil', auth.bannedUntil);
       }
     }.observes('auth'),
 
