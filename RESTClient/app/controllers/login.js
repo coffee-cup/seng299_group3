@@ -60,6 +60,8 @@ export default Ember.Controller.extend({
               isAdmin: user.isAdmin || false
             };
 
+            console.log('USER SETTING bannedUTNIL to ' + user.bannedUntil);
+
             // overwrite user in applications
             _this.store.push('auth', auth);
             _this.set('controllers.application.auth', auth);

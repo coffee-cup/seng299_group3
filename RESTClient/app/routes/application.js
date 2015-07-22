@@ -11,11 +11,16 @@ export default Ember.Route.extend({
     var isAdmin = $.cookie('isAdmin');
     var banned = $.cookie('banned');
 
+    if (banned == 'true') banned = true;
+    else banned = false;
+
     var bannedString = $.cookie('bannedUntil');
     var bannedUntil = null;
-    if (bannedString) {
+    if (banned) {
       bannedUntil = new Date(bannedString);
     }
+
+    console.log('WILL SET bannedUntil to ' + bannedUntil);
 
     // convert isAdmin to boolean
     isAdmin = (isAdmin == 'true');
