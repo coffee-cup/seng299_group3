@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
         console.log(url);
       });
       this.get('controllers.application').send('sendNotification', 'Changed Password for ' + user.username, 'success');
-      this.transitionToRoute('login');
+      this.transitionToRoute('schedule');
 
     }
   }
